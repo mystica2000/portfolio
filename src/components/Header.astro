@@ -1,0 +1,66 @@
+
+<header>
+    <nav class="nav__box">
+    <h2 class="home">Mystica</h2>
+    <ul>
+      <li><a href="/blog">blog</a></li>
+      <li><a href="/blog">projects</a></li>
+      <li><a href="/blog">about</a></li>
+      </ul>
+    </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    position: fixed;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .nav__box {
+    max-width: var(--content-width);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  @media screen and (max-width:320px) {
+    .nav__box {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 0.5em;
+    }
+  }
+
+  ul {
+    list-style: '/';
+    display: flex;
+    gap: 0.7em;
+  }
+
+  .home {
+    text-transform: uppercase;
+    font-size: 18px;
+    text-align: rotateY(45deg);
+    text-decoration: none;
+    -webkit-text-stroke: 0.2px #000000;
+    letter-spacing: 2px;
+  }
+</style>
