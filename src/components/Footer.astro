@@ -27,6 +27,9 @@
 </style>
 
 <script is:inline>
+
+  const init = () => {
+
   const theme = (()=> {
     if (typeof localStorage != 'undefined' && localStorage.getItem('theme')) {
       return localStorage.getItem('theme');
@@ -57,5 +60,11 @@
 
   document.getElementById("dark").addEventListener('click',handleToggleClick);
   document.getElementById("light").addEventListener('click',handleToggleClick);
+
+
+  }
+
+  document.addEventListener("DOMContentLoaded", () => init());
+  document.addEventListener("astro:after-swap", () => init());
 
 </script>
