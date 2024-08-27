@@ -1,32 +1,49 @@
 <footer>
   <div class="footer__box">
-    <span>© 2024 | Mystica</span>
-    <div>
+    <span class="padding-left">© 2024 | Mystica</span>
+    <div class="padding-right">
       <button id="dark">dark</button>
       <button id="light">light</button>
     </div>
   </div>
+  <span>made with <a href="https://astro.build/" target="_blank">astro</a> ❤️</span>
 </footer>
 
 <style>
   footer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     justify-content: space-around;
+    align-items: center;
   }
 
   .footer__box {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     max-width: var(--content-width);
-    width: 100%;
     margin: 1em;
+    width: 100%;
   }
+
+  .padding-left {
+    padding-left: 1em;
+  }
+
+  .padding-right {
+    padding-right: 1em;
+  }
+
+  a { color: black;}
+  :global(.dark) a { color: #B39DDB; };
+
 </style>
 
 <script is:inline>
+
+  const init = () => {
+
   const theme = (()=> {
     if (typeof localStorage != 'undefined' && localStorage.getItem('theme')) {
       return localStorage.getItem('theme');
@@ -57,5 +74,11 @@
 
   document.getElementById("dark").addEventListener('click',handleToggleClick);
   document.getElementById("light").addEventListener('click',handleToggleClick);
+
+
+  }
+
+  document.addEventListener("DOMContentLoaded", () => init());
+  document.addEventListener("astro:after-swap", () => init());
 
 </script>

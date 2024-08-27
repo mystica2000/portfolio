@@ -1,0 +1,61 @@
+<tr class="project__card">
+  <td class="border__line">Hello</td>
+  <td>
+    <ul>
+      <li>Test</li>
+      <li>Test</li>
+      <li>Test</li>
+      <li>Test</li>
+      <li>Test</li>
+    </ul>
+    <a href="">link!</a>
+  </td>
+</tr>
+
+<style>
+
+  .border__line {
+    border-right: 2px solid rgb(229 229 229 / 72%);
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: 1em;
+  }
+
+  .project__card {
+    width: 100%;
+    border: 2px solid rgb(229 229 229 / 72%);
+    min-height: 200px;
+    max-height: 250px;
+    height: 100%;
+    display: grid;
+    background-color: #ffffff59;
+    border-radius: 10px;
+    grid-template-columns: 0.5fr 1fr;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 1.3em;
+  }
+
+
+  :global(.dark) .project__card {
+    border: 2px solid rgb(59 54 54);
+    background-color: #0a09093d;
+    box-shadow: rgb(255 255 255 / 20%) 0px 7px 29px 0px;
+  }
+
+  :global(.dark) .border__line {
+    border-color:rgb(59 54 54);
+  }
+
+  ul {
+    margin: 0;
+    margin-inline: 0;
+    margin-block: 0;
+    list-style: square;
+    padding-inline-start: 0;
+  }
+
+  td {
+    padding: 1em;
+  }
+
+</style>

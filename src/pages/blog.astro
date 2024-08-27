@@ -1,8 +1,40 @@
 ---
+import Card from '../components/blog/Card.astro';
 import Layout from '../layouts/Layout.astro';
-import Main from '../components/Main.astro';
 ---
 
-<Layout title="Mystica Blog">
-  <Main />
+<Layout title="Blog">
+  Contains Long Form Posts
+
+  <div class="blog__container">
+    <Card>
+    </Card>
+    <Card>
+    </Card>
+    <Card>
+    </Card>
+    <Card>
+    </Card>
+  </div>
+
 </Layout>
+
+<style>
+  .blog__container {
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    margin-block: 0em;
+    margin-inline: 0em;
+    padding-inline-start: 0em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2em;
+  }
+
+  @media screen and (max-width:720px) {
+    .blog__container {
+    grid-template-columns: 1fr;
+    }
+  }
+</style>
