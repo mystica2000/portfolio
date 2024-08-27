@@ -1,12 +1,14 @@
-
+---
+const pathname = new URL(Astro.request.url).pathname;
+---
 <header>
     <nav class="nav__box">
-    <h2 class="home"><a href="/" class="navlink no-decor" >Mystica</a></h2>
+    <h1 class="home"><a href="/" class="navlink no-decor" class:list={["navlink", "no-decor", {active: pathname == "/" }]} >Mystica</a></h1>
     <ul>
-      <li><a class="navlink" href="/blog">blog</a></li>
-      <li><a class="navlink" href="/bytes">bytes</a></li>
-      <li><a class="navlink" href="/projects">projects</a></li>
-      <li><a class="navlink" href="/blog">about</a></li>
+      <li><a class:list={["navlink", {active: pathname == "/blog" }]} href="/blog">blog</a></li>
+      <li><a class:list={["navlink", {active: pathname == "/bytes" }]} href="/bytes">bytes</a></li>
+      <li><a class:list={["navlink", {active: pathname == "/projects" }]} href="/projects">projects</a></li>
+      <li><a class:list={["navlink"]} href="/blog">about</a></li>
       </ul>
     </nav>
 </header>
@@ -73,10 +75,10 @@
     color: #000000;
   }
 
-  a:hover {
+  a:hover, a:active, .active {
     text-shadow:  0px 0px #ff4f4f, -2px -1px 1em #ff6b6b, 1px -1px 0em #4aff47;
   }
 
   :global(.dark) .navlink { color: #fff; }
-  :global(.dark) .navlink:hover { text-shadow: 1px 1px 2px #af8d8d, 0 0 1em #ffffff, 0 0 0.2em #2222ff; }
+  :global(.dark) .navlink:hover, .navlink:active, .active { text-shadow: 1px 1px 2px #af8d8d, 0 0 1em #ffffff, 0 0 0.2em #2222ff; }
 </style>

@@ -1,0 +1,82 @@
+<div>
+  <dl>
+    <dt id="id#1">  Beast of Bodmin</dt>
+    <dd class="content" id="id2">
+
+      A large feline inhabiting Bodmin Moor.
+      <img src="public/favicon.svg"/>
+      <ul>
+        <li>test</li>
+      </ul>
+    </dd>
+
+    <dt>Morgawr</dt>
+    <dd class="content">A sea serpent.</dd>
+
+    <dt>Owlman</dt>
+    <dd class="content">A giant owl-like creature.</dd>
+  </dl>
+</div>
+
+<style>
+  dt::before {
+    content: '🔗 ';
+  }
+
+  dt:hover::before {
+    content: '➖ ';
+  }
+
+  dt {
+    cursor: pointer;
+  }
+
+  .content {
+    border-radius: 10px;
+    padding: 1em;
+    margin: 1em;
+    max-height: fit-content;
+    background: #ffffff59;
+    border: 2px solid rgb(229 229 229 / 72%);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+    transition-property: opacity, visibility;
+    transition-duration: 0.2s;
+    opacity: 1;
+    position: relative;
+    transition: max-height 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+  :global(.dark) .content {
+    border: 2px solid rgb(59 54 54);
+    background: #161515b8;
+    box-shadow: rgb(255 255 255 / 20%) 0px 7px 29px 0px;
+  }
+
+  .hide {
+    display: none;
+    opacity: 0;
+  }
+
+
+</style>
+
+<script is:inline>
+   const btns = document.getElementById("id#1");
+   const content = document.getElementById("id2");
+   btns.addEventListener("click", () => {
+    const content = btns.nextElementSibling;
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+      content.style.opacity = '0';
+      setTimeout(() => { content.style.display = 'none'; }, 200);
+    } else {
+      content.style.display = 'block';
+      setTimeout(() => {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.style.opacity = '1';
+      }, 10);
+    }
+
+   })
+</script>
