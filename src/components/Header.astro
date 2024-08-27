@@ -1,12 +1,12 @@
 
 <header>
     <nav class="nav__box">
-    <h2 class="home"><a href="/" class="no-decor">Mystica</a></h2>
+    <h2 class="home"><a href="/" class="navlink no-decor" >Mystica</a></h2>
     <ul>
-      <li><a href="/blog">blog</a></li>
-      <li><a href="/bytes">bytes</a></li>
-      <li><a href="/projects">projects</a></li>
-      <li><a href="/blog">about</a></li>
+      <li><a class="navlink" href="/blog">blog</a></li>
+      <li><a class="navlink" href="/bytes">bytes</a></li>
+      <li><a class="navlink" href="/projects">projects</a></li>
+      <li><a class="navlink" href="/blog">about</a></li>
       </ul>
     </nav>
 </header>
@@ -77,6 +77,6 @@
     text-shadow:  0px 0px #ff4f4f, -2px -1px 1em #ff6b6b, 1px -1px 0em #4aff47;
   }
 
-  :global(.dark) a { color: #fff; }
-  :global(.dark) a:hover { text-shadow: 1px 1px 2px #af8d8d, 0 0 1em #ffffff, 0 0 0.2em #2222ff; }
+  :global(.dark) .navlink { color: #fff; }
+  :global(.dark) .navlink:hover { text-shadow: 1px 1px 2px #af8d8d, 0 0 1em #ffffff, 0 0 0.2em #2222ff; }
 </style>
