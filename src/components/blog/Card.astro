@@ -1,12 +1,20 @@
 ---
+import type { PostSchema } from "@content/config";
 import Tags from "./Tags.astro";
+
+interface Props {
+  post: PostSchema
+  slug: string
+}
+
+const { post, slug } = Astro.props;
 
 ---
     <article>
-      <a href="" class="blog__card">
-      <h2 class="padding">Title</h2>
-      <div class="padding">Test Lorem Ipsum etc</div>
-      <Tags />
+      <a href={`/post/${slug}`} class="blog__card">
+      <h2 class="heading">{post.title}</h2>
+      <p class="padding para">{post.description}</p>
+      <Tags tags={post.tags} />
       <div class="padding card__footer">Time to read </div>
     </a>
     </article>
@@ -42,6 +50,10 @@ import Tags from "./Tags.astro";
     font-weight: 600;
   }
 
+  .para {
+    margin-block: 0;
+  }
+
   a {
     text-decoration: none;
     color: inherit;
@@ -67,6 +79,11 @@ import Tags from "./Tags.astro";
 
   :global(.dark) .card__footer {
     color: rgb(227 227 227)
+  }
+
+  .heading {
+    padding-left: 0.7em;
+    padding-right: 0.7em;
   }
 
   @media screen and (max-width:720px) {

@@ -1,20 +1,23 @@
 ---
 import Card from '../components/blog/Card.astro';
 import Layout from '../layouts/Layout.astro';
+
+import { getCollection } from 'astro:content';
+
+// Get all `src/content/blog/` entries
+const posts = await getCollection('posts');
 ---
 
 <Layout title="Blog">
   Contains Long Form Posts
 
   <div class="blog__container">
-    <Card>
-    </Card>
-    <Card>
-    </Card>
-    <Card>
-    </Card>
-    <Card>
-    </Card>
+    {
+      posts.map((aPost) => (
+      <Card post={aPost.data} slug={aPost.slug}>
+      </Card>
+      ))
+    }
   </div>
 
 </Layout>
