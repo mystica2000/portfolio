@@ -1,24 +1,30 @@
 ---
 import Card from '../components/project/Card.astro';
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import type { ProjectSchema } from '../content/config';
+
+const projectsCollection = await getCollection('projects');
+
+const projectsData = projectsCollection[0].data;
 ---
 
 <Layout title="Projects">
   Personal Projects!
   <table>
     <tbody>
-    <Card />
-    <Card />
-    <Card />
-    <Card />
+    {
+      projectsData.map((aProject: ProjectSchema) => (
+        <Card project={aProject} />
+      ))
+    }
+
     </tbody>
   </table>
 
 </Layout>
 
 <style>
-
-
   table {
     width: 100%;
   }

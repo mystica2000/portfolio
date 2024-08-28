@@ -43,7 +43,6 @@
     transition-property: opacity, visibility;
     transition-duration: 0.2s;
     opacity: 1;
-    position: relative;
     transition: max-height 0.2s ease-out, opacity 0.2s ease-out;
   }
 
@@ -63,7 +62,6 @@
 
 <script is:inline>
    const btns = document.getElementById("id#1");
-   const content = document.getElementById("id2");
    btns.addEventListener("click", () => {
     const content = btns.nextElementSibling;
     if (content.style.maxHeight) {

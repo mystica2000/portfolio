@@ -1,14 +1,24 @@
+---
+import type { ProjectSchema } from '../../content/config';
+
+interface Props {
+ project: ProjectSchema
+}
+
+const { project } = Astro.props;
+---
+
 <tr class="project__card">
-  <td class="border__line">Hello</td>
-  <td>
+  <td class="border__line">{project.emoji} <a href={project.url} class="navlink" target="_blank">{project.name}</a></td>
+  <td class="card__box">
     <ul>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
+      {
+        project.description.map((desp) => (
+          <li>{desp}</li>
+        ))
+      }
     </ul>
-    <a href="">link!</a>
+    { project.live && <a href={project.live} class="navlink" target="_blank">live</a> }
   </td>
 </tr>
 
@@ -25,7 +35,8 @@
     width: 100%;
     border: 2px solid rgb(229 229 229 / 72%);
     min-height: 200px;
-    max-height: 250px;
+    max-height: 350px;
+    overflow: auto;
     height: 100%;
     display: grid;
     background-color: #ffffff59;
@@ -56,6 +67,11 @@
 
   td {
     padding: 1em;
+  }
+
+  .card__box {
+    display: grid;
+    grid-template-rows: 2fr 0.5fr;
   }
 
 </style>
