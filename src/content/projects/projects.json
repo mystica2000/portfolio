@@ -1,15 +1,15 @@
 [
   {
     "emoji": "🚀",
-    "name": "This Site",
-    "url": "https://github.com/mystica2000/website",
+    "name": "Jump Rope Tracker",
+    "url": "https://github.com/mystica2000/exercise-tracker",
     "description": [
-      "Personal site created using Eleventy (11ty)",
-      "nunjucks as templating engine, data cascading in 11ty",
-      "supports twitter cards",
-      "others: Deployed on cloudflare pages"
+      "Jump Rope Tracker Offline PWA with built-in timer, stats, visualization",
+      "uses IndexedDB, Localstorage for storage",
+      "service worker to handle local notifications",
+      "Tech Stack: Svelte w Vite PWA"
     ],
-    "live": "https://mystica.me/"
+    "live": "https://exercise-tracker.pages.dev/"
   },
   {
     "emoji": "📰",
