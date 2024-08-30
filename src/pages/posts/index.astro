@@ -1,11 +1,16 @@
 ---
-import Card from '../components/blog/Card.astro';
-import Layout from '../layouts/Layout.astro';
+import { getReadingTimeForPosts } from 'src/utils/getReadingTime';
+import Card from '../../components/blog/Card.astro';
+import Layout from '../../layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
 
 // Get all `src/content/blog/` entries
-const posts = await getCollection('posts');
+let postsCollection = await getCollection('posts');
+
+const posts = await getReadingTimeForPosts(postsCollection);
+posts.sort((a:any,b:any) => Date.parse(b.data.date.toDateString()) - Date.parse(a.data.date.toDateString()))
+
 ---
 
 <Layout title="Blog">
@@ -13,7 +18,7 @@ const posts = await getCollection('posts');
 
   <div class="blog__container">
     {
-      posts.map((aPost) => (
+      posts.map((aPost:any) => (
       <Card post={aPost.data} slug={aPost.slug}>
       </Card>
       ))

@@ -1,14 +1,15 @@
 ---
 const pathname = new URL(Astro.request.url).pathname;
+
 ---
 <header>
     <nav class="nav__box">
     <h1 class="home"><a href="/" class="navlink no-decor" class:list={["navlink", "no-decor", {active: pathname == "/" }]} >Mystica</a></h1>
     <ul>
-      <li><a class:list={["navlink", {active: pathname == "/posts" }]} href="/posts">posts</a></li>
+      <li><a class:list={["navlink", {active: pathname == "/posts" || /^\/posts\/.*/.test(pathname) }]} href="/posts">posts</a></li>
       <li><a class:list={["navlink", {active: pathname == "/bytes" }]} href="/bytes">bytes</a></li>
       <li><a class:list={["navlink", {active: pathname == "/projects" }]} href="/projects">projects</a></li>
-      <li><a class:list={["navlink"]} href="/posts">about</a></li>
+      <li><a class:list={["navlink", {active: pathname == "/about" }]} href="/about">about</a></li>
       </ul>
     </nav>
 </header>

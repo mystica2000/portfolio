@@ -1,4 +1,4 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, type Render } from "astro:content";
 
 const projectSchema = z.object({
   emoji: z.string(),
@@ -20,17 +20,38 @@ const postSchema = z.object({
   description: z.string(),
   tags: z.array(z.string()),
   date: z.date(),
-  draft: z.boolean().optional()
+  draft: z.boolean().optional(),
+  readingTime: z.string().optional(),
 })
 
-const postCollection = defineCollection({
+export const postCollection = defineCollection({
   schema: postSchema
 })
 
 export type PostSchema = z.infer<typeof postSchema>;
 
+const byteSchema = z.object({
+  title: z.string(),
+  date: z.date(),
+  draft: z.boolean().optional()
+});
+
+const byteCollection = defineCollection({
+  schema: byteSchema
+})
+
+export type ByteSchema = z.infer<typeof byteSchema>;
+
+export type Post = {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "posts";
+  data: z.infer<typeof postSchema>;
+} & { render(): Render[".md"] };
 
 export const collections = {
   'projects': projectCollection,
-  'posts': postCollection
+  'posts': postCollection,
+  'bytes': byteCollection
 }
