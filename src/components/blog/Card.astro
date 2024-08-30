@@ -11,11 +11,11 @@ const { post, slug } = Astro.props;
 
 ---
     <article>
-      <a href={`/post/${slug}`} class="blog__card">
+      <a href={`/posts/${slug}`} class="blog__card">
       <h2 class="heading">{post.title}</h2>
       <p class="padding para">{post.description}</p>
       <Tags tags={post.tags} />
-      <div class="padding card__footer">Time to read </div>
+      <div class="padding card__footer">Time to read ~ {post.readingTime}</div>
     </a>
     </article>
 

@@ -1,20 +1,20 @@
+---
+const bytes = await Astro.glob('@content/bytes/*.mdx');
+
+---
+
 <div>
   <dl>
-    <dt id="id#1">  Beast of Bodmin</dt>
-    <dd class="content" id="id2">
-
-      A large feline inhabiting Bodmin Moor.
-      <img src="public/favicon.svg"/>
-      <ul>
-        <li>test</li>
-      </ul>
-    </dd>
-
-    <dt>Morgawr</dt>
-    <dd class="content">A sea serpent.</dd>
-
-    <dt>Owlman</dt>
-    <dd class="content">A giant owl-like creature.</dd>
+    {
+      bytes.map((aByte, index) => (
+        <Fragment>
+        <dt id={index.toString()}>{aByte.frontmatter.title}</dt>
+        <dd class="content">
+          <aByte.Content />
+        </dd>
+      </Fragment>
+      ))
+    }
   </dl>
 </div>
 
