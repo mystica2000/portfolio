@@ -1,7 +1,10 @@
 ---
 import Share from "@components/logo/Share.astro";
+import LinkedIn from "@components/logo/LinkedIn.astro";
 
 const bytes = await Astro.glob('@content/bytes/*.mdx');
+
+bytes.sort((a,b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date) )
 
 const formatTitle = (str:string) => {
   return str.toLowerCase().replaceAll(" ","-");
@@ -13,14 +16,14 @@ const formatTitle = (str:string) => {
     {
       bytes.map((aByte, index) => (
         <Fragment>
-        <dt class="flex">
+        <dt class="flex" id={index.toString()}>
           <h2 id={`${formatTitle(aByte.frontmatter.title)}`} class="scroll-header">
           <a class="title" href={`#${formatTitle(aByte.frontmatter.title)}`}>
             {aByte.frontmatter.title}
           </a>
           </h2>
 
-          <button><Share /></button>
+          <button class="share-btn"><Share /></button>
         </dt>
         <dd class="content">
           <aByte.Content />
@@ -30,6 +33,34 @@ const formatTitle = (str:string) => {
     }
   </dl>
 </div>
+
+<script>
+
+  const btns = document.getElementsByClassName("share-btn");
+
+  for (let btn of btns) {
+    btn.addEventListener("click", (event: Event) => {
+      const target = event.target as HTMLElement;
+      const titleElement = target.closest("dt")?.querySelector(".title") as HTMLAnchorElement;
+      if (titleElement) {
+        const url = window.location.href.split('#')[0] + '#' + titleElement.getAttribute('href')?.substring(1);
+
+        navigator.clipboard.writeText(url).then(() => {
+          const shareBtn = btn.innerHTML;
+          btn.innerHTML = "<span style='color:var(--astro-bg-color);'>copied</span>"
+
+          // Revert back to the original content after 3 seconds
+          setTimeout(() => {
+            btn.innerHTML = shareBtn;
+          }, 2000);
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+      }
+    })
+  }
+
+</script>
 
 <style>
 
