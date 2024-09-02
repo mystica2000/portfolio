@@ -6,6 +6,15 @@ keywords: "web,networks,http,packets,tcp,ip"
 date: 2022-12-19
 ---
 
+import ImageView from "@components/blog/ImageView.astro";
+import osi from "@assets/images/posts/httppackets/osi.png";
+import ethernet from "@assets/images/posts/httppackets/ethernet.png";
+import ipv6 from "@assets/images/posts/httppackets/ipv6.png";
+import responsetcp from "@assets/images/posts/httppackets/responsetcp.jpg";
+import payload from "@assets/images/posts/httppackets/payload.png";
+import tcpPacket from "@assets/images/posts/httppackets/tcppacket.png";
+import tcpPayload from "@assets/images/posts/httppackets/tcppayload.jpg";
+
 ## 💡 Motivation
 
 The level of abstraction in software development nowadays is mind-blowing.
@@ -20,7 +29,10 @@ What happens under the hood? You might have heard about TCP, UDP, and OSI models
 
 ## ✨ Abstracted View of OSI Model
 
-{/* {% image "src/assets/images/posts/httppackets/osi.png", "osi layer architecture containing application layer having protocols http, dns, ftp and transport layer protocol containing udp, tcp and quic","post-img", "lazy" %} */}
+<ImageView
+  src={osi}
+  alt="osi layer architecture containing application layer having protocols http, dns, ftp and transport layer protocol containing udp, tcp and quic"
+/>
 
 HTTP, DNS, and FTP are all application layer protocols that we use when developing apps in general. But to send this request to a server it needs to be traveled via various networks. Packets make it possible to send chunks of data across several networks.
 
@@ -37,31 +49,43 @@ transport layer. And Well, TCP is the payload for IP Packets. And then IP is the
 
 If you look at the ethernet frames in Wireshark, you can see IPv4/ IPv6 as payload for the ethernet frame.
 
-{/* {% image "src/assets/images/posts/httppackets/ethernet.png", "ethernet frame containing IPv6 as payload in wireshark","post-img", "lazy" %} */}
+<ImageView
+  src={ethernet}
+  alt="ethernet frame containing IPv6 as payload in wireshark"
+/>
 
 ### 🚀 Network Layer
 
 In this case, it’s IPv6. And then followed by IPv6 Packet now, containing TCP as its payload.
 
-{/* {% image "src/assets/images/posts/httppackets/ipv6.png", "IPv6 packet containing TCP as payload in wireshark","post-img", "lazy" %} */}
+<ImageView
+  src={ipv6}
+  alt="IPv6 packet containing TCP as payload in wireshark"
+/>
 
 ### 🚀 Transport Layer
 
 Now, look at the TCP Packet, it contains destination PORT as 80 which belongs to HTTP. we are gonna request a resource from a server that is running http server at port 80. And another port to keep in mind that our source port is 57995 (random port) selected by our browser or application. so the payload of 303 bytes here is for HTTP Request.
 
-{/* {% image "src/assets/images/posts/httppackets/tcppacket.png", "tcp packet containing destination port as 80 (http port), desination port as 57995 (random port) and tcp payload byte as 303 which is request data of http","post-img", "lazy" %} _/} */}
+<ImageView
+  src={tcpPacket}
+  alt="tcp packet containing destination port as 80 (http port), desination port as 57995 (random port) and tcp payload byte as 303 which is request data of http"
+/>
 
 ### 🚀 Application Layer
 
 Now, the HTTP load contains the request we made... For example get request for /canonical.html which uses http version 1.1
 
-{/* {% image "src/assets/images/posts/httppackets/tcppayload.jpg", "http request data containing requesting GET for /canoinical.html here","post-img", "lazy" %} */}
+<ImageView src={tcpPayload} alt="" />
 
 This is how the packet travels across the network! To wrap things up, packets are encapsulated at every level of the TCP/IP Stack and then sent across the network.
 
 ## ✨ Our Data Packets!!!
 
-{/* {% image "src/assets/images/posts/httppackets/payload.png", "diagram containing http encapsulated in http, tcp encapsulated in ip and then ip encapsulated in ethernet frames","post-img", "lazy" %} */}
+<ImageView
+  src={payload}
+  alt="diagram containing http encapsulated in http, tcp encapsulated in ip and then ip encapsulated in ethernet frames"
+/>
 
 ## 🔙 HTTP Response Packet
 
@@ -69,7 +93,10 @@ Similarly, For HTTP Response from the Server. It looks kinda similar but the sou
 
 Since we made the request from port 57995 (random port). We are receiving the response from the PORT 80 and sending it to our application which is running at 57995 port.
 
-{/* {% image "src/assets/images/posts/httppackets/responsetcp.jpg", "tcp packet containing source port as 80 (http port), desination port as 57995 (random port)","post-img", "lazy" %} */}
+<ImageView
+  src={responsetcp}
+  alt="tcp packet containing source port as 80 (http port), desination port as 57995 (random port)"
+/>
 
 This is the overview of the HTTP packets and how packet is created to communicate across the networks.
 

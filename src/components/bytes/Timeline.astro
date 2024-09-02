@@ -1,6 +1,7 @@
 ---
-const bytes = await Astro.glob('@content/bytes/*.mdx');
+import Share from "@components/logo/Share.astro";
 
+const bytes = await Astro.glob('@content/bytes/*.mdx');
 ---
 
 <div>
@@ -8,7 +9,12 @@ const bytes = await Astro.glob('@content/bytes/*.mdx');
     {
       bytes.map((aByte, index) => (
         <Fragment>
-        <dt id={index.toString()}>{aByte.frontmatter.title}</dt>
+        <dt id={index.toString()}>
+          <a class="title" href={`#${aByte.frontmatter.title}`}>
+            <h2> {aByte.frontmatter.title} </h2>
+            <button><Share /></button>
+          </a>
+        </dt>
         <dd class="content">
           <aByte.Content />
         </dd>
@@ -19,16 +25,30 @@ const bytes = await Astro.glob('@content/bytes/*.mdx');
 </div>
 
 <style>
-  dt::before {
-    content: '🔗 ';
-  }
-
-  dt:hover::before {
-    content: '➖ ';
-  }
 
   dt {
-    cursor: pointer;
+    position: relative;
+  }
+
+  .title {
+    display: grid;
+    grid-template-columns: 1fr 0.1fr;
+    margin-right: 1.2em;
+    margin-left: 1.2em;
+    text-decoration: none;
+    color: black;
+    cursor: default;
+  }
+
+  .title::before {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    content: "";
+    top: 10px;
+    left: 0px;
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
   }
 
   .content {
@@ -55,6 +75,29 @@ const bytes = await Astro.glob('@content/bytes/*.mdx');
   .hide {
     display: none;
     opacity: 0;
+  }
+
+  h2 {
+    font-size: clamp(1em, 40%, 1.5em);
+    font-weight: 600;
+    margin-inline: 0;
+    margin-block: 0;
+  }
+
+  button {
+    background: #d9d9d9;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    cursor: pointer;
+  }
+
+  :global(.dark) button {
+    background: #292626;
+  }
+
+  :global(.dark) .title {
+    color: white;
   }
 
 

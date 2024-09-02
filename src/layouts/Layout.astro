@@ -39,7 +39,7 @@ const { title } = Astro.props;
     line-height: 27px;
 	}
   :root {
-   --content-width: 650px;
+   --content-width: 750px;
    box-sizing: border-box;
    margin: 0;
    padding: 0;
@@ -66,5 +66,27 @@ const { title } = Astro.props;
 
   .dark .navlink { color: #ffffff; }
   .dark .navlink:hover, .navlink:active, .active { text-shadow: 1px 1px 2px #af8d8d, 0 0 1em #ffffff, 0 0 0.2em #2222ff; }
+
+  pre {
+  padding: 8px 16px;
+  overflow: auto;
+  border-radius: 4px;
+  }
+
+  code {
+  padding: 4px;
+  border-radius: 4px;
+  direction: ltr;
+  font-size: 14px;
+}
+
+pre > code {
+  padding: 0;
+  line-height: 1.5;
+  word-break: normal;
+  white-space: pre;
+  word-spacing: normal;
+  tab-size: 4;
+}
 
 </style>

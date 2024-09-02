@@ -1,0 +1,107 @@
+---
+import Calender from '@components/logo/Calender.astro';
+import Reading from '@components/logo/Reading.astro';
+
+interface Props {
+    heading: string;
+    readingTime: string;
+    lastModified: Date;
+}
+
+const { heading, readingTime, lastModified } = Astro.props;
+
+const options:Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    timeZone: "Asia/Kolkata"
+}
+
+const formatDate = (date:Date) => {
+    return new Intl.DateTimeFormat("en-EN", options).format(date)
+}
+---
+
+<div class="heading">
+<h1 class="h1">{heading}</h1>
+<span class="sub-heading">
+    <span>
+        <p class="inline-p-header"> <Reading /> reading time</p>
+        <p class="inline-p-body">~ {readingTime}</p>
+    </span>
+    <span>
+        <p class="inline-p-header"> <Calender /> last modified</p>
+        <p class="inline-p-body">
+            <time datetime={lastModified.toString()}>{formatDate(lastModified)}</time>
+        </p>
+    </span>
+</span>
+</div>
+<slot />
+
+<style>
+    .h1 {
+        font-size: 2.5em;
+        text-align: center;
+        line-height: 1em;
+    }
+
+    .heading {
+        background: rgb(113 24 226);
+        color: white;
+        transform: rotate(3deg);
+        border-radius: 10px;
+        border-style: none;
+        padding-top: 0.1em;
+        margin-bottom: 2em;
+        padding-bottom: 0.2em;
+        box-shadow: rgb(113 24 226 / 54%) 0px 25px 50px -12px;
+    }
+
+    .sub-heading {
+        display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    }
+
+    .inline-p-header, .inline-p-body {
+        margin: 0;
+    }
+
+    .inline-p-header {
+        text-transform: uppercase;
+    letter-spacing: -0.4px;
+    font-size: 0.75em;
+    font-weight: 600;
+    color: #ffffffb5;
+    margin: 0em;
+    margin-block: 0em;
+    line-height: 1em;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    }
+
+    .inline-p-body {
+        font-size: smaller;
+        text-align: center;
+    }
+</style>
+
+<script>
+
+    const imageList:HTMLCollectionOf<Element> = document.getElementsByClassName("img");
+
+    for (let item of imageList) {
+        item.addEventListener("click", () => {
+        const imgSrc = item.getAttribute("src");
+        if (imgSrc) {
+            window.open(imgSrc, "_blank");
+        }
+    });
+    }
+
+</script>

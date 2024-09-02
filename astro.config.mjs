@@ -9,5 +9,9 @@ export default defineConfig({
     remarkPlugins: [
       remarkReadingTime, // 👈🏻 our plugin
     ],
+    shikiConfig: {
+      theme: "synthwave-84",
+      wrap: true
+    }
   }
 });

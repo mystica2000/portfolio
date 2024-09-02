@@ -1,11 +1,21 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   alt: string;
   src: string;
-  cssClass: string;
-  lazy: boolean;
 }
 
-const { alt, src, cssClass, lazy } = Astro.props;
+const { alt, src } = Astro.props;
 ---
-<img src={src} alt={alt}/>
+
+<Image src={src} alt={alt} class:list={"img"}/>
+
+<style>
+  .img {
+    width: -webkit-fill-available;
+    width: -moz-available;
+    height: fit-content;
+    cursor: pointer;
+  }
+</style>

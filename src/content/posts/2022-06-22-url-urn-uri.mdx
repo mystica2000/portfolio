@@ -6,22 +6,29 @@ keywords: "web,url,uri,urn,networks"
 date: 2022-06-22
 ---
 
+import Link from "@components/blog/Link.astro";
+export const components = { a: Link };
+
 import ImageView from "@components/blog/ImageView.astro";
-import vennDiagram from "@assets/images/posts/urlurnuri/venn-diagram.jpg?url";
+import ImageWithCaption from "@components/blog/ImageWithCaption.astro";
+import vennDiagram from "@assets/images/posts/urlurnuri/venn-diagram.jpg";
+import url from "@assets/images/posts/urlurnuri/url.jpg";
+import urn from "@assets/images/posts/urlurnuri/urn.jpg";
+import combine from "@assets/images/posts/urlurnuri/combine.jpg";
+import deeplink from "@assets/images/posts/urlurnuri/deeplink.png";
+import sample from "@assets/images/posts/urlurnuri/sample.jpg";
 
 Before going into the understanding of these three acronyms, we will learn what is the resource in the acronym of the <abbr title="Uniform Resource Locator">URL</abbr>,<abbr title="Uniform Resource Namespace"> URN</abbr>, <abbr title="Uniform Resource Identifier">URI</abbr> .
 
-```text
-  URN - Uniform Resource Namespace
-  URL - Uniform Resource Locator
-  URI - Uniform Resource Identifier
+```md
+URN - Uniform Resource Namespace
+URL - Uniform Resource Locator
+URI - Uniform Resource Identifier
 ```
 
 ## ✨ What is Resource?
 
 A resource can be HTML file, images, API endpoints, services, or any documents, books, research papers, etc.
-
-{/* {% image "src/assets/images/posts/urlurnuri/venn-diagram.jpg", "venn diagram describing how URL and URN are subsets of URI","post-img", "lazy" %} */}
 
 <ImageView
   src={vennDiagram}
@@ -55,7 +62,10 @@ Scheme_Specific_Path = path/to/retreival/of/resource
 
 ### Example of the URL
 
-{/* {% image "src/assets/images/posts/urlurnuri/url.jpg", "http:/abc.com/index.html?name=hello#section2 where http:/ is protocol, abc.com is authority, /index.html is location or path, ?name=hello is query, #section2 is fragment","post-img", "lazy" %} */}
+<ImageView
+  src={url}
+  alt="http:/abc.com/index.html?name=hello#section2 where http:/ is protocol, abc.com is authority, /index.html is location or path, ?name=hello is query, #section2 is fragment"
+/>
 
 <br />
 <br />
@@ -64,7 +74,7 @@ Scheme_Specific_Path = path/to/retreival/of/resource
 
 - it is the persistent labeling of the resources with an identifier. It does not imply where to find the resource. It is a globally unique name for the resources.
 
-{/* ### Syntax of URN According to {% ahref "https://datatracker.ietf.org/doc/html/rfc2141#section-2","RFC2141","ahrefmd" %}: */}
+### Syntax of URN According to [RFC2141](https://datatracker.ietf.org/doc/html/rfc2141#section-2):
 
 ```js
 URN = "urn:" <NID> ":" <NSS>
@@ -78,7 +88,10 @@ where,
 
 ### Examples of URN:
 
-{/* {% image "src/assets/images/posts/urlurnuri/urn.jpg", "URN:ISBN:9780545162074 where NID is ISBN and NSS is 9780545162074","post-img", "lazy" %} */}
+<ImageView
+  src={urn}
+  alt="URN:ISBN:9780545162074 where NID is ISBN and NSS is 9780545162074"
+/>
 
 <br />
 
@@ -86,7 +99,7 @@ Here in the example, we can able to see ISBN is unique for the books and it just
 
 And from the above example, If we change the NID to
 
-```text
+```md
 urn:isbn:9780545162074
 urn:Isbn:9780545162074
 urn:ISBN:9780545162074
@@ -111,11 +124,12 @@ URN and URL follow the URI Syntax and it's the subset of URI.
 
 {/* ### Syntax of URI According to {% ahref "https://datatracker.ietf.org/doc/html/rfc3986#section-3","RFC3986","ahrefmd" %}: */}
 
-```text
+```md
 URI = Scheme : heir-part [? query] [# fragment]
 where
--   heir-part = authority or path (example.com / isbn:9780747532743)
--   [? query] and [# fragment] are optional ones!
+
+- heir-part = authority or path (example.com / isbn:9780747532743)
+- [? query] and [# fragment] are optional ones!
 ```
 
 From the above syntax, we can able to see the "Scheme" in the syntax matches with "scheme/protocol" in URL Syntax or "urn" in the URN Syntax.
@@ -124,6 +138,11 @@ From the above syntax, we can able to see the "Scheme" in the syntax matches wit
 Combining both of the above examples from URL and URN
 
 {/* {% image "src/assets/images/posts/urlurnuri/combine.jpg", "from the above example, http and urn are scheme whereas heir-path is what's following the part of the url or urn in the above examples","post-img", "lazy" %} */}
+
+<ImageView
+  src={combine}
+  alt="URN:ISBN:9780545162074 where NID is ISBN and NSS is 9780545162074"
+/>
 
 <br />
 <br />
@@ -149,14 +168,12 @@ code:
 <a href="ftp://speedtest.tele2.net">ftp</a>
 ```
 
-<figure>
-<figcaption>
 {/* {% image "src/assets/images/posts/urlurnuri/sample.jpg", "On running above html code, the browser console displaying URN as Failed to launch 'urn:mrn:iala:pub:g1143' because the scheme does not have a registered handle,for mail and ftp, it displays Launched external handler","post-img", "lazy" %} */}
 
-On running above html code, the browser console displaying URN as Failed to launch 'urn:mrn:iala:pub:g1143' because the scheme does not have a registered handle,for mail and ftp, it displays Launched external handler
-
-</figcaption>
-</figure>
+<ImageWithCaption
+  src={sample}
+  caption="On running above html code, the browser console displaying URN as Failed to launch 'urn:mrn:iala:pub:g1143' because the scheme does not have a registered handle,for mail and ftp, it displays Launched external handler"
+/>
 
 <br />
 
@@ -165,11 +182,16 @@ On running above html code, the browser console displaying URN as Failed to laun
 URN failed because the **web** browser can't able to resolve the URN to URL...
 
 <br />
-And we do Deep Linking (the link that sends the user directly to the app installed
-on their phone instead of using the web version of the app on the browser)... we
-use URI Scheme for the app to enable deep linking. It is one of the use cases for
-the URI Scheme.
-{/* {% image "src/assets/images/posts/urlurnuri/deeplink.png", "diagram explaining the user clicks on the link that takes them to specific app and then deep linking checks whether the app is installed or not in user device, if yes then open the app and shows content. if not installed, it goes to play store or app store to install the app","post-img", "lazy" %} */}
+And we do Deep Linking (the link that sends the user directly to the app
+installed on their phone instead of using the web version of the app on the
+browser)... we use URI Scheme for the app to enable deep linking. It is one of
+the use cases for the URI Scheme.
+{/* {% image "src/assets/images/posts/urlurnuri/deeplink.png", "","post-img", "lazy" %} */}
+
+<ImageView
+  src={deeplink}
+  alt="diagram explaining the user clicks on the link that takes them to specific app and then deep linking checks whether the app is installed or not in user device, if yes then open the app and shows content. if not installed, it goes to play store or app store to install the app"
+/>
 
 <br />
 

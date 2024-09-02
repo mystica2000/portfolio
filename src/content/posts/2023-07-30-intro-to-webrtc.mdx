@@ -1,10 +1,13 @@
 ---
-title: "WebRTC"
+title: "Intro to WebRTC"
 description: "Introduction to webrtc and real time communications using media"
 tags: ["web", "networks", "webrtc"]
 keywords: "web,networks,webrtc"
 date: 2023-07-30
 ---
+
+import ImageView from "@components/blog/ImageView.astro";
+import webrtc from "@assets/images/posts/webrtc/webrtc.png";
 
 ## ✨ WebRTC
 
@@ -78,7 +81,10 @@ It follows as:
 <br />
 Visual Representaion of How it works:
 
-{/* {% image "src/assets/images/posts/webrtc/webrtc.png", "the above steps in the visual representation with numbered step by step","post-img", "lazy" %} */}
+<ImageView
+  src={webrtc}
+  alt="the above steps in the visual representation with numbered step by step"
+/>
 
 <br />
 WebRTC is ofcourse UDP based protocol since speed over reliability. And for

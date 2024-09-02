@@ -1,0 +1,26 @@
+---
+
+import { Image } from 'astro:assets';
+interface Props {
+  caption: string;
+  src: string;
+}
+
+const { caption, src } = Astro.props;
+---
+
+<figure>
+    <figcaption>
+        <Image src={src} alt="" class:list={"img"}/>
+        {caption}
+    </figcaption>
+</figure>
+
+<style>
+  .img {
+    width: -webkit-fill-available;
+    width: -moz-available;
+    height: fit-content;
+    cursor: pointer;
+  }
+</style>
