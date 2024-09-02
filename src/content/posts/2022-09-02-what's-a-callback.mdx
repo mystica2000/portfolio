@@ -19,7 +19,7 @@ function add(a, b, callback) {
 And wondered, what is happening here?! Read further :D
 Let's take a step back and come back to the above code later!
 
-## ✨What's 📞🔙?<br />
+## What's 📞🔙?<br />
 
 Assume we have a function B that needs to be called after A!
 
@@ -70,7 +70,7 @@ function A(B) {
 
 Note: callback is not a keyword, it's just a variable name we use!!
 
-## ✨ Where callback functions are used??<br />
+## Where callback functions are used??<br />
 
 - we use it on `addEventListener(event_name,callback)`, execute the callback function after event_name is triggered!!
 
@@ -82,7 +82,7 @@ function callclick() {
 }
 ```
 
-## ✨ Can the callback must be a function with the keyword `function`?<br />
+## Can the callback must be a function with the keyword `function`?<br />
 
 Nope, we can use arrow functions or inline functions!!
 
@@ -92,7 +92,7 @@ The above code can be written like this:
 appDiv.addEventListener("click", () => console.log("Clicked!!"));
 ```
 
-## ✨ What if I want to pass an argument to the callback function??<br />
+## What if I want to pass an argument to the callback function??<br />
 
 Let's take the first example, we used in the post. We need to display the result of this
 `add()` in the function called `display()`
@@ -158,7 +158,7 @@ add(2, 3, console.log);
 
 Why `add(5,5,alert)` pops up only 5 while console.log prints all three "2 3 5"? it have to do with alert function <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/alert" class="ahrefmd">syntax</a>! the syntax takes in a single argument only so the first "5" will be printed here! :D
 
-## ✨ What's Callback hell??<br />
+## What's Callback hell??<br />
 
 Here's one of the awesome blog posts about this topic, you can find it on<a href="http://callbackhell.com/" class="ahrefmd">callback hell website</a>.
 

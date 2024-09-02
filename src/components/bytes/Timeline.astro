@@ -2,6 +2,10 @@
 import Share from "@components/logo/Share.astro";
 
 const bytes = await Astro.glob('@content/bytes/*.mdx');
+
+const formatTitle = (str:string) => {
+  return str.toLowerCase().replaceAll(" ","-");
+}
 ---
 
 <div>
@@ -9,11 +13,14 @@ const bytes = await Astro.glob('@content/bytes/*.mdx');
     {
       bytes.map((aByte, index) => (
         <Fragment>
-        <dt id={index.toString()}>
-          <a class="title" href={`#${aByte.frontmatter.title}`}>
-            <h2> {aByte.frontmatter.title} </h2>
-            <button><Share /></button>
+        <dt class="flex">
+          <h2 id={`${formatTitle(aByte.frontmatter.title)}`} class="scroll-header">
+          <a class="title" href={`#${formatTitle(aByte.frontmatter.title)}`}>
+            {aByte.frontmatter.title}
           </a>
+          </h2>
+
+          <button><Share /></button>
         </dt>
         <dd class="content">
           <aByte.Content />
@@ -35,9 +42,8 @@ const bytes = await Astro.glob('@content/bytes/*.mdx');
     grid-template-columns: 1fr 0.1fr;
     margin-right: 1.2em;
     margin-left: 1.2em;
-    text-decoration: none;
-    color: black;
-    cursor: default;
+    text-underline-offset: 3px;
+
   }
 
   .title::before {
@@ -82,6 +88,7 @@ const bytes = await Astro.glob('@content/bytes/*.mdx');
     font-weight: 600;
     margin-inline: 0;
     margin-block: 0;
+    width: fit-content;
   }
 
   button {
@@ -90,6 +97,7 @@ const bytes = await Astro.glob('@content/bytes/*.mdx');
     border: 2px solid transparent;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     cursor: pointer;
+    width: 6em;
   }
 
   :global(.dark) button {
@@ -100,24 +108,10 @@ const bytes = await Astro.glob('@content/bytes/*.mdx');
     color: white;
   }
 
+  .flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
 </style>
-
-<script is:inline>
-   const btns = document.getElementById("id#1");
-   btns.addEventListener("click", () => {
-    const content = btns.nextElementSibling;
-    if (content.style.maxHeight) {
-      content.style.maxHeight = null;
-      content.style.opacity = '0';
-      setTimeout(() => { content.style.display = 'none'; }, 200);
-    } else {
-      content.style.display = 'block';
-      setTimeout(() => {
-        content.style.maxHeight = content.scrollHeight + 'px';
-        content.style.opacity = '1';
-      }, 10);
-    }
-
-   })
-</script>

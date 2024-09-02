@@ -9,16 +9,16 @@ date: 2023-07-30
 import ImageView from "@components/blog/ImageView.astro";
 import webrtc from "@assets/images/posts/webrtc/webrtc.png";
 
-## ✨ WebRTC
+## WebRTC
 
 WebRTC (Web Real-Time Communication) is a peer-to-peer protocol that enables real-time communication in the browser without needing any additional plugins. It contains several APIs to make video streaming, audio streaming, screen sharing, file sharing, data sharing, and much more possible.
 
-## ✨ Peer-to-Peer
+## Peer-to-Peer
 
 Here, Peer-to-peer means the direct connection from the browser to the browser without needing an intermediate server that acts as a central authority.
 However, during the initial setup (ie this browser user in India is connecting with someone from the US) The browser needs to know who's browser to connect to. For that, a signaling server is being used.
 
-## ✨ Connect Peers
+## Connect Peers
 
 Signalling Server can be WebSocket server or http long polling or you can use any already existing SDK available. The spec of WebRTC does not limit what protocol can be used as a signaling server.
 The role of signaling server (web socket for example) is that it sends data for initial connection to occur between the users and it does not need to know what content of data users are sending to each other. Ok, where does it fits, this signaling server??
@@ -33,7 +33,7 @@ comes in and helps A and B to negotiate with each other and establish a
 connection. After the connection, it does not need a web socket server anymore.
 User A and B can directly communicate with each other.
 
-## ✨ Interactive Connectivity Establishment (ICE)
+## Interactive Connectivity Establishment (ICE)
 
 WebRTC contains a collection of protocols; STUN and TURN protocols for connection establishment (to discover the user on the internet so that other users using the browser communicate with each other since one user might be behind different NAT or firewall)
 These STUN AND TURN protocol comes under ICE Framework. ICE takes care of connectivity between users. ICE is framework to allow web browser to connect with peers. And Restart ICE happens when the user changes the network, for example: from Wifi to a 4G network like thatIC, The ICE Process begin again to connect the two devices.
@@ -57,7 +57,7 @@ commercial use for protecting user data and privacy.
 
 When developing on local, STUN is optional requirement since our testing devices are all under same network.
 
-## ✨ Example
+## Example
 
 To better understand let's take an example! We are creating a video calling app in which we can able to enter roomCode and call the user who has that roomCode.
 
