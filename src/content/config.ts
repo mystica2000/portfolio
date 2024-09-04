@@ -19,9 +19,10 @@ const postSchema = z.object({
   title: z.string(),
   description: z.string(),
   tags: z.array(z.string()),
-  date: z.date(),
+  pubDate: z.date(),
   draft: z.boolean().optional(),
   readingTime: z.string().optional(),
+  lastModified: z.date().optional()
 })
 
 export const postCollection = defineCollection({

@@ -26,6 +26,7 @@ export const getReadingTimeForPosts = async (postCollection: Post[]) => {
     await Promise.all(
         postCollection.map(async post => {
             const path = slugMap.get(post.slug);
+            console.log(path);
             if (path) {
                 const { frontmatter } = await posts[path]();
                 post.data.readingTime = frontmatter.minutesRead;

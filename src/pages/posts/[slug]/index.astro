@@ -4,7 +4,8 @@ import Layout from "@layouts/Layout.astro";
 import Blog from "@layouts/Blog.astro";
 import AnchorLink from "@components/blog/Anchor.astro";
 import HeaderLink from "@components/blog/HeaderLink.astro";
-const components = { a: AnchorLink, h2: HeaderLink };
+import Table from "@components/blog/Table.astro";
+const components = { a: AnchorLink, h2: HeaderLink, table: Table };
 
 
 export async function getStaticPaths() {
@@ -24,7 +25,7 @@ const { Content } = await post.render();
 
 <Layout title={post.data.title}>
   <article>
-    <Blog heading={post.data.title} readingTime={post.data?.readingTime || ""} lastModified={post.data.date}>
+    <Blog heading={post.data.title} readingTime={post.data?.readingTime || ""} lastModified={post.data.lastModified || null} pubDate={post.data.pubDate}>
       <Content components={components} />
     </Blog>
   </article>

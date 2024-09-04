@@ -5,10 +5,11 @@ import Reading from '@components/logo/Reading.astro';
 interface Props {
     heading: string;
     readingTime: string;
-    lastModified: Date;
+    lastModified: Date | null;
+    pubDate: Date;
 }
 
-const { heading, readingTime, lastModified } = Astro.props;
+const { heading, readingTime, lastModified, pubDate } = Astro.props;
 
 const options:Intl.DateTimeFormatOptions = {
     day: "2-digit",
@@ -29,11 +30,21 @@ const formatDate = (date:Date) => {
         <p class="inline-p-header"> <Reading /> reading time</p>
         <p class="inline-p-body">~ {readingTime}</p>
     </span>
-    <span>
-        <p class="inline-p-header"> <Calender /> last modified</p>
+    <span class="flex">
+        { lastModified &&
+        <span>
+            <p class="inline-p-header"> <Calender /> last Modified</p>
+            <p class="inline-p-body">
+                <time datetime={lastModified.toString()}>{formatDate(lastModified)}</time>
+            </p>
+        </span>
+        }
+        <span>
+        <p class="inline-p-header"> <Calender /> published</p>
         <p class="inline-p-body">
-            <time datetime={lastModified.toString()}>{formatDate(lastModified)}</time>
+            <time datetime={pubDate.toString()}>{formatDate(pubDate)}</time>
         </p>
+    </span>
     </span>
 </span>
 </div>
@@ -47,15 +58,16 @@ const formatDate = (date:Date) => {
     }
 
     .heading {
-        background: rgb(113 24 226);
-        color: white;
-        transform: rotate(3deg);
-        border-radius: 10px;
-        border-style: none;
-        padding-top: 0.1em;
-        margin-bottom: 2em;
-        padding-bottom: 0.2em;
-        box-shadow: rgb(113 24 226 / 54%) 0px 25px 50px -12px;
+        background: rgb(113 24 226 / 97%);
+    color: white;
+    text-shadow: rgb(239 239 239 / 30%) 0px 0px 39px;
+    transform: rotate(3deg);
+    border-radius: 10px;
+    border-style: none;
+    padding-top: 0.1em;
+    margin-bottom: 2em;
+    padding-bottom: 0.2em;
+    box-shadow: rgb(113 24 226 / 54%) 0px 25px 50px -12px;
     }
 
     .sub-heading {
@@ -88,6 +100,11 @@ const formatDate = (date:Date) => {
     .inline-p-body {
         font-size: smaller;
         text-align: center;
+    }
+
+    .flex {
+        display: flex;
+        gap: 1em;
     }
 </style>
 

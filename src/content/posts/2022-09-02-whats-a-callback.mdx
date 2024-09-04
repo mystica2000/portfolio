@@ -3,10 +3,9 @@ title: What's a Callback??!
 description: Definition of callback, where and how it is being used etc!
 tags: ["web", "js"]
 keywords: "js,web,callback,async"
-date: 2022-09-02
+pubDate: 2022-09-02
+lastModified: 2024-09-05
 ---
-
-<div style="text-align:center;font-size:30px">📞🔙</div>
 
 If you ever came across this sorta function
 
@@ -19,7 +18,7 @@ function add(a, b, callback) {
 And wondered, what is happening here?! Read further :D
 Let's take a step back and come back to the above code later!
 
-## What's 📞🔙?<br />
+## What's the Callback?
 
 Assume we have a function B that needs to be called after A!
 
@@ -70,7 +69,7 @@ function A(B) {
 
 Note: callback is not a keyword, it's just a variable name we use!!
 
-## Where callback functions are used??<br />
+## Where callback functions are used??
 
 - we use it on `addEventListener(event_name,callback)`, execute the callback function after event_name is triggered!!
 
@@ -82,7 +81,7 @@ function callclick() {
 }
 ```
 
-## Can the callback must be a function with the keyword `function`?<br />
+## Can the callback must be a function with the keyword `function`?
 
 Nope, we can use arrow functions or inline functions!!
 
@@ -92,7 +91,7 @@ The above code can be written like this:
 appDiv.addEventListener("click", () => console.log("Clicked!!"));
 ```
 
-## What if I want to pass an argument to the callback function??<br />
+## What if I want to pass an argument to the callback function??
 
 Let's take the first example, we used in the post. We need to display the result of this
 `add()` in the function called `display()`
@@ -156,16 +155,27 @@ add(5, 5, alert);
 add(2, 3, console.log);
 ```
 
-Why `add(5,5,alert)` pops up only 5 while console.log prints all three "2 3 5"? it have to do with alert function <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/alert" class="ahrefmd">syntax</a>! the syntax takes in a single argument only so the first "5" will be printed here! :D
+Why `add(5,5,alert)` pops up only 5 while console.log prints all three "2 3 5"? it have to do with alert function [syntax](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert)! the syntax takes in a single argument only so the first "5" will be printed here! :D
 
-## What's Callback hell??<br />
+## What's Callback hell??
 
-Here's one of the awesome blog posts about this topic, you can find it on<a href="http://callbackhell.com/" class="ahrefmd">callback hell website</a>.
+Callback hell refers to the situation where multiple nested callbacks make code hard to read and maintain.
 
-The above code can be found in the <a href="https://github.com/mystica2000/callback-demo.git" class="ahrefmd">github repo</a>
+```js
+updateOrganization(org, () => {
+  updateProjects(project, () => {
+    updateUser(user, () => {
+      // more nested calls
+    });
+  });
+});
+```
 
-TLDR;
+more info about call back hell [here](http://callbackhell.com/).
 
-⭐ callback function is called after some other function mostly async but not limited to async ONLY!
+The above code can be found in the [github repo]("https://github.com/mystica2000/callback-demo.git)
 
-⭐ callback is not a keyword
+## TLDR;
+
+- callback function is called after some other function mostly async but not limited to async ONLY!
+- callback is not a keyword

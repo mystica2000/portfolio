@@ -9,7 +9,7 @@ import { getCollection } from 'astro:content';
 let postsCollection = await getCollection('posts');
 
 const posts = await getReadingTimeForPosts(postsCollection);
-posts.sort((a:any,b:any) => Date.parse(b.data.date.toDateString()) - Date.parse(a.data.date.toDateString()))
+posts.sort((a:any,b:any) => Date.parse(b.data.pubDate.toDateString()) - Date.parse(a.data.pubDate.toDateString()))
 
 ---
 

@@ -3,7 +3,8 @@ title: "URL vs URN vs URI"
 description: "Major Difference between URL, URN, URI"
 tags: ["web"]
 keywords: "web,url,uri,urn,networks"
-date: 2022-06-22
+pubDate: 2022-06-22
+lastModified: 2024-09-05
 ---
 
 import ImageView from "@components/blog/ImageView.astro";
@@ -32,20 +33,13 @@ A resource can be HTML file, images, API endpoints, services, or any documents, 
   alt="venn diagram describing how URL and URN are subsets of URI"
 />
 
-<br />
-
 From the above diagram, we can able to see that URL and URN are the Subsets of URI (Uniform Resource Identifier). We will see what is URL and URN followed by URI.
-
-<br />
-<br />
 
 ## URL
 
 It is used to locate Specific resources on the web server or other. It knows where to find them.
 
-<br />
-
-### Syntax of URL as follows:
+### Syntax of URL
 
 ```js
 URL = Scheme/Protocol ":" Scheme_Specific_Path
@@ -55,8 +49,6 @@ Scheme/Protocol = http,ftp,etc
 Scheme_Specific_Path = path/to/retreival/of/resource
 ```
 
-<br />
-
 ### Example of the URL
 
 <ImageView
@@ -64,14 +56,11 @@ Scheme_Specific_Path = path/to/retreival/of/resource
   alt="http:/abc.com/index.html?name=hello#section2 where http:/ is protocol, abc.com is authority, /index.html is location or path, ?name=hello is query, #section2 is fragment"
 />
 
-<br />
-<br />
-
 ## URN
 
 - it is the persistent labeling of the resources with an identifier. It does not imply where to find the resource. It is a globally unique name for the resources.
 
-### Syntax of URN According to [RFC2141](https://datatracker.ietf.org/doc/html/rfc2141#section-2):
+### Syntax of URN
 
 ```js
 URN = "urn:" <NID> ":" <NSS>
@@ -81,16 +70,12 @@ where,
 <NIS> = NameSpace Specific String (can contain query/fragments)
 ```
 
-<br />
-
 ### Examples of URN:
 
 <ImageView
   src={urn}
   alt="URN:ISBN:9780545162074 where NID is ISBN and NSS is 9780545162074"
 />
-
-<br />
 
 Here in the example, we can able to see ISBN is unique for the books and it just tells what is the ISBN id for the book rather than where to find them...
 
@@ -105,21 +90,14 @@ urn:IsBn:9780545162074
 
 The above all are the same since it is case-sensitive
 
-{/* Check out other examples in {% ahref "https://en.wikipedia.org/wiki/Uniform_Resource_Name","wiki","ahrefmd" %} */}
-
-<br />
-<br />
-<br />
+Check out other examples in [wiki](https://en.wikipedia.org/wiki/Uniform_Resource_Name)
 
 ## URI
 
 What is the common between these terms??
 URN and URL follow the URI Syntax and it's the subset of URI.
 
-<br />
-<br />
-
-{/* ### Syntax of URI According to {% ahref "https://datatracker.ietf.org/doc/html/rfc3986#section-3","RFC3986","ahrefmd" %}: */}
+### Syntax of URI
 
 ```md
 URI = Scheme : heir-part [? query] [# fragment]
@@ -131,18 +109,12 @@ where
 
 From the above syntax, we can able to see the "Scheme" in the syntax matches with "scheme/protocol" in URL Syntax or "urn" in the URN Syntax.
 
-<br />
 Combining both of the above examples from URL and URN
-
-{/* {% image "src/assets/images/posts/urlurnuri/combine.jpg", "from the above example, http and urn are scheme whereas heir-path is what's following the part of the url or urn in the above examples","post-img", "lazy" %} */}
 
 <ImageView
   src={combine}
-  alt="URN:ISBN:9780545162074 where NID is ISBN and NSS is 9780545162074"
+  alt="from the above example, http and urn are scheme whereas heir-path is what's following the part of the url or urn in the above examples"
 />
-
-<br />
-<br />
 
 we can able to distinguish that both URN and URL follow the URI Syntax.
 
@@ -154,8 +126,8 @@ In HTML,
 <a href="uri scheme">SCHEME</a>
 ```
 
-{/* the value of href can be http, ftp,mailto, urn, and other URI Schemes. It can be found on {% ahref "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href","MDN","ahrefmd" %} href supports URI Schemes which means we can do ("urn:isbn:0747532745"). And one of the common URI schemes we use "mailto:"... web browsers execute something called */}
-{/* {% ahref "https://developer.mozilla.org/en-US/docs/Web/Manifest/protocol_handlers","protocol handlers","ahrefmd" %} to handle the URI Schemes that are not HTTP/HTTPS. */}
+the value of href can be http, ftp,mailto, urn, and other URI Schemes. It can be found on [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href), href supports URI Schemes which means we can do ("urn:isbn:0747532745"). And one of the common URI schemes we use "mailto:"... web browsers execute something called
+[protocol handlers](https://developer.mozilla.org/en-US/docs/Web/Manifest/protocol_handlers) to handle the URI Schemes that are not HTTP/HTTPS.
 
 code:
 
@@ -165,44 +137,51 @@ code:
 <a href="ftp://speedtest.tele2.net">ftp</a>
 ```
 
-{/* {% image "src/assets/images/posts/urlurnuri/sample.jpg", "On running above html code, the browser console displaying URN as Failed to launch 'urn:mrn:iala:pub:g1143' because the scheme does not have a registered handle,for mail and ftp, it displays Launched external handler","post-img", "lazy" %} */}
-
 <ImageWithCaption
   src={sample}
   caption="On running above html code, the browser console displaying URN as Failed to launch 'urn:mrn:iala:pub:g1143' because the scheme does not have a registered handle,for mail and ftp, it displays Launched external handler"
 />
 
-<br />
-
-<br />
+In the above example, **mailto:** is one of the [URI Scheme](https://en.wikipedia.org/wiki/Mailto#:~:text=mailto%20is%20a%20Uniform%20Resource,it%20into%20an%20email%20client) in which "mailto" will be scheme name and email id is the scheme path.
 
 URN failed because the **web** browser can't able to resolve the URN to URL...
 
-<br />
-And we do Deep Linking (the link that sends the user directly to the app
-installed on their phone instead of using the web version of the app on the
-browser)... we use URI Scheme for the app to enable deep linking. It is one of
-the use cases for the URI Scheme.
-{/* {% image "src/assets/images/posts/urlurnuri/deeplink.png", "","post-img", "lazy" %} */}
+## How URI Scheme works in mobile apps
+
+Whenever you open a reddit on mobile browser, it asks whether to continue in web or switch to native app. Or some web site just switches to native app right away. That uses some form of deep linking.
+
+Deep linking is technique to url/uri to link directly or specific content in the app. It can be done using custom uri schemes, app linking (android), universal linking (ios).
+
+Here's the list of URI Schemes for the apps [link](https://github.com/bhagyas/app-urls)
+
+```md
+reddit://
+whatsapp://
+```
+
+|                         | URI Schemes                                      | App Links (Android) or <br /> Universal Links (iOS) |
+| ----------------------- | ------------------------------------------------ | --------------------------------------------------- |
+| **Format**              | Custom protocol (e.g., `whatsapp://, myapp://`)  | Standard `https://` URL                             |
+| **Fallback**            | No fallback (only works if app is installed)     | Falls back to web if app is not installed           |
+| **Security**            | Less secure (can be intercepted by other apps)   | More secure (requires domain verification)          |
+| **Handling**            | Opens the app directly if installed; no fallback | Opens app if installed, otherwise opens web page    |
+| **Platform**            | All platforms (custom implementation)            | Android/Ios only                                    |
+| **Domain Verification** | Not required                                     | Required (app domain must be verified)              |
+| **Example**             | myapp://section/page1                            | `https://example.com/product/12345`                 |
 
 <ImageView
   src={deeplink}
   alt="diagram explaining the user clicks on the link that takes them to specific app and then deep linking checks whether the app is installed or not in user device, if yes then open the app and shows content. if not installed, it goes to play store or app store to install the app"
 />
 
-<br />
+Nowadays, app links/universal links are preferred choice to avoid vulnerabilities. Since what if i register my application uri scheme with well-known uri like `whatsapp://` and make the user to navigate to my app instead.
 
-<br />
-<br />
-<br />
+## OAuth URI Schemes
 
-- TLDR;
-- ⭐ URL (location) starts with "protocol:"
-- ⭐ URN (namespace) starts with "urn:"
-- ⭐ URI - both URL and URN can be called as URI.
+Custom URI Schemes comes into play in real world when integrating OAuth into the application. OAuth providers (such as Firebase Auth,Supabase etc) use the redirect_uri parameter, which specifies a unique URI of the app. This URI allows applications to handle redirects from OAuth providers after user authentication.
 
-<br />
-<br />
+## TLDR;
 
-<br />
-<br />
+- URL (location) starts with "protocol:"
+- URN (namespace) starts with "urn:"
+- URI - both URL and URN can be called as URI.

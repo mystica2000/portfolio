@@ -3,7 +3,7 @@ title: "The Packet That Started it All"
 description: "Creation of packets, how it's encapsulated in protocol stack"
 tags: ["web", "networks", "http"]
 keywords: "web,networks,http,packets,tcp,ip"
-date: 2022-12-19
+pubDate: 2022-12-19
 ---
 
 import ImageView from "@components/blog/ImageView.astro";
@@ -25,7 +25,7 @@ So I started digging into these concepts and gonna share my learnings along the 
 
 Have you ever wondered what happens when you make an HTTP request?
 What happens under the hood? You might have heard about TCP, UDP, and OSI models but are not sure how these things work in reality.
-{/* Let’s analyze using {% ahref "https://www.wireshark.org/","Wireshark","ahrefmd" %}! */}
+Let’s analyze using [Wireshark](https://www.wireshark.org/)
 
 ## Abstracted View of OSI Model
 
@@ -38,7 +38,7 @@ HTTP, DNS, and FTP are all application layer protocols that we use when developi
 
 ## HTTP
 
-{/* HTTP is request-response (client-server protocol)., Check out {% ahref "https://developer.mozilla.org/en-US/docs/Web/HTTP","MDN","ahrefmd" %} Web docs for a detailed view of HTTP. */}
+HTTP is request-response (client-server protocol)., Check out [mdn]("https://developer.mozilla.org/en-US/docs/Web/HTTP") Web docs for a detailed view of HTTP.
 
 In this post, we will look at the HTTP Request (Note: specifically about http v1.1, not for http over tls or http v2/v3). How it’s made! Wireshark is a tool that allows us to capture network requests and responses.
 
