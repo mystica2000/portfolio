@@ -13,7 +13,9 @@ posts.sort((a:any,b:any) => Date.parse(b.data.pubDate.toDateString()) - Date.par
 ---
 
 <Layout title="Blog" description='checkout my posts about various tech stuff'>
-  Contains Long Form Posts
+  <p class="center">
+    Write-Ups
+  </p>
 
   <div class="blog__container">
     {
@@ -43,5 +45,10 @@ posts.sort((a:any,b:any) => Date.parse(b.data.pubDate.toDateString()) - Date.par
     .blog__container {
     grid-template-columns: 1fr;
     }
+  }
+
+  .center {
+    text-align: center;
+    text-transform: capitalize;
   }
 </style>

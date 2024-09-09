@@ -4,6 +4,17 @@ import Layout from '@layouts/Layout.astro';
 ---
 
 <Layout title="Bytes" description='random bytes of information about stuff that i learned or find useful'>
-  Contains Random Info less than 500 characters
+  <p class="center">
+    Quick Bytes - Random info that’s too short for a full post will be shared here.
+  </p>
   <Timeline />
 </Layout>
+
+<style>
+    .center {
+    text-align: center;
+    text-transform: capitalize;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+</style>

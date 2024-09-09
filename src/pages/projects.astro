@@ -10,7 +10,7 @@ const projectsData = projectsCollection[0].data;
 ---
 
 <Layout title="Projects" description='list of projects that i worked on' content='solidjs, web, go, svelte, pwa'>
-  Personal Projects!
+  <p class="center">The projects that i have created while learning and experimenting with a new tech! </p>
   <table>
     <tbody>
     {
@@ -22,10 +22,18 @@ const projectsData = projectsCollection[0].data;
     </tbody>
   </table>
 
+  <p class="center">
+    checkout more on my <a class="navlink" href="https://github.com/mystica2000" target="_blank">github!</a>
+   </p>
 </Layout>
 
 <style>
   table {
     width: 100%;
+  }
+
+  .center {
+    text-align: center;
+    text-transform: capitalize;
   }
 </style>

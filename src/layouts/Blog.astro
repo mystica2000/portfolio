@@ -99,6 +99,13 @@ const { heading, readingTime, lastModified, pubDate } = Astro.props;
         display: flex;
         gap: 1em;
     }
+
+    @media screen and (max-width:395px) {
+    .heading {
+        scale: 0.9;
+    }
+  }
+
 </style>
 
 <script>
