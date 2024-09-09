@@ -1,15 +1,15 @@
 ---
-import Card from '../components/project/Card.astro';
-import Layout from '../layouts/Layout.astro';
+import Card from '@components/project/Card.astro';
+import Layout from '@layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import type { ProjectSchema } from '../content/config';
+import type { ProjectSchema } from '@content/config';
 
 const projectsCollection = await getCollection('projects');
 
 const projectsData = projectsCollection[0].data;
 ---
 
-<Layout title="Projects">
+<Layout title="Projects" description='list of projects that i worked on' content='solidjs, web, go, svelte, pwa'>
   Personal Projects!
   <table>
     <tbody>

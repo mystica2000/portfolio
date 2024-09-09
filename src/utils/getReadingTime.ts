@@ -15,7 +15,7 @@ const extractSlug = (str: string): string => {
 
 
 export const getReadingTimeForPosts = async (postCollection: Post[]) => {
-    const posts = await import.meta.glob<Frontmatter>('../content/posts/*.mdx');
+    const posts = await import.meta.glob<Frontmatter>('@content/posts/*.mdx');
 
     const slugMap = new Map<string, string>();
     Object.keys(posts).forEach((path) => {
@@ -26,7 +26,6 @@ export const getReadingTimeForPosts = async (postCollection: Post[]) => {
     await Promise.all(
         postCollection.map(async post => {
             const path = slugMap.get(post.slug);
-            console.log(path);
             if (path) {
                 const { frontmatter } = await posts[path]();
                 post.data.readingTime = frontmatter.minutesRead;

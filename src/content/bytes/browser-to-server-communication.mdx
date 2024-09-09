@@ -1,0 +1,20 @@
+---
+title: "communication-protocols"
+date: 2024-09-09
+---
+
+Listed down the number of ways to transmit/exchange data between server and browser, we might use:
+
+- traditional way (http request/response)
+- chunked-response (streams data)
+- SSE (streams - text only, base64)
+- Web Sockets (streams)
+- grpc web (needs proxy)
+- Web Transport (alternative to web sockets BUT major browser support is lacking - as of 2024)
+
+send/recv data between browser to browser itself (new tab/window/browser/remote browser)
+
+- Broadcast Channel
+- Webrtc Data Channel (text/blob), Webrtc Media stream (audio/video/screen sharing) - p2p
+- MessageChannel (iframe to main, main thread to workers, tabs, window and vice versa)
+- PostMessage (iframe to main, main thread to workers, tabs, window and vice versa)

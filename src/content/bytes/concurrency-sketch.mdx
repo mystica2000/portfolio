@@ -1,0 +1,18 @@
+---
+title: "concurrency sketch"
+date: 2024-06-09
+---
+
+import ImageView from "@components/ImageView.astro";
+import RelatedBytes from "@components/bytes/RelatedBytes.astro";
+import concurrency from "@assets/images/bytes/concurrency.svg";
+
+Concurrency is illusion of parallelism. parallelism comes under concurrency techniques but it may execute concurrently but not necessarily in parallel. The actual execution (concurrent or parallel) depends on single-core or multi-core, os ability to manage threads etc.
+In conclusion, all parallel programs are concurrent but not all concurrent programs are parallel..
+
+<ImageView
+  src={concurrency}
+  alt="concurrency context switches between two tasks to create a illusion of running parallely and parallel executes two tasks in parallel manner"
+/>
+
+<RelatedBytes path={["concurrency-types"]} />

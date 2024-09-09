@@ -1,0 +1,50 @@
+---
+title: "concurrency types"
+date: 2024-06-09
+---
+
+import ImageView from "@components/ImageView.astro";
+import coop from "@assets/images/bytes/cooperative-concurrency.svg";
+import RelatedBytes from "@components/bytes/RelatedBytes.astro";
+
+There are two types of concurrency in general.
+
+1. co-operative
+2. non-co-operative
+
+### co-operative
+
+<ImageView
+  src={coop}
+  alt="Co-operative
+task#1 making  network call, what happens here is 'I can't processed
+further until i get the network call returns'.  control goes to
+the main (Event loop) where other tasks can be executed (task #2 here) without blocking
+
+Event loop manages the state of async/await functions where it
+checks if the network call is returned or not.
+
+- If returned, then switches to task #1 and proceeds further next line(console.log)
+- If not, nothing and continues to checks in the event loop until it is returned..
+  meanwhile, other tasks are executed"
+  />
+
+Co-operative since the functions decides when they willingly to pause
+by the using "await" and execute further instead of executing
+at some arbitarty point (ie: flow would be disturbed if it executes
+next lines of the code which depends on the result of the
+network call arbitrarily instead of waiting on the network call)
+
+- more like "concurrency on controlled manner"
+- explicit yielding since we are explicitly using await keyword to pause
+
+### Non co-operative
+
+There's non co-operative concurrency where context switch happens arbitrary implicit yielding instead of explicitly yielding to execute (usage of await keyword means explicit yielding).
+
+implicit yielding would be os threads/go routines where runtime scheduler handles the yielding internally without needing to `await` explicitly to control the concurrency ..
+
+- more like "concurrency on unhinged manner"
+- implicit yielding since it depends on how os system thread scheduling/go-routine handles it.
+
+<RelatedBytes path={["concurrency-sketch"]} />

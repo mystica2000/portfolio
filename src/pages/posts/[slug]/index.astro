@@ -5,8 +5,8 @@ import Blog from "@layouts/Blog.astro";
 import AnchorLink from "@components/blog/Anchor.astro";
 import HeaderLink from "@components/blog/HeaderLink.astro";
 import Table from "@components/blog/Table.astro";
-const components = { a: AnchorLink, h2: HeaderLink, table: Table };
 
+const components = { a: AnchorLink, h2: HeaderLink, table: Table };
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -23,10 +23,18 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Layout title={post.data.title}>
+<Layout title={post.data.title} description={post.data.description}>
   <article>
+    <a href="/posts" class="navlink">back to all posts</a>
     <Blog heading={post.data.title} readingTime={post.data?.readingTime || ""} lastModified={post.data.lastModified || null} pubDate={post.data.pubDate}>
       <Content components={components} />
     </Blog>
   </article>
 </Layout>
+
+
+<style>
+  a::before {
+    content: ' ← ';
+  }
+</style>

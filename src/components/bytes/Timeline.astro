@@ -1,6 +1,6 @@
 ---
 import Share from "@components/logo/Share.astro";
-import LinkedIn from "@components/logo/LinkedIn.astro";
+import { formatDate } from 'src/utils/formatDate';
 
 const bytes = await Astro.glob('@content/bytes/*.mdx');
 
@@ -26,6 +26,7 @@ const formatTitle = (str:string) => {
           <button class="share-btn"><Share /></button>
         </dt>
         <dd class="content">
+          <div class="date">last updated: {formatDate(new Date(aByte.frontmatter.date))}</div>
           <aByte.Content />
         </dd>
       </Fragment>
@@ -74,7 +75,7 @@ const formatTitle = (str:string) => {
     margin-right: 1.2em;
     margin-left: 1.2em;
     text-underline-offset: 3px;
-
+    text-transform: capitalize;
   }
 
   .title::before {
@@ -108,6 +109,9 @@ const formatTitle = (str:string) => {
     background: #161515b8;
     box-shadow: rgb(255 255 255 / 20%) 0px 7px 29px 0px;
   }
+
+  .title { color: black;}
+  :global(.dark) .title { color: #B39DDB; };
 
   .hide {
     display: none;
@@ -144,5 +148,14 @@ const formatTitle = (str:string) => {
     flex-direction: row;
     justify-content: space-between;
   }
+
+  .date {
+    text-align: end;
+    font-weight: 600;
+    text-decoration: overline;
+    font-variant: all-petite-caps;
+    font-style: italic;
+  }
+
 
 </style>

@@ -7,10 +7,10 @@ export default defineConfig({
   integrations: [mdx()],
   markdown: {
     remarkPlugins: [
-      remarkReadingTime, // 👈🏻 our plugin
+      remarkReadingTime,
     ],
     shikiConfig: {
-      theme: "synthwave-84",
+      theme: "slack-dark",
       wrap: true
     }
   }

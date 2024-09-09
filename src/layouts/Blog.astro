@@ -1,6 +1,7 @@
 ---
 import Calender from '@components/logo/Calender.astro';
 import Reading from '@components/logo/Reading.astro';
+import { formatDate } from 'src/utils/formatDate';
 
 interface Props {
     heading: string;
@@ -11,16 +12,7 @@ interface Props {
 
 const { heading, readingTime, lastModified, pubDate } = Astro.props;
 
-const options:Intl.DateTimeFormatOptions = {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    timeZone: "Asia/Kolkata"
-}
 
-const formatDate = (date:Date) => {
-    return new Intl.DateTimeFormat("en-EN", options).format(date)
-}
 ---
 
 <div class="heading">
@@ -66,6 +58,7 @@ const formatDate = (date:Date) => {
     border-style: none;
     padding-top: 0.1em;
     margin-bottom: 2em;
+    margin-top: 1.5em;
     padding-bottom: 0.2em;
     box-shadow: rgb(113 24 226 / 54%) 0px 25px 50px -12px;
     }

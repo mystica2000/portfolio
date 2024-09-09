@@ -1,0 +1,15 @@
+---
+title: "form-accessibility"
+date: 2023-10-30
+---
+
+For `<form>`,
+
+- use **semantic html** tags like `<label>`, `<input>` with appropriate type, `<select>` rather than div all around
+- `<fieldset>` and `<legend>` to group elements
+- to group/associate label and input, use for and id attributes on it
+- to handle error in the forms use (aria-invalid, aria-describedBy with appropriate id)
+- to navigate to the next form element, use enterkeyhint (look up on MDN), it will improve UX when using virtual keyboard (for example: mobile keyboard) along with event listeners for handling keydown events.
+- make sure to handle events (keyboard events) (for example: if used `<div>` to create checkbox, ensure keydown space/enter is handled, aria-checked, role, focusable).. ie: if creating custom components, make sure to add appropriate role, aria attributes, handle aria states, events, label, focusable.
+- Test using NVDA / TalkBack
+- Remember **Placeholder text is not a replacement for labels**

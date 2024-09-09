@@ -1,19 +1,18 @@
 ---
 import { getReadingTimeForPosts } from 'src/utils/getReadingTime';
-import Card from '../../components/blog/Card.astro';
-import Layout from '../../layouts/Layout.astro';
+import Card from '@components/blog/Card.astro';
+import Layout from '@layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
 
 // Get all `src/content/blog/` entries
-let postsCollection = await getCollection('posts');
+let postsCollection = await getCollection('posts',({ data }) => !data.draft);
 
 const posts = await getReadingTimeForPosts(postsCollection);
-posts.sort((a:any,b:any) => Date.parse(b.data.pubDate.toDateString()) - Date.parse(a.data.pubDate.toDateString()))
-
+posts.sort((a:any,b:any) => Date.parse(b.data.pubDate.toDateString()) - Date.parse(a.data.pubDate.toDateString()));
 ---
 
-<Layout title="Blog">
+<Layout title="Blog" description='checkout my posts about various tech stuff'>
   Contains Long Form Posts
 
   <div class="blog__container">
