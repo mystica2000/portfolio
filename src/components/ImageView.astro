@@ -4,12 +4,13 @@ import { Image } from 'astro:assets';
 interface Props {
   alt: string;
   src: ImageMetadata;
+  pfp?: boolean
 }
 
-const { alt, src } = Astro.props;
+const { alt, src, pfp = false } = Astro.props;
 ---
 
-<Image src={src} alt={alt} class:list={"img"}/>
+<Image src={src} alt={alt} class:list={["img", {pfpImg: pfp == true}  ]}/>
 
 <style>
   .img {
@@ -17,5 +18,16 @@ const { alt, src } = Astro.props;
     width: -moz-available;
     height: fit-content;
     cursor: pointer;
+  }
+
+  .pfpImg {
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+    object-position: 10% 35%;
+    border-radius: 50%;
+    cursor:default;
+    padding-top: 1.7em;
+    padding-left: 1.7em;
   }
 </style>

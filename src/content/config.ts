@@ -33,7 +33,7 @@ export type PostSchema = z.infer<typeof postSchema>;
 
 const byteSchema = z.object({
   title: z.string(),
-  date: z.date(),
+  pubDate: z.date(),
   draft: z.boolean().optional()
 });
 

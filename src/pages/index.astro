@@ -1,9 +1,12 @@
 ---
+import ImageView from '@components/ImageView.astro';
 import Email from '@components/logo/Email.astro';
 import Github from '@components/logo/Github.astro';
 import LinkedIn from '@components/logo/LinkedIn.astro';
 import Twitter from '@components/logo/Twitter.astro';
 import Layout from '@layouts/Layout.astro';
+import BlobWithImage from "@components/BlobWithImage.astro";
+import FeaturedSection from '@components/FeaturedSection.astro';
 ---
 
 <Layout title="Mystica" description='checkout my content on various technologies'>
@@ -18,6 +21,8 @@ import Layout from '@layouts/Layout.astro';
     My interests include: Web apps, Systems Engineering (Networking)
   </p>
 
+  <BlobWithImage />
+
   <br>
   <h3>Contact</h3>
   <p>If you want to connect or just wanna say Hi, feel free to reach via </p>
@@ -27,6 +32,9 @@ import Layout from '@layouts/Layout.astro';
     <span> <Github /> <a class="socials" href="https://github.com/mystica2000">Github</a> &nbsp;<span>/</span> &nbsp;</span>
     <span> <Email /><a class="socials" href="mailto:mysticainf@gmail.com">Email</a></span>
   </div>
+
+  <FeaturedSection />
+
 </Layout>
 
 <style>

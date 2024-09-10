@@ -1,0 +1,46 @@
+---
+import { late } from "astro/zod";
+import { getCollection } from "astro:content"
+
+const posts = await getCollection("posts");
+const bytes = await getCollection("bytes");
+
+interface Latest {
+    title: string;
+    date: Date;
+    link: string;
+}
+
+const monthPriorDate = new Date(new Date().setDate(new Date().getDate() - 30));
+const latestPosts:Latest[] = posts.filter((aPost) => aPost.data.lastModified != null ? aPost.data.lastModified > monthPriorDate : aPost.data.pubDate > monthPriorDate).map((aPost) => ({title: aPost.data.title, link: `/${aPost.collection}/${aPost.slug}`,date: aPost.data.lastModified == null ? aPost.data.pubDate : aPost.data.lastModified }));
+const latestBytes:Latest[] = bytes.filter((aByte) => aByte.data.pubDate > monthPriorDate).map((aByte) => ({title: aByte.data.title, link: `/${aByte.collection}#${aByte.slug}`, date: aByte.data.pubDate}));
+
+let latest:Latest[] = [...latestPosts,...latestBytes ];
+latest.sort((a,b) => Date.parse(b.date.toDateString()) - Date.parse(a.date.toDateString()));
+latest = latest.slice(0,3);
+---
+
+<section class="section">
+    <hr />
+    <h3>Latest Content</h3>
+    <ul>
+        { latest.length > 0 && latest.map((aLatest) => (
+            <li><a href={aLatest.link} class="navlink">{aLatest.title}</a></li>
+        ))}
+
+    </ul>
+</section>
+
+<style>
+    .section {
+        margin-top: 5em;
+    }
+
+    ul {
+        list-style-type: square;
+    }
+
+    .navlink:hover::after {
+        content: '↗';
+    }
+</style>

@@ -25,6 +25,13 @@ const { title, description, content } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="mystica"
+    href={ new URL("rss.xml", Astro.site)}
+    />
+
     <meta name="generator" content={Astro.generator} />
 
 		<title>{title}</title>

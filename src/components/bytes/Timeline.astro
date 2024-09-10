@@ -4,7 +4,7 @@ import { formatDate } from 'src/utils/formatDate';
 
 const bytes = await Astro.glob('@content/bytes/*.mdx');
 
-bytes.sort((a,b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date) )
+bytes.sort((a,b) => Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontmatter.pubDate) )
 
 const formatTitle = (str:string) => {
   return str.toLowerCase().replaceAll(" ","-");
@@ -26,7 +26,7 @@ const formatTitle = (str:string) => {
           <button class="share-btn"><Share /></button>
         </dt>
         <dd class="content">
-          <div class="date">last updated: {formatDate(new Date(aByte.frontmatter.date))}</div>
+          <div class="date">last updated: {formatDate(new Date(aByte.frontmatter.pubDate))}</div>
           <aByte.Content />
         </dd>
       </Fragment>
@@ -38,7 +38,7 @@ const formatTitle = (str:string) => {
 <script>
 
   const btns = document.getElementsByClassName("share-btn");
-
+  console.log(btns);
   for (let btn of btns) {
     btn.addEventListener("click", (event: Event) => {
       const target = event.target as HTMLElement;
