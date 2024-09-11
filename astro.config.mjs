@@ -8,6 +8,8 @@ import { exportAsPng } from './ogImage';
 const og = () => ({
   name: "satori-og",
   hooks: {
+
+    // credits to https://dietcode.io/p/astro-og/ for building og image at build time
     "astro:build:done": async ({ dir, pages }) => {
       const interFont = fs.readFileSync(
         "public/fonts/inter.ttf"

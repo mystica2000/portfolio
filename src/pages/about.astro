@@ -1,7 +1,36 @@
 ---
+import Others from '@components/about/Others.astro';
+import Skills from '@components/about/Skills.astro';
+import Slides from '@components/about/Slides.astro';
 import Layout from '@layouts/Layout.astro';
 ---
 
 <Layout title="About" description='about mystica'>
-  Lil more about me!
+  <div class="about">
+    <span>
+      <b>Experience:</b> 3+ years professionally in developing full-stack applications.
+    </span>
+    <span>
+      <b>Education:</b> Graduated in 2021 with a Bachelor's in Information Technology.
+    </span>
+  </div>
+
+
+  <Skills />
+  <Slides />
+  <Others />
+
+
 </Layout>
+
+<style>
+
+  .square {
+    list-style: square;
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

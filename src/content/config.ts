@@ -1,5 +1,6 @@
-import { defineCollection, z, type Render } from "astro:content";
+import { defineCollection, z } from "astro:content";
 
+// projects
 const projectSchema = z.object({
   emoji: z.string(),
   name: z.string(),
@@ -15,6 +16,7 @@ const projectCollection = defineCollection({
   schema: z.array(projectSchema)
 });
 
+// posts
 const postSchema = z.object({
   title: z.string(),
   description: z.string(),
@@ -31,6 +33,15 @@ export const postCollection = defineCollection({
 
 export type PostSchema = z.infer<typeof postSchema>;
 
+export type Post = {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "posts";
+  data: z.infer<typeof postSchema>;
+} & { render(): any };
+
+// bytes
 const byteSchema = z.object({
   title: z.string(),
   pubDate: z.date(),
@@ -43,16 +54,38 @@ const byteCollection = defineCollection({
 
 export type ByteSchema = z.infer<typeof byteSchema>;
 
-export type Post = {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "posts";
-  data: z.infer<typeof postSchema>;
-} & { render(): Render[".md"] };
+
+// skill
+const individualSkillSchema = z.object({
+  name: z.string(),
+  url: z.string().url(),
+})
+
+const skillGroupSchema = z.record(z.array(individualSkillSchema));
+
+const skillCollection = defineCollection({
+  schema: skillGroupSchema
+});
+
+export type SkillSchema = z.infer<typeof skillGroupSchema>;
+
+// slide
+const slideSchema = z.object({
+  description: z.string(),
+  link: z.string().url(),
+})
+
+const slideCollection = defineCollection({
+  schema: slideSchema
+});
+
+export type SlideSchema = z.infer<typeof slideSchema>;
+// end of slide
 
 export const collections = {
   'projects': projectCollection,
   'posts': postCollection,
-  'bytes': byteCollection
+  'bytes': byteCollection,
+  'skills': skillCollection,
+  'slides': slideCollection
 }

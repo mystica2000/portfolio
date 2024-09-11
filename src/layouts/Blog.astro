@@ -15,8 +15,8 @@ const { heading, readingTime, lastModified, pubDate } = Astro.props;
 
 ---
 
-<div class="heading">
-<h1 class="h1">{heading}</h1>
+<div class="heading" >
+<h1 class="h1" transition:name={`title-${heading}`}>{heading}</h1>
 <span class="sub-heading">
     <span>
         <p class="inline-p-header"> <Reading /> reading time</p>

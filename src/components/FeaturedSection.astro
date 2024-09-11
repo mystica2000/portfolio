@@ -11,8 +11,8 @@ interface Latest {
 }
 
 const monthPriorDate = new Date(new Date().setDate(new Date().getDate() - 30));
-const latestPosts:Latest[] = posts.filter((aPost) => aPost.data.lastModified != null ? aPost.data.lastModified > monthPriorDate : aPost.data.pubDate > monthPriorDate).map((aPost) => ({title: aPost.data.title, link: `/${aPost.collection}/${aPost.slug}`,date: aPost.data.lastModified == null ? aPost.data.pubDate : aPost.data.lastModified }));
-const latestBytes:Latest[] = bytes.filter((aByte) => aByte.data.pubDate > monthPriorDate).map((aByte) => ({title: aByte.data.title, link: `/${aByte.collection}#${aByte.slug}`, date: aByte.data.pubDate}));
+const latestPosts:Latest[] = posts.filter((aPost:any) => aPost.data.lastModified != null ? aPost.data.lastModified > monthPriorDate : aPost.data.pubDate > monthPriorDate).map((aPost:any) => ({title: aPost.data.title, link: `/${aPost.collection}/${aPost.slug}`,date: aPost.data.lastModified == null ? aPost.data.pubDate : aPost.data.lastModified }));
+const latestBytes:Latest[] = bytes.filter((aByte:any) => aByte.data.pubDate > monthPriorDate).map((aByte:any) => ({title: aByte.data.title, link: `/${aByte.collection}#${aByte.slug}`, date: aByte.data.pubDate}));
 
 let latest:Latest[] = [...latestPosts,...latestBytes ];
 latest.sort((a,b) => Date.parse(b.date.toDateString()) - Date.parse(a.date.toDateString()));

@@ -16,7 +16,7 @@ const formatTitle = (str:string) => {
     {
       bytes.map((aByte, index) => (
         <Fragment>
-        <dt class="flex" id={index.toString()}>
+        <dt class="flex" id={"dt_" + index.toString()}>
           <h2 id={`${formatTitle(aByte.frontmatter.title)}`} class="scroll-header">
           <a class="title" href={`#${formatTitle(aByte.frontmatter.title)}`}>
             {aByte.frontmatter.title}
@@ -25,7 +25,7 @@ const formatTitle = (str:string) => {
 
           <button class="share-btn"><Share /></button>
         </dt>
-        <dd class="content">
+        <dd class="content" id={index.toString()}>
           <div class="date">last updated: {formatDate(new Date(aByte.frontmatter.pubDate))}</div>
           <aByte.Content />
         </dd>
@@ -37,6 +37,7 @@ const formatTitle = (str:string) => {
 
 <script>
 
+  function initializePageEvents() {
   const btns = document.getElementsByClassName("share-btn");
   for (let btn of btns) {
     btn.addEventListener("click", (event: Event) => {
@@ -78,6 +79,32 @@ const formatTitle = (str:string) => {
   addEventListener("popstate", () => {
     updateMeta();
   });
+
+
+  let map = new Map();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const sectionId = map.get(entry.target.id);
+        const url = new URL(window.location.href);
+        url.hash = sectionId;
+        history.replaceState(null, "", url);
+        updateMeta();
+        return;
+      }
+    })
+  }, {threshold: 0.5});
+
+
+  document.querySelectorAll('dd').forEach(section => {
+    const child = document.querySelector(`dt[id='${"dt_"+section.id}'] h2`);
+    map.set(section.id, child?.id);
+    observer.observe(section)
+  })
+}
+
+document.addEventListener("DOMContentLoaded", () => initializePageEvents());
+document.addEventListener("astro:after-swap", () => initializePageEvents());
 
 </script>
 

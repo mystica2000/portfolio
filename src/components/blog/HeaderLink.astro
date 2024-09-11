@@ -2,7 +2,7 @@
 const prop = Astro.props;
 ---
 
-<h2 {...prop} class="scroll-header">
+<h2 {...prop} class="scroll-header" >
     <a href={`#${prop["id"]}`} class="header-anchor">
         <slot />
     </a>
