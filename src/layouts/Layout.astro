@@ -3,7 +3,7 @@
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import Main from '@components/Main.astro';
-import { ViewTransitions } from 'astro:transitions';
+import Meta from '@components/Meta.astro';
 
 
 interface Props {
@@ -18,24 +18,9 @@ const { title, description, content } = Astro.props;
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-    <meta name="keywords" content={content ? content : "Learn web dev,typescript,webrtc, networks"} />
 
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Meta title={title} description={description} content={content}/>
 
-    <link
-    rel="alternate"
-    type="application/rss+xml"
-    title="mystica"
-    href={ new URL("rss.xml", Astro.site)}
-    />
-
-    <meta name="generator" content={Astro.generator} />
-
-		<title>{title}</title>
-    <ViewTransitions />
 	</head>
 	<body>
     <Header />

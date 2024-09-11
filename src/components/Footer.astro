@@ -1,11 +1,12 @@
 <footer>
   <div class="footer__box">
     <span class="padding-left">© 2024 | Mystica</span>
+    <span><a href="/rss.xml" class="navlink arrow">rss feed</a></span>
     <div class="padding-right">
       <button id="toggleMode">toggle </button>
     </div>
   </div>
-  <span>made with <a href="https://astro.build/" target="_blank">astro</a> ❤️</span>
+  <span>made with <a href="https://astro.build/" target="_blank" class="navlink">astro</a> ❤️</span>
 </footer>
 
 <style>
@@ -35,8 +36,9 @@
     padding-right: 1em;
   }
 
-  a { color: black;}
-  :global(.dark) a { color: #B39DDB; };
+  .arrow::after {
+    content: '↗';
+  }
 
 </style>
 

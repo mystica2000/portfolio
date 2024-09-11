@@ -38,7 +38,6 @@ const formatTitle = (str:string) => {
 <script>
 
   const btns = document.getElementsByClassName("share-btn");
-  console.log(btns);
   for (let btn of btns) {
     btn.addEventListener("click", (event: Event) => {
       const target = event.target as HTMLElement;
@@ -48,7 +47,9 @@ const formatTitle = (str:string) => {
 
         navigator.clipboard.writeText(url).then(() => {
           const shareBtn = btn.innerHTML;
-          btn.innerHTML = "<span style='color:var(--astro-bg-color);'>copied</span>"
+          btn.innerHTML = "<span style='color:var(--astro-bg-color);'>copied</span>";
+          window.location.href = url;
+          updateMeta();
 
           // Revert back to the original content after 3 seconds
           setTimeout(() => {
@@ -60,6 +61,23 @@ const formatTitle = (str:string) => {
       }
     })
   }
+
+  function updateMeta() {
+    const sectionID = window.location.hash;
+    const title = sectionID.slice(1).replaceAll("-", " ");
+    document.title = title;
+    const imageUrl = window.location.href.replace(sectionID, "") + "/og/" + sectionID.slice(1) + "og.png";
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
+    document.querySelector('meta[property="og:image"]')?.setAttribute('content', imageUrl);
+
+    document.querySelector('meta[property="twitter:title"]')?.setAttribute('content', document.title);
+    document.querySelector('meta[property="twitter:image"]')?.setAttribute('content', imageUrl);
+
+  }
+
+  addEventListener("popstate", () => {
+    updateMeta();
+  });
 
 </script>
 

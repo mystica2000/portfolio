@@ -1,0 +1,52 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+    title: string;
+    description: string;
+    content?: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const image = new URL(canonicalURL.pathname + "og.png", Astro.site);
+
+const { title, description, content = "" } = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<meta name="keywords" content={content ? content : "contents about web dev, typescript, webrtc, networks"} />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="canonical" href={canonicalURL} />
+
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="robots" content="index, follow" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.url)} />
+
+<link
+    rel="alternate"
+    type="application/rss+xml"
+    title="mystica"
+    href={ new URL("rss.xml", Astro.site)}
+/>
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta name="twitter:creator" content="@mysticainf" />
+<meta name="twitter:site" content="@mysticainf" />
+
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<ViewTransitions />
