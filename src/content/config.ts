@@ -28,6 +28,7 @@ const postSchema = z.object({
 })
 
 export const postCollection = defineCollection({
+  type: 'data',
   schema: postSchema
 })
 
@@ -64,6 +65,7 @@ const individualSkillSchema = z.object({
 const skillGroupSchema = z.record(z.array(individualSkillSchema));
 
 const skillCollection = defineCollection({
+  type: 'data',
   schema: skillGroupSchema
 });
 
@@ -72,11 +74,12 @@ export type SkillSchema = z.infer<typeof skillGroupSchema>;
 // slide
 const slideSchema = z.object({
   description: z.string(),
-  link: z.string().url(),
+  link: z.string(),
 })
 
 const slideCollection = defineCollection({
-  schema: slideSchema
+  type: 'data',
+  schema: z.array(slideSchema)
 });
 
 export type SlideSchema = z.infer<typeof slideSchema>;

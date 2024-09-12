@@ -9,10 +9,6 @@
             "url": "https://react.dev/"
         },
         {
-            "name": "SolidJS",
-            "url": "https://www.solidjs.com/"
-        },
-        {
             "name": "Ionic",
             "url": "https://ionicframework.com/"
         }
@@ -51,6 +47,10 @@
         {
             "name": "RxJS",
             "url": "https://rxjs.dev/"
+        },
+        {
+            "name": "Capacitor",
+            "url": "https://capacitorjs.com/"
         }
     ]
 }

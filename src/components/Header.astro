@@ -42,7 +42,31 @@ const pathname = new URL(Astro.request.url).pathname;
     backdrop-filter: blur(4px);
     margin-left: 10px;
     margin-right: 10px;
+
+    /* border: solid 2px transparent;
+    background-image: linear-gradient(#ffffff, #ffffff),
+                    radial-gradient(circle at top left, #f00, #3020ff);
+    background-origin: border-box;
+    background-clip: padding-box, border-box; */
   }
+
+  .nav__box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  padding: 2px; /* This creates the border width */
+  background: radial-gradient(circle at top left, #f00, #3020ff);
+  -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
 
   .no-decor {
     text-decoration: none;
@@ -52,6 +76,7 @@ const pathname = new URL(Astro.request.url).pathname;
     .nav__box {
       flex-direction: column;
       align-items: flex-start;
+      padding-bottom: 1em;
     }
 
     ul {
@@ -68,7 +93,6 @@ const pathname = new URL(Astro.request.url).pathname;
 
   .home {
     text-transform: uppercase;
-    font-size: 18px;
     text-align: rotateY(45deg);
     text-decoration: none;
     -webkit-text-stroke: 0.2px #000000;

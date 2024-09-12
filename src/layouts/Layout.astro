@@ -37,6 +37,7 @@ const { title, description, content } = Astro.props;
     line-height: 27px;
 
     scroll-behavior: smooth;
+
 	}
   :root {
    --content-width: 750px;
@@ -46,8 +47,10 @@ const { title, description, content } = Astro.props;
    --astro-bg-color: #000000;
  }
 
- body {
-  margin: 0em;
+ html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
  }
 
  html.dark {
@@ -95,4 +98,13 @@ pre > code {
         scroll-margin-top: 80px;
     }
 
+    body {
+      display: flex;
+    height: 100%;
+    flex-direction: column;
+    }
+
+    main {
+      flex-grow: 1;
+    }
 </style>

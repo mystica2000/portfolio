@@ -6,17 +6,23 @@
       <button id="toggleMode">toggle </button>
     </div>
   </div>
-  <span>made with <a href="https://astro.build/" target="_blank" class="navlink">astro</a>❤️</span>
+  <span class="margin__bottom">made with <a href="https://astro.build/" target="_blank" class="navlink">astro</a>❤️</span>
 </footer>
 
 <style>
+
+  .margin__bottom {
+    margin-bottom: 1em;
+  }
+
   footer {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 0.5em;
+    margin-bottom: 1.5em;
+    margin-top: 1em;
   }
 
   .footer__box {
@@ -26,6 +32,12 @@
     max-width: var(--content-width);
     margin: 1em;
     width: 100%;
+    padding-top: 1em;
+
+    border-top: 1px solid;
+    border-image-slice: 1;
+    border-width: 3px;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
   }
 
   .padding-left {

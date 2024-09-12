@@ -5,6 +5,7 @@ const skillsCollection = await getCollection('skills');
 
 const skills:SkillSchema = skillsCollection[0].data;
 ---
+<section>
 <h3>Skills</h3>
 
 {
@@ -20,7 +21,7 @@ const skills:SkillSchema = skillsCollection[0].data;
 </div>
   ))
 }
-
+</section>
 
 <style>
 
@@ -32,11 +33,7 @@ const skills:SkillSchema = skillsCollection[0].data;
     text-shadow:  0px 0px #ff4f4f, -2px -1px 1em #ff6b6b, 1px -1px 0em #000000;
   }
 
-  a::after {
-    content: '↗';
-  }
-
-  :global(.dark) .socials { color: #B39DDB; }
+  :global(.dark) .socials { color: #c9e79a; }
 
   .highlight {
     font-weight: 500;
@@ -45,4 +42,6 @@ const skills:SkillSchema = skillsCollection[0].data;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+
 </style>
