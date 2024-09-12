@@ -8,7 +8,6 @@ export async function GET(context) {
 
     let combineRSSFeed = [...posts, ...bytes];
     combineRSSFeed.sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate));
-    console.log(combineRSSFeed);
 
     let items = combineRSSFeed.map(async (post) => {
         const data = {

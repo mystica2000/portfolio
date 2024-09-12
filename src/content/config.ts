@@ -28,7 +28,6 @@ const postSchema = z.object({
 })
 
 export const postCollection = defineCollection({
-  type: 'data',
   schema: postSchema
 })
 
