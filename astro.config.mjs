@@ -32,16 +32,12 @@ const og = () => ({
           } else {
             const byteFiles = await readdir(`src/content/${pathname}/`);
 
-            if (!fs.existsSync(`${dir.pathname.slice(1)}/${pathname}/og`)) {
-              fs.mkdirSync(`${dir.pathname.slice(1)}/${pathname}/og`);
-            }
-
             for (const byte of byteFiles) {
               const file = fs.readFileSync(`src/content/bytes/${byte}`);
               const { title, svg } = await exportAsPng(file, interFont);
 
               fs.writeFileSync(
-                `${dir.pathname.slice(1)}/${pathname}/og/${title.replaceAll(" ", "-").toLowerCase()}og.png`,
+                `${dir.pathname.slice(1)}${pathname}${title.replaceAll(" ", "-").toLowerCase()}-og.png`,
                 svg
               );
             }
@@ -59,6 +55,7 @@ const og = () => ({
 export default defineConfig({
   integrations: [mdx(), og()],
   site: 'https://mystica.me',
+  prefetch: false,
   markdown: {
     remarkPlugins: [
       remarkReadingTime,

@@ -20,13 +20,13 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content, remarkPluginFrontmatter } = await post.render();
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
   <article>
     <a href="/posts" class="navlink">back to all posts</a>
-    <Blog heading={post.data.title} readingTime={post.data?.readingTime || ""} lastModified={post.data.lastModified || null} pubDate={post.data.pubDate}>
+    <Blog heading={post.data.title} readingTime={remarkPluginFrontmatter.minutesRead || ""} lastModified={post.data.lastModified || null} pubDate={post.data.pubDate}>
       <Content components={components} />
     </Blog>
   </article>

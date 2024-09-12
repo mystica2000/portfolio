@@ -35,14 +35,14 @@ const formatTitle = (str:string) => {
   </dl>
 </div>
 
-<script>
+<script is:inline data-astro-rerun>
 
   function initializePageEvents() {
   const btns = document.getElementsByClassName("share-btn");
   for (let btn of btns) {
-    btn.addEventListener("click", (event: Event) => {
-      const target = event.target as HTMLElement;
-      const titleElement = target.closest("dt")?.querySelector(".title") as HTMLAnchorElement;
+    btn.addEventListener("click", (event) => {
+      const target = event.target;
+      const titleElement = target.closest("dt")?.querySelector(".title");
       if (titleElement) {
         const url = window.location.href.split('#')[0] + '#' + titleElement.getAttribute('href')?.substring(1);
 
@@ -67,7 +67,7 @@ const formatTitle = (str:string) => {
     const sectionID = window.location.hash;
     const title = sectionID.slice(1).replaceAll("-", " ");
     document.title = title;
-    const imageUrl = window.location.href.replace(sectionID, "") + "/og/" + sectionID.slice(1) + "og.png";
+    const imageUrl = window.location.href.replace(sectionID, "") + "/" + sectionID.slice(1) + "-" + "og.png";
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
     document.querySelector('meta[property="og:image"]')?.setAttribute('content', imageUrl);
 
@@ -103,8 +103,7 @@ const formatTitle = (str:string) => {
   })
 }
 
-document.addEventListener("DOMContentLoaded", () => initializePageEvents());
-document.addEventListener("astro:after-swap", () => initializePageEvents());
+initializePageEvents();
 
 </script>
 
@@ -160,7 +159,7 @@ document.addEventListener("astro:after-swap", () => initializePageEvents());
   }
 
   .title { color: black;}
-  :global(.dark) .title { color: #B39DDB; };
+  :global(.dark) .title { color: #B39DDB; }
 
   .hide {
     display: none;
