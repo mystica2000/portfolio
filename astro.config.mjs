@@ -11,6 +11,9 @@ const og = () => ({
 
     // credits to https://dietcode.io/p/astro-og/ for building og image at build time
     "astro:build:done": async ({ dir, pages }) => {
+      console.log(process.cwd());
+
+      console.log(dir, pages);
       const interFont = fs.readFileSync(
         "public/fonts/inter.ttf"
       );
