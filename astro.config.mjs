@@ -29,7 +29,7 @@ const og = () => ({
             const { svg } = await exportAsPng(file, interFont);
 
             fs.writeFileSync(
-              `${dir.pathname.slice(1)}${pathname}og.png`,
+              `${dir.pathname}${pathname}og.png`,
               svg
             );
 
