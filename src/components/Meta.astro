@@ -29,6 +29,7 @@ const { title, description, content = "" } = Astro.props;
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content={new URL(image, Astro.url)} />
 
 <link
@@ -45,6 +46,7 @@ const { title, description, content = "" } = Astro.props;
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 <meta name="twitter:creator" content="@mysticainf" />
 <meta name="twitter:site" content="@mysticainf" />
+
 
 <meta name="generator" content={Astro.generator} />
 

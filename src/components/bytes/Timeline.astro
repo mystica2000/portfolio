@@ -67,12 +67,19 @@ const formatTitle = (str:string) => {
     const sectionID = window.location.hash;
     const title = sectionID.slice(1).replaceAll("-", " ");
     document.title = title;
-    const imageUrl = window.location.href.replace(sectionID, "") + "/" + sectionID.slice(1) + "-" + "og.png";
+
+    let location= window.location.href.replace(sectionID, "");
+    location = location.endsWith("/") ? location.slice(0, location.length) : location;
+
+    const imageUrl = location + "/" + sectionID.slice(1) + "-" + "og.png";
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
     document.querySelector('meta[property="og:image"]')?.setAttribute('content', imageUrl);
 
     document.querySelector('meta[property="twitter:title"]')?.setAttribute('content', document.title);
     document.querySelector('meta[property="twitter:image"]')?.setAttribute('content', imageUrl);
+
+    document.querySelector('meta[name="title"]')?.setAttribute('content', document.title);
+    document.querySelector('meta[name="description"]')?.setAttribute('content', "");
 
   }
 

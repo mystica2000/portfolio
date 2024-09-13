@@ -6,7 +6,6 @@ const currentPath = pathname.slice(1);
     <nav class="nav__box">
     <h1 class="home"><a href="/" class="navlink no-decor" class:list={["navlink", "no-decor", {active: currentPath == "" }]} >Mystica</a></h1>
     <ul>
-      {currentPath}
       <li><a class:list={["navlink", {active: currentPath == "posts/" || /^posts\/.*/.test(currentPath) }]} href="/posts">posts</a></li>
       <li><a class:list={["navlink", {active: currentPath == "bytes/" }]} href="/bytes">bytes</a></li>
       <li><a class:list={["navlink", {active: currentPath == "projects/" }]} href="/projects">projects</a></li>
