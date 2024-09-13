@@ -36,6 +36,16 @@ const og = () => ({
           } else {
             const byteFiles = await readdir(`src/content/${pathname}/`);
 
+            const getFolders = async (source) => {
+              const entries = await readdir(source, { withFileTypes: true });
+              return entries.filter(entry => entry.isDirectory()).map(entry => entry.name);
+            };
+            console.log(dir.pathname);
+            getFolders(dir.pathname.slice(1)).then(folders => {
+              console.log(folders);
+            });
+
+
             for (const byte of byteFiles) {
               const file = fs.readFileSync(`src/content/bytes/${byte}`);
               const { title, svg } = await exportAsPng(file, interFont);
