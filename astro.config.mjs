@@ -50,7 +50,7 @@ const og = () => ({
               const file = fs.readFileSync(`src/content/bytes/${byte}`);
               const { title, svg } = await exportAsPng(file, interFont);
 
-              const pathFile = path.join(dir.pathname.slice(1), pathname, `${title.replaceAll(" ", "-").toLowerCase()}-og.png`);
+              const pathFile = path.join(dir.pathname, pathname, `${title.replaceAll(" ", "-").toLowerCase()}-og.png`);
               console.log(pathFile);
               fs.writeFileSync(
                 pathFile,
