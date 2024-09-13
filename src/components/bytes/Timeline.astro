@@ -18,12 +18,12 @@ const formatTitle = (str:string) => {
         <Fragment>
         <dt class="flex" id={"dt_" + index.toString()}>
           <h2 id={`${formatTitle(aByte.frontmatter.title)}`} class="scroll-header">
-          <a class="title" href={`#${formatTitle(aByte.frontmatter.title)}`}>
+          <span id={`/bytes/${formatTitle(aByte.frontmatter.title)}`} class="title">
             {aByte.frontmatter.title}
           </a>
-          </h2>
+          </span>
 
-          <button class="share-btn"><Share /></button>
+          <button class="share-btn" ><Share /></button>
         </dt>
         <dd class="content" id={index.toString()}>
           <div class="date">last updated: {formatDate(new Date(aByte.frontmatter.pubDate))}</div>
@@ -38,19 +38,31 @@ const formatTitle = (str:string) => {
 <script is:inline data-astro-rerun>
 
   function initializePageEvents() {
+
+  // for btns share
   const btns = document.getElementsByClassName("share-btn");
   for (let btn of btns) {
     btn.addEventListener("click", (event) => {
+      event.stopPropagation();
       const target = event.target;
       const titleElement = target.closest("dt")?.querySelector(".title");
       if (titleElement) {
-        const url = window.location.href.split('#')[0] + '#' + titleElement.getAttribute('href')?.substring(1);
+        const location = window.location.href.indexOf("/bytes");
+        const sectionURL = window.location.href.slice(0, location) + "/bytes/" + titleElement.getAttribute('id')?.substring(1).split("/")[1];
+        const url = new URL(sectionURL);
+        const h2element = document.getElementById(titleElement.getAttribute('id')?.substring(1).split("/")[1]);
+
+        if (window.innerWidth < 440) {
+          h2element.style.scrollMargin = '150px';
+        } else {
+          h2element.style.scrollMargin = '90px';
+        }
+        h2element.scrollIntoView({behavior:'smooth', block: "start", inline: "nearest"});
 
         navigator.clipboard.writeText(url).then(() => {
           const shareBtn = btn.innerHTML;
           btn.innerHTML = "<span style='color:var(--astro-bg-color);'>copied</span>";
-          window.location.href = url;
-          updateMeta();
+          history.replaceState(null, "",url);
 
           // Revert back to the original content after 3 seconds
           setTimeout(() => {
@@ -63,29 +75,51 @@ const formatTitle = (str:string) => {
     })
   }
 
-  function updateMeta() {
-    const sectionID = window.location.hash;
-    const title = sectionID.slice(1).replaceAll("-", " ");
-    document.title = title;
+  const h2Array = document.getElementsByClassName("scroll-header");
+  for (const h2 of h2Array) {
+    h2.addEventListener("click", (event) => {
+      const element = document.getElementById(event.target.id);
+      setTimeout(function () {
 
-    let location= window.location.href.replace(sectionID, "");
-    location = location.endsWith("/") ? location.slice(0, location.length) : location;
+        if (window.innerWidth < 440) {
+          element.style.scrollMargin = '150px';
+        } else {
+          element.style.scrollMargin = '90px';
+        }
 
-    const imageUrl = location + "/" + sectionID.slice(1) + "-" + "og.png";
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
-    document.querySelector('meta[property="og:image"]')?.setAttribute('content', imageUrl);
+        element.scrollIntoView({
+               behavior: "smooth",
+               block: "start",
+           });
 
-    document.querySelector('meta[property="twitter:title"]')?.setAttribute('content', document.title);
-    document.querySelector('meta[property="twitter:image"]')?.setAttribute('content', imageUrl);
-
-    document.querySelector('meta[name="title"]')?.setAttribute('content', document.title);
-    document.querySelector('meta[name="description"]')?.setAttribute('content', "");
-
+        const location = window.location.href.indexOf("/bytes");
+        const sectionURL = window.location.href.slice(0, location) + event.target.id
+        history.replaceState(null, "",sectionURL);
+      }, 100);
+    })
   }
+}
 
-  addEventListener("popstate", () => {
-    updateMeta();
-  });
+document.addEventListener("DOMContentLoaded", ()=> {
+  const location = window.location.href.indexOf("bytes/");
+  const url = window.location.href.slice(location+6).replace("/", "");
+
+  const element = document.getElementById(url);
+  console.log(element);
+
+  if (window.innerWidth < 440) {
+          element.style.scrollMargin = '150px';
+        } else {
+          element.style.scrollMargin = '90px';
+        }
+
+        element.scrollIntoView({
+               behavior: "instant",
+               block: "start",
+           });
+
+
+
 
 
   let map = new Map();
@@ -93,10 +127,10 @@ const formatTitle = (str:string) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const sectionId = map.get(entry.target.id);
-        const url = new URL(window.location.href);
-        url.hash = sectionId;
-        history.replaceState(null, "", url);
-        updateMeta();
+        const location = window.location.href.indexOf("/bytes");
+        const sectionURL = window.location.href.slice(0, location) + "/bytes/" + sectionId;
+        const url = new URL(sectionURL);
+        history.replaceState(null, "",url);
         return;
       }
     })
@@ -108,9 +142,11 @@ const formatTitle = (str:string) => {
     map.set(section.id, child?.id);
     observer.observe(section)
   })
-}
+});
 
 initializePageEvents();
+
+
 
 </script>
 
@@ -124,16 +160,17 @@ initializePageEvents();
     margin: 0.5em;
   }
 
-  .title {
+  .scroll-header {
     display: grid;
     grid-template-columns: 1fr 0.1fr;
     margin-right: 1.2em;
     margin-left: 1.2em;
     text-underline-offset: 3px;
     text-transform: capitalize;
+    width: 100%;
   }
 
-  .title::before {
+  .scroll-header::before {
     width: 10px;
     height: 10px;
     position: absolute;

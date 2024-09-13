@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 import { remarkReadingTime } from './src/utils/remark-reading-time.mjs';
 import mdx from "@astrojs/mdx";
 import fs from "node:fs";
-import { readdir } from 'node:fs/promises';
 import { exportAsPng } from './ogImage';
 import path from 'node:path';
 import { platform } from "node:os";
@@ -21,12 +20,12 @@ const og = () => ({
 
       for (const { pathname } of pages) {
 
-        if (/(^(posts)\/[a-zA-Z0-9-])/.test(pathname) || pathname.startsWith("bytes/")) {
+        if (/(^(posts)\/[a-zA-Z0-9-])/.test(pathname) || /(^(bytes)\/[a-zA-Z0-9-])/.test(pathname)) {
 
           if (pathname.startsWith("posts/")) {
             const filename = pathname.slice(6, -1);
             const file = fs.readFileSync(`src/content/posts/${filename}.mdx`);
-            const { svg } = await exportAsPng(file, interFont);
+            const svg = await exportAsPng(file, interFont);
 
             fs.writeFileSync(
               `${isPlatformWindows == true ? dir.pathname.slice(1) : dir.pathname}${pathname}og.png`,
@@ -34,18 +33,15 @@ const og = () => ({
             );
 
           } else {
-            const byteFiles = await readdir(`src/content/${pathname}/`);
 
-            for (const byte of byteFiles) {
-              const file = fs.readFileSync(`src/content/bytes/${byte}`);
-              const { title, svg } = await exportAsPng(file, interFont);
-
-              const pathFile = path.join(`${isPlatformWindows == true ? dir.pathname.slice(1) : dir.pathname}`, pathname, `${title.replaceAll(" ", "-").toLowerCase()}-og.png`);
-              fs.writeFileSync(
-                pathFile,
-                svg
-              );
-            }
+            const filename = pathname.slice(6, -1);
+            const file = await fs.readFileSync(`src/content/bytes/${filename}.mdx`);
+            const svg = await exportAsPng(file, interFont);
+            const pathFile = path.join(`${isPlatformWindows == true ? dir.pathname.slice(1) : dir.pathname}`, pathname, `og.png`);
+            fs.writeFileSync(
+              pathFile,
+              svg
+            );
           }
         }
       }

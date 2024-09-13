@@ -1,9 +1,25 @@
 ---
+import { getCollection  } from "astro:content";
 import Timeline from '@components/bytes/Timeline.astro';
 import Layout from '@layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const bytes = await getCollection("bytes");
+
+  const byteResult = bytes.map(byte => ({
+    params: { slug: byte.slug },
+    props: { byte },
+  }));
+
+  return byteResult;
+}
+
+
+const { byte } = Astro.props;
 ---
 
-<Layout title="Bytes" description='random bytes of information about stuff that i learned or find useful'>
+
+<Layout title={byte.data.title} description=''>
   <h2>Bytes</h2>
   <p class="center">
     Quick Bytes - Random info that’s too short for a full post will be shared here.
