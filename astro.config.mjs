@@ -4,6 +4,7 @@ import mdx from "@astrojs/mdx";
 import fs from "node:fs";
 import { readdir } from 'node:fs/promises';
 import { exportAsPng } from './ogImage';
+import path from 'node:path';
 
 const og = () => ({
   name: "satori-og",
@@ -39,8 +40,10 @@ const og = () => ({
               const file = fs.readFileSync(`src/content/bytes/${byte}`);
               const { title, svg } = await exportAsPng(file, interFont);
 
+              const pathFile = path.join(dir.pathname.slice(1), pathname, `${title.replaceAll(" ", "-").toLowerCase()}-og.png`);
+              console.log(pathFile);
               fs.writeFileSync(
-                `${dir.pathname.slice(1)}${pathname}${title.replaceAll(" ", "-").toLowerCase()}-og.png`,
+                pathFile,
                 svg
               );
             }
