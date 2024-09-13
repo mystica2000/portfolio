@@ -41,7 +41,7 @@ const og = () => ({
               return entries.filter(entry => entry.isDirectory()).map(entry => entry.name);
             };
             console.log(dir.pathname);
-            getFolders(dir.pathname.slice(1)).then(folders => {
+            getFolders(dir.pathname).then(folders => {
               console.log(folders);
             });
 
