@@ -1,7 +1,7 @@
 ---
 import { getCollection  } from "astro:content";
-import Timeline from '@components/bytes/Timeline.astro';
 import Layout from '@layouts/Layout.astro';
+import Byte from "@components/bytes/Byte.astro";
 
 export async function getStaticPaths() {
   const bytes = await getCollection("bytes");
@@ -20,18 +20,5 @@ const { byte } = Astro.props;
 
 
 <Layout title={byte.data.title} description=''>
-  <h2>Bytes</h2>
-  <p class="center">
-    Quick Bytes - Random info that’s too short for a full post will be shared here.
-  </p>
-  <Timeline />
+  <Byte />
 </Layout>
-
-<style>
-    .center {
-    text-align: center;
-    text-transform: capitalize;
-    margin-left: 1em;
-    margin-right: 1em;
-  }
-</style>

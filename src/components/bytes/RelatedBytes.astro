@@ -1,31 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
-
-
-let bytesCollection = await getCollection('bytes');
-
-const formatTitle = (str:string) => {
-  return str.toLowerCase().replaceAll(" ","-");
-}
-
-let byteSlugs = bytesCollection.map((aByte) => formatTitle(aByte.data.title));
-
 interface Props {
-  path: typeof byteSlugs;
+  path: string[];
 }
 
+const url = "http://localhost:4321/";
 const { path } = Astro.props;
 ---
 
 <section>
-    <div class="section">Related Bytes:</div>
-    { path && path.length > 0 &&
-      path.map((aPath:any) => (
-        <a href={
-          "#" + aPath
-        } class="navlink">{aPath}</a>
+  <div class="section">Related Bytes:</div>
+  {
+    path &&
+      path.length > 0 &&
+      path.map((aPath: string) => (
+        <a href={url + "bytes/" + aPath} class="navlink">
+          {aPath}
+        </a>
       ))
-    }
+  }
 </section>
 
 <style>
