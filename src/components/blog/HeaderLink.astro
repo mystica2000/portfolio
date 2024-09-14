@@ -2,15 +2,15 @@
 const prop = Astro.props;
 ---
 
-<h2 {...prop} class="scroll-header" >
-    <a href={`#${prop["id"]}`} class="header-anchor">
-        <slot />
-    </a>
+<h2 {...prop} class="scroll-header">
+  <a href={`#${prop["id"]}`} class="header-anchor">
+    <slot />
+  </a>
 </h2>
 
 <style>
-    .header-anchor {
-        color: var(--astro-bg-color);
-        text-underline-offset: 5px;
-    }
+  .header-anchor {
+    color: var(--astro-bg-color);
+    text-underline-offset: 5px;
+  }
 </style>

@@ -1,27 +1,32 @@
 ---
 import { getCollection } from "astro:content";
 import type { SlideSchema } from "@content/config";
-const slidesCollection = await getCollection('slides');
+const slidesCollection = await getCollection("slides");
 
-const slides:SlideSchema[] = slidesCollection[0].data;
+const slides: SlideSchema[] = slidesCollection[0].data;
 ---
-<section>
-<h3>Slides</h3>
 
-    <table >
-    { slides.map((aSlide) => (
-    <tr>
-        <td>{aSlide.description} &nbsp;<a href={aSlide.link} class="navlink" target="_blank">link</a></td>
-        <td></td>
-    </tr>
-    ))
+<section>
+  <h3>Slides</h3>
+
+  <table>
+    {
+      slides.map((aSlide) => (
+        <tr>
+          <td>
+            {aSlide.description} &nbsp;
+            <a href={aSlide.link} class="navlink" target="_blank">
+              link
+            </a>
+          </td>
+          <td />
+        </tr>
+      ))
     }
-</table>
+  </table>
 </section>
 <style>
-
   a::after {
-    content: '↗';
+    content: "↗";
   }
-
 </style>

@@ -2,28 +2,32 @@
 import type { ProjectSchema } from "@content/config";
 
 interface Props {
- project: ProjectSchema
+  project: ProjectSchema;
 }
 
 const { project } = Astro.props;
 ---
 
 <tr class="project__card">
-  <td >{project.emoji} <a href={project.url} class="navlink" target="_blank">{project.name}</a></td>
+  <td
+    >{project.emoji}
+    <a href={project.url} class="navlink" target="_blank">{project.name}</a></td
+  >
   <td class="card__box border__line">
     <ul>
-      {
-        project.description.map((desp) => (
-          <li>{desp}</li>
-        ))
-      }
+      {project.description.map((desp) => <li>{desp}</li>)}
     </ul>
-    { project.live && <a href={project.live} class="navlink" target="_blank">live</a> }
+    {
+      project.live && (
+        <a href={project.live} class="navlink" target="_blank">
+          live
+        </a>
+      )
+    }
   </td>
 </tr>
 
 <style>
-
   .border__line {
     border-left: 2px solid rgb(229 229 229 / 72%);
     margin-top: 1em;
@@ -40,20 +44,23 @@ const { project } = Astro.props;
     height: 100%;
     background-color: #ffffff59;
     border-radius: 10px;
-    box-shadow:0px 0px 0px 2px rgb(229 229 229 / 72%), rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow:
+      0px 0px 0px 2px rgb(229 229 229 / 72%),
+      rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     margin-bottom: 1.3em;
   }
-
 
   :global(.dark) .project__card {
     border: 2px solid rgb(59 54 54);
     background-color: #0a09093d;
 
-    box-shadow: 0px 0px 0px 2px rgb(59 54 54), rgb(255 255 255 / 20%) 0px 7px 29px 0px;
+    box-shadow:
+      0px 0px 0px 2px rgb(59 54 54),
+      rgb(255 255 255 / 20%) 0px 7px 29px 0px;
   }
 
   :global(.dark) .border__line {
-    border-color:rgb(59 54 54);
+    border-color: rgb(59 54 54);
   }
 
   ul {
@@ -73,5 +80,4 @@ const { project } = Astro.props;
     display: grid;
     grid-template-rows: 2fr 0.5fr;
   }
-
 </style>

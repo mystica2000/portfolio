@@ -1,11 +1,11 @@
 ---
-import Others from '@components/about/Others.astro';
-import Skills from '@components/about/Skills.astro';
-import Slides from '@components/about/Slides.astro';
-import Layout from '@layouts/Layout.astro';
+import Others from "@components/about/Others.astro";
+import Skills from "@components/about/Skills.astro";
+import Slides from "@components/about/Slides.astro";
+import Layout from "@layouts/Layout.astro";
 ---
 
-<Layout title="About" description='about mystica'>
+<Layout title="About" description="about mystica">
   <h2>About me</h2>
   <div class="about">
     <span>
@@ -16,16 +16,12 @@ import Layout from '@layouts/Layout.astro';
     </span>
   </div>
 
-
   <Skills />
   <Slides />
   <Others />
-
-
 </Layout>
 
 <style>
-
   .square {
     list-style: square;
   }

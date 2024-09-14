@@ -1,17 +1,45 @@
 ---
-const pathname = new URL(Astro.request.url).pathname
+const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.slice(1);
 ---
+
 <header>
-    <nav class="nav__box">
-    <h1 class="home"><a href="/" class="navlink no-decor" class:list={["navlink", "no-decor", {active: currentPath == "" }]} >Mystica</a></h1>
+  <nav class="nav__box">
+    <h1 class="home">
+      <a
+        href="/"
+        class="navlink no-decor"
+        class:list={["navlink", "no-decor", { active: currentPath == "" }]}
+        >Mystica</a>
+    </h1>
     <ul>
-      <li><a class:list={["navlink", {active: currentPath == "posts/" || /^posts\/.*/.test(currentPath) }]} href="/posts">posts</a></li>
-      <li><a class:list={["navlink", {active: currentPath == "bytes/" }]} href="/bytes">bytes</a></li>
-      <li><a class:list={["navlink", {active: currentPath == "projects/" }]} href="/projects">projects</a></li>
-      <li><a class:list={["navlink", {active: currentPath == "about/" }]} href="/about">about</a></li>
-      </ul>
-    </nav>
+      <li>
+        <a
+          class:list={[
+            "navlink",
+            {
+              active: currentPath == "posts/" || /^posts\/.*/.test(currentPath),
+            },
+          ]}
+          href="/posts">posts</a>
+      </li>
+      <li>
+        <a
+          class:list={["navlink", { active: currentPath == "bytes/" }]}
+          href="/bytes">bytes</a>
+      </li>
+      <li>
+        <a
+          class:list={["navlink", { active: currentPath == "projects/" }]}
+          href="/projects">projects</a>
+      </li>
+      <li>
+        <a
+          class:list={["navlink", { active: currentPath == "about/" }]}
+          href="/about">about</a>
+      </li>
+    </ul>
+  </nav>
 </header>
 
 <style>
@@ -42,32 +70,31 @@ const currentPath = pathname.slice(1);
     backdrop-filter: blur(4px);
     margin-left: 10px;
     margin-right: 10px;
-
   }
 
   .nav__box::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 10px;
-  padding: 2px; /* This creates the border width */
-  background: radial-gradient(circle at top left, #f00, #3020ff);
-  -webkit-mask:
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 2px; /* This creates the border width */
+    background: radial-gradient(circle at top left, #f00, #3020ff);
+    -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 
   .no-decor {
     text-decoration: none;
   }
 
-  @media screen and (max-width:440px) {
+  @media screen and (max-width: 440px) {
     .nav__box {
       flex-direction: column;
       align-items: flex-start;
@@ -81,7 +108,7 @@ const currentPath = pathname.slice(1);
   }
 
   ul {
-    list-style: '/';
+    list-style: "/";
     display: flex;
     gap: 0.7em;
   }
@@ -93,6 +120,4 @@ const currentPath = pathname.slice(1);
     -webkit-text-stroke: 0.2px #000000;
     letter-spacing: 2px;
   }
-
-
 </style>

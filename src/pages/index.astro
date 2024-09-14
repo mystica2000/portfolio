@@ -1,39 +1,60 @@
 ---
-import Email from '@components/logo/Email.astro';
-import Github from '@components/logo/Github.astro';
-import LinkedIn from '@components/logo/LinkedIn.astro';
-import Twitter from '@components/logo/Twitter.astro';
-import Layout from '@layouts/Layout.astro';
+import Email from "@components/logo/Email.astro";
+import Github from "@components/logo/Github.astro";
+import LinkedIn from "@components/logo/LinkedIn.astro";
+import Twitter from "@components/logo/Twitter.astro";
+import Layout from "@layouts/Layout.astro";
 import BlobWithImage from "@components/BlobWithImage.astro";
-import FeaturedSection from '@components/FeaturedSection.astro';
+import FeaturedSection from "@components/FeaturedSection.astro";
 ---
 
-<Layout title="Mystica" description='checkout my content on various technologies'>
+<Layout
+  title="Mystica"
+  description="checkout my content on various technologies"
+>
   <h2>Hi, I'm Mystica 👋🏽</h2>
-  <br>
+  <br />
 
   <p>
-  I am a seasoned full stack developer (web) working remotely from a small town. I enjoy experimenting with new technologies and be flexible to switch languages/frameworks with focuses on secure, accessible web apps for the user.
+    I am a seasoned full stack developer (web) working remotely from a small
+    town. I enjoy experimenting with new technologies and be flexible to switch
+    languages/frameworks with focuses on secure, accessible web apps for the
+    user.
   </p>
 
-  <p>
-    My interests include: Web apps, Systems Engineering (Networking)
-  </p>
+  <p>My interests include: Web apps, Systems Engineering (Networking)</p>
 
   <BlobWithImage />
 
-  <br>
+  <br />
   <h3>Contact</h3>
-  <p>If you want to connect or just wanna say Hi, feel free to reach via </p>
+  <p>If you want to connect or just wanna say Hi, feel free to reach via</p>
   <div class="contant__list">
-    <span> <LinkedIn /> <a class="socials" href="https://www.linkedin.com/in/infant-mystica-810776195/">Linkedin</a> &nbsp; <span>/</span> &nbsp;</span>
-    <span> <Twitter /><a class="socials" href="https://x.com/mysticainf">Twitter</a> &nbsp;<span>/</span> &nbsp;</span>
-    <span> <Github /> <a class="socials" href="https://github.com/mystica2000">Github</a> &nbsp;<span>/</span> &nbsp;</span>
-    <span> <Email /><a class="socials" href="mailto:mysticainf@gmail.com">Email</a></span>
+    <span>
+      <LinkedIn />
+      <a
+        class="socials"
+        href="https://www.linkedin.com/in/infant-mystica-810776195/">Linkedin</a
+      > &nbsp; <span>/</span> &nbsp;</span
+    >
+    <span>
+      <Twitter /><a class="socials" href="https://x.com/mysticainf">Twitter</a> &nbsp;<span
+        >/</span
+      > &nbsp;</span
+    >
+    <span>
+      <Github />
+      <a class="socials" href="https://github.com/mystica2000">Github</a> &nbsp;<span
+        >/</span
+      > &nbsp;</span
+    >
+    <span>
+      <Email /><a class="socials" href="mailto:mysticainf@gmail.com">Email</a
+      ></span
+    >
   </div>
 
   <FeaturedSection />
-
 </Layout>
 
 <style>
@@ -53,19 +74,23 @@ import FeaturedSection from '@components/FeaturedSection.astro';
     font-size: 18px;
   }
 
-
   a {
     color: #000000;
   }
 
-  a:hover, a:active {
-    text-shadow:  0px 0px #ff4f4f, -2px -1px 1em #ff6b6b, 1px -1px 0em #000000;
+  a:hover,
+  a:active {
+    text-shadow:
+      0px 0px #ff4f4f,
+      -2px -1px 1em #ff6b6b,
+      1px -1px 0em #000000;
   }
 
-  :global(.dark) .socials { color: #B39DDB; }
+  :global(.dark) .socials {
+    color: #b39ddb;
+  }
 
   h2 {
     font-size: 1.5em;
   }
-
 </style>

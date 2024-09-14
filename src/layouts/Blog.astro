@@ -1,56 +1,61 @@
 ---
-import Calender from '@components/logo/Calender.astro';
-import Reading from '@components/logo/Reading.astro';
-import { formatDate } from 'src/utils/formatDate';
+import Calender from "@components/logo/Calender.astro";
+import Reading from "@components/logo/Reading.astro";
+import { formatDate } from "src/utils/formatDate";
 
 interface Props {
-    heading: string;
-    readingTime: string;
-    lastModified: Date | null;
-    pubDate: Date;
+  heading: string;
+  readingTime: string;
+  lastModified: Date | null;
+  pubDate: Date;
 }
 
 const { heading, readingTime, lastModified, pubDate } = Astro.props;
-
-
 ---
 
-<div class="heading" >
-<h1 class="h1" transition:name={`title-${heading}`}>{heading}</h1>
-<span class="sub-heading">
+<div class="heading">
+  <h1 class="h1" transition:name={`title-${heading}`}>{heading}</h1>
+  <span class="sub-heading">
     <span>
-        <p class="inline-p-header"> <Reading /> reading time</p>
-        <p class="inline-p-body">~ {readingTime}</p>
+      <p class="inline-p-header"><Reading /> reading time</p>
+      <p class="inline-p-body">~ {readingTime}</p>
     </span>
     <span class="flex">
-        { lastModified &&
-        <span>
-            <p class="inline-p-header"> <Calender /> last Modified</p>
-            <p class="inline-p-body">
-                <time datetime={lastModified.toString()}>{formatDate(lastModified)}</time>
+      {
+        lastModified && (
+          <span>
+            <p class="inline-p-header">
+              {" "}
+              <Calender /> last Modified
             </p>
-        </span>
-        }
-        <span>
-        <p class="inline-p-header"> <Calender /> published</p>
+            <p class="inline-p-body">
+              <time datetime={lastModified.toString()}>
+                {formatDate(lastModified)}
+              </time>
+            </p>
+          </span>
+        )
+      }
+      <span>
+        <p class="inline-p-header"><Calender /> published</p>
         <p class="inline-p-body">
-            <time datetime={pubDate.toString()}>{formatDate(pubDate)}</time>
+          <time datetime={pubDate.toString()}>{formatDate(pubDate)}</time>
         </p>
+      </span>
     </span>
-    </span>
-</span>
+  </span>
 </div>
 <slot />
 
 <style>
-    .h1 {
-        font-size: 2.5em;
-        text-align: center;
-        line-height: 1em;
-    }
+  .h1 {
+    font-size: 2.5em;
+    text-align: center;
+    line-height: 1em;
+  }
 
-    .heading {
-        background: rgb(113 24 226 / 97%);
+  .heading {
+    background: rgb(113 24 226 / 97%);
     color: white;
     text-shadow: rgb(239 239 239 / 30%) 0px 0px 39px;
     transform: rotate(3deg);
@@ -61,22 +66,23 @@ const { heading, readingTime, lastModified, pubDate } = Astro.props;
     margin-top: 1.5em;
     padding-bottom: 0.2em;
     box-shadow: rgb(113 24 226 / 54%) 0px 25px 50px -12px;
-    }
+  }
 
-    .sub-heading {
-        display: flex;
+  .sub-heading {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding-left: 0.5em;
     padding-right: 0.5em;
-    }
+  }
 
-    .inline-p-header, .inline-p-body {
-        margin: 0;
-    }
+  .inline-p-header,
+  .inline-p-body {
+    margin: 0;
+  }
 
-    .inline-p-header {
-        text-transform: uppercase;
+  .inline-p-header {
+    text-transform: uppercase;
     letter-spacing: -0.4px;
     font-size: 0.75em;
     font-weight: 600;
@@ -88,37 +94,35 @@ const { heading, readingTime, lastModified, pubDate } = Astro.props;
     display: flex;
     align-items: center;
     gap: 2px;
-    }
-
-    .inline-p-body {
-        font-size: smaller;
-        text-align: center;
-    }
-
-    .flex {
-        display: flex;
-        gap: 1em;
-    }
-
-    @media screen and (max-width:440px) {
-    .heading {
-        scale: 0.9;
-    }
   }
 
+  .inline-p-body {
+    font-size: smaller;
+    text-align: center;
+  }
+
+  .flex {
+    display: flex;
+    gap: 1em;
+  }
+
+  @media screen and (max-width: 440px) {
+    .heading {
+      scale: 0.9;
+    }
+  }
 </style>
 
 <script>
+  const imageList: HTMLCollectionOf<Element> =
+    document.getElementsByClassName("img");
 
-    const imageList:HTMLCollectionOf<Element> = document.getElementsByClassName("img");
-
-    for (let item of imageList) {
-        item.addEventListener("click", () => {
-        const imgSrc = item.getAttribute("src");
-        if (imgSrc) {
-            window.open(imgSrc, "_blank");
-        }
+  for (let item of imageList) {
+    item.addEventListener("click", () => {
+      const imgSrc = item.getAttribute("src");
+      if (imgSrc) {
+        window.open(imgSrc, "_blank");
+      }
     });
-    }
-
+  }
 </script>

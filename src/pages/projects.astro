@@ -1,36 +1,45 @@
 ---
-import Card from '@components/project/Card.astro';
-import Layout from '@layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-import type { ProjectSchema } from '@content/config';
+import Card from "@components/project/Card.astro";
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import type { ProjectSchema } from "@content/config";
 
-const projectsCollection = await getCollection('projects');
+const projectsCollection = await getCollection("projects");
 
 const projectsData = projectsCollection[0].data;
 ---
 
-<Layout title="Projects" description='list of projects that i worked on' content='solidjs, web, go, svelte, pwa'>
+<Layout
+  title="Projects"
+  description="list of projects that i worked on"
+  content="solidjs, web, go, svelte, pwa"
+>
   <h2>Projects</h2>
-  <p class="center">The projects that i have created while learning and experimenting with a new tech! </p>
+  <p class="center">
+    The projects that i have created while learning and experimenting with a new
+    tech!
+  </p>
   <table>
-
-<thead>
-  <th>Name</th>
-  <th>Description</th>
-</thead>
+    <thead>
+      <th>Name</th>
+      <th>Description</th>
+    </thead>
     <tbody>
-    {
-      projectsData.map((aProject: ProjectSchema) => (
-        <Card project={aProject} />
-      ))
-    }
-
+      {
+        projectsData.map((aProject: ProjectSchema) => (
+          <Card project={aProject} />
+        ))
+      }
     </tbody>
   </table>
 
   <p class="center">
-    checkout more on my <a class="navlink" href="https://github.com/mystica2000" target="_blank">github!</a>
-   </p>
+    checkout more on my <a
+      class="navlink"
+      href="https://github.com/mystica2000"
+      target="_blank">github!</a
+    >
+  </p>
 </Layout>
 
 <style>

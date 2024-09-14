@@ -1,5 +1,5 @@
 ---
-import { getCollection  } from "astro:content";
+import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Blog from "@layouts/Blog.astro";
 import AnchorLink from "@components/blog/Anchor.astro";
@@ -11,7 +11,7 @@ const components = { a: AnchorLink, h2: HeaderLink, table: Table };
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
 
-  const postResult = posts.map(post => ({
+  const postResult = posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
   }));
@@ -26,15 +26,19 @@ const { Content, remarkPluginFrontmatter } = await post.render();
 <Layout title={post.data.title} description={post.data.description}>
   <article>
     <a href="/posts" class="navlink">back to all posts</a>
-    <Blog heading={post.data.title} readingTime={remarkPluginFrontmatter.minutesRead || ""} lastModified={post.data.lastModified || null} pubDate={post.data.pubDate}>
+    <Blog
+      heading={post.data.title}
+      readingTime={remarkPluginFrontmatter.minutesRead || ""}
+      lastModified={post.data.lastModified || null}
+      pubDate={post.data.pubDate}
+    >
       <Content components={components} />
     </Blog>
   </article>
 </Layout>
 
-
 <style>
   a::before {
-    content: ' ← ';
+    content: " ← ";
   }
 </style>

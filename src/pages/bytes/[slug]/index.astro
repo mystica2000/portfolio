@@ -1,12 +1,12 @@
 ---
-import { getCollection  } from "astro:content";
-import Layout from '@layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
 import Byte from "@components/bytes/Byte.astro";
 
 export async function getStaticPaths() {
   const bytes = await getCollection("bytes");
 
-  const byteResult = bytes.map(byte => ({
+  const byteResult = bytes.map((byte) => ({
     params: { slug: byte.slug },
     props: { byte },
   }));
@@ -14,11 +14,9 @@ export async function getStaticPaths() {
   return byteResult;
 }
 
-
 const { byte } = Astro.props;
 ---
 
-
-<Layout title={byte.data.title} description=''>
+<Layout title={byte.data.title} description="">
   <Byte />
 </Layout>

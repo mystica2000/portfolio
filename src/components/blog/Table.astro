@@ -3,19 +3,16 @@ const props = Astro.props;
 ---
 
 <div style="overflow-x: auto;">
-    <table {...props} border="1">
-        <slot />
-    </table>
-
+  <table {...props} border="1">
+    <slot />
+  </table>
 </div>
 
 <style>
-    table {
-        margin-top: 1em;
-        border-collapse: collapse;
-        border: 1px solid var(--astro-bg-color);
-        margin-bottom: 1em;
-    }
-
-
+  table {
+    margin-top: 1em;
+    border-collapse: collapse;
+    border: 1px solid var(--astro-bg-color);
+    margin-bottom: 1em;
+  }
 </style>
