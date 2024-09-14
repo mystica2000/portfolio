@@ -113,9 +113,9 @@ const formatTitle = (str: string) => {
         if (element) {
           setTimeout(function () {
             if (window.innerWidth < 440) {
-              element.style.scrollMargin = "150px";
+              element.style.scrollMarginTop = "150px";
             } else {
-              element.style.scrollMargin = "90px";
+              element.style.scrollMarginTop = "90px";
             }
 
             element.scrollIntoView({
@@ -141,9 +141,9 @@ const formatTitle = (str: string) => {
 
     if (element) {
       if (window.innerWidth < 440) {
-        element.style.scrollMargin = "150px";
+        element.style.scrollMarginTop = "150px";
       } else {
-        element.style.scrollMargin = "90px";
+        element.style.scrollMarginTop = "90px";
       }
 
       element.scrollIntoView({
