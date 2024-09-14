@@ -3,7 +3,8 @@ interface Props {
   path: string[];
 }
 
-const url = "http://localhost:4321/";
+const url =
+  import.meta.env.MODE === "production" ? Astro.site : "http://localhost:4321/";
 const { path } = Astro.props;
 ---
 
