@@ -1,13 +1,11 @@
 ---
-
-import Header from '@components/Header.astro';
-import Footer from '@components/Footer.astro';
-import Main from '@components/Main.astro';
-import Meta from '@components/Meta.astro';
-
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Main from "@components/Main.astro";
+import Meta from "@components/Meta.astro";
 
 interface Props {
-	title: string;
+  title: string;
   description: string;
   content?: string;
 }
@@ -17,94 +15,109 @@ const { title, description, content } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-
-    <Meta title={title} description={description} content={content}/>
-
-	</head>
-	<body>
+  <head>
+    <Meta title={title} description={description} content={content} />
+  </head>
+  <body>
     <Header />
     <Main>
       <slot />
     </Main>
-    <Footer/>
-	</body>
+    <Footer />
+  </body>
 </html>
 <style is:global>
-	html {
-		font-family: system-ui, sans-serif;
-    background: radial-gradient(circle, transparent 90%, rgb(225 225 225) 97%) 0 0 / 20px 20px;
+  html {
+    font-family: system-ui, sans-serif;
+    background: radial-gradient(
+        circle,
+        transparent 90%,
+        rgb(191 191 191 / 97%) 97%
+      )
+      0 0 / 20px 20px fixed;
     line-height: 27px;
-
-    scroll-behavior: smooth;
-
-	}
+  }
   :root {
-   --content-width: 750px;
-   box-sizing: border-box;
-   margin: 0;
-   padding: 0;
-   --astro-bg-color: #000000;
- }
+    --content-width: 750px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    --astro-bg-color: #000000;
+  }
 
- html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
- }
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
- html.dark {
-  color: #fff;
-  background: radial-gradient(circle, #000000 90%, rgb(40 40 40 / 87%) 97%) 0 0 / 20px 20px;
-  --astro-bg-color: #ffffff;
- }
+  html.dark {
+    color: #fff;
+    background: radial-gradient(circle, #000000 90%, rgb(40 40 40 / 87%) 97%) 0
+      0 / 20px 20px fixed;
+    --astro-bg-color: #ffffff;
+  }
 
- .navlink {
+  .navlink {
     text-underline-offset: 3px;
     color: #000000;
     margin-left: 0.1rem;
     margin-right: 0.5rem;
   }
 
-  .navlink:hover, .navlink:active, .active {
-    text-shadow:  0px 0px #ff4f4f, -2px -1px 1em #ff6b6b, 1px -1px 0em #4aff47;
+  .navlink:hover,
+  .navlink:active,
+  .active {
+    text-shadow:
+      0px 0px #ff4f4f,
+      -2px -1px 1em #ff6b6b,
+      1px -1px 0em #4aff47;
   }
 
-  .dark .navlink { color: #ffffff; }
-  .dark .navlink:hover, .navlink:active, .active { text-shadow: 1px 1px 2px #af8d8d, 0 0 1em #ffffff, 0 0 0.2em #2222ff; }
+  .dark .navlink {
+    color: #ffffff;
+  }
+  .dark .navlink:hover,
+  .navlink:active,
+  .active {
+    text-shadow:
+      1px 1px 2px #af8d8d,
+      0 0 1em #ffffff,
+      0 0 0.2em #2222ff;
+  }
 
   pre {
-  padding: 8px 16px;
-  overflow: auto;
-  border-radius: 4px;
+    padding: 8px 16px;
+    overflow: auto;
+    border-radius: 4px;
   }
 
   code {
-  border-radius: 4px;
-  direction: ltr;
-  font-size: 14px;
-}
+    border-radius: 4px;
+    direction: ltr;
+    font-size: 14px;
+  }
 
-pre > code {
-  line-height: 1.5;
-  word-break: normal;
-  white-space: pre;
-  word-spacing: normal;
-  tab-size: 4;
-}
+  pre > code {
+    line-height: 1.5;
+    word-break: normal;
+    white-space: pre;
+    word-spacing: normal;
+    tab-size: 4;
+  }
 
+  .scroll-header {
+    scroll-margin-top: 80px;
+  }
 
-.scroll-header {
-        scroll-margin-top: 80px;
-    }
-
-    body {
-      display: flex;
+  body {
+    display: flex;
     height: 100%;
     flex-direction: column;
-    }
+  }
 
-    main {
-      flex-grow: 1;
-    }
+  main {
+    flex-grow: 1;
+  }
 </style>

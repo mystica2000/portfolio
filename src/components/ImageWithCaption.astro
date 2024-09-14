@@ -1,6 +1,5 @@
 ---
-
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 interface Props {
   caption: string;
   src: ImageMetadata;
@@ -10,16 +9,15 @@ const { caption, src } = Astro.props;
 ---
 
 <figure>
-    <figcaption>
-        <Image src={src} alt="" class:list={"img"}/>
-        {caption}
-    </figcaption>
+  <figcaption>
+    <Image src={src} alt="" class:list={"img"} />
+    {caption}
+  </figcaption>
 </figure>
 
 <style>
   .img {
-    width: -webkit-fill-available;
-    width: -moz-available;
+    width: 100%;
     height: fit-content;
     cursor: pointer;
   }

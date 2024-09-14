@@ -1,29 +1,31 @@
 ---
-import { getReadingTimeForPosts } from 'src/utils/getReadingTime';
-import Card from '@components/blog/Card.astro';
-import Layout from '@layouts/Layout.astro';
+import { getReadingTimeForPosts } from "src/utils/getReadingTime";
+import Card from "@components/blog/Card.astro";
+import Layout from "@layouts/Layout.astro";
 
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 
 // Get all `src/content/blog/` entries
-let postsCollection = await getCollection('posts',({ data }) => !data.draft);
+let postsCollection = await getCollection("posts", ({ data }) => !data.draft);
 
 const posts = await getReadingTimeForPosts(postsCollection);
-posts.sort((a:any,b:any) => Date.parse(b.data.pubDate.toDateString()) - Date.parse(a.data.pubDate.toDateString()));
+posts.sort(
+  (a: any, b: any) =>
+    Date.parse(b.data.pubDate.toDateString()) -
+    Date.parse(a.data.pubDate.toDateString())
+);
 ---
 
-<Layout title="Blog" description='checkout my posts about various tech stuff'>
+<Layout title="Blog" description="checkout my posts about various tech stuff">
   <h2>Write-Ups</h2>
 
   <div class="blog__container">
     {
-      posts.map((aPost:any) => (
-      <Card post={aPost.data} slug={aPost.slug}>
-      </Card>
+      posts.map((aPost: any) => (
+        <Card post={aPost.data} slug={aPost.slug}></Card>
       ))
     }
   </div>
-
 </Layout>
 
 <style>
@@ -39,9 +41,9 @@ posts.sort((a:any,b:any) => Date.parse(b.data.pubDate.toDateString()) - Date.par
     grid-gap: 2em;
   }
 
-  @media screen and (max-width:720px) {
+  @media screen and (max-width: 720px) {
     .blog__container {
-    grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
     }
   }
 

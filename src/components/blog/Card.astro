@@ -3,25 +3,26 @@ import type { PostSchema } from "@content/config";
 import Tags from "./Tags.astro";
 
 interface Props {
-  post: PostSchema
-  slug: string
+  post: PostSchema;
+  slug: string;
 }
 
 const { post, slug } = Astro.props;
-
 ---
-    <article>
-      <a href={`/posts/${slug}`} class="blog__card">
-      <h3 class="heading" transition:name={`title-${post.title}`}>{post.title}</h3>
-      <p class="padding para">{post.description}</p>
-      <Tags tags={post.tags} />
-      <div class="padding card__footer">Time to read ~ {post.readingTime}</div>
-    </a>
-    </article>
+
+<article>
+  <a href={`/posts/${slug}`} class="blog__card">
+    <h3 class="heading" transition:name={`title-${post.title}`}>
+      {post.title}
+    </h3>
+    <p class="padding para">{post.description}</p>
+    <Tags tags={post.tags} />
+    <div class="padding card__footer">Time to read ~ {post.readingTime}</div>
+  </a>
+</article>
 
 <style>
   .blog__card {
-    max-width: 320px;
     width: 100%;
     border: 2px solid rgb(187 187 187);
     min-height: 200px;
@@ -34,9 +35,10 @@ const { post, slug } = Astro.props;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 
-  .blog__card:hover, .blog__card:active {
+  .blog__card:hover,
+  .blog__card:active {
     background-color: #edededb8;
-    box-shadow: rgb(0 0 0 / 20%) 0px 7px 29px 0px
+    box-shadow: rgb(0 0 0 / 20%) 0px 7px 29px 0px;
   }
 
   .padding {
@@ -78,7 +80,7 @@ const { post, slug } = Astro.props;
   }
 
   :global(.dark) .card__footer {
-    color: rgb(227 227 227)
+    color: rgb(227 227 227);
   }
 
   .heading {
@@ -87,7 +89,7 @@ const { post, slug } = Astro.props;
     font-size: 1.5em;
   }
 
-  @media screen and (max-width:720px) {
+  @media screen and (max-width: 720px) {
     .blog__card {
       max-width: 100%;
     }
