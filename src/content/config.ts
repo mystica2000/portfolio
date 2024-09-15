@@ -45,6 +45,7 @@ export type Post = {
 const byteSchema = z.object({
   title: z.string(),
   pubDate: z.date(),
+  description: z.string(),
 });
 
 const byteCollection = defineCollection({
