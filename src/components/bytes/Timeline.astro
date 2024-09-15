@@ -1,7 +1,9 @@
 ---
 import Share from "@components/logo/Share.astro";
 import { formatDate } from "src/utils/formatDate";
+import AnchorLink from "@components/blog/Anchor.astro";
 
+const components = { a: AnchorLink };
 const bytes = await Astro.glob("@content/bytes/*.mdx");
 
 bytes.sort(
@@ -40,7 +42,7 @@ const formatTitle = (str: string) => {
             <div class="date">
               last updated: {formatDate(new Date(aByte.frontmatter.pubDate))}
             </div>
-            <aByte.Content />
+            <aByte.Content components={components} />
           </dd>
         </Fragment>
       ))

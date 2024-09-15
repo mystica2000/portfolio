@@ -1,0 +1,23 @@
+---
+title: "iOS mobile fallback"
+pubDate: 2024-09-15
+---
+
+To add fallback for styles in iOS devices - mobile
+
+```css
+@supports (-webkit-overflow-scrolling: touch) {
+  /* css classes/selectors */
+}
+```
+
+For example: `background-attachment: fixed` don't work in safari mobile, add fallback for mobile iOS like
+
+```css
+@supports (-webkit-overflow-scrolling: touch) {
+  body {
+    /*switch to scroll which is default - iOS mobile*/
+    background-attachment: scroll;
+  }
+}
+```

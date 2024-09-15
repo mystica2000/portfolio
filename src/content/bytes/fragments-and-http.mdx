@@ -1,0 +1,30 @@
+---
+title: "fragments and http"
+pubDate: 2024-09-15
+---
+
+### #Fragments x http x SEO x OG Images
+
+Recently i've learned fragments are not sent to backend server nor parsed by social media crawlers (for seo/og image) in a hard way...
+
+In this site /bytes url now looks like /bytes/communication-protocols.
+
+In the tried and reverted back version, i had the url look like /bytes#communication-protocols where the OG image is being replaced
+for every section id.
+
+```html
+<h2 id="communication-protocols">
+  <a href="#communication-protocols">test</a>
+</h2>
+```
+
+guess what.. social media (like twitter card, linkedin) and SEO crawlers don't wait for the script (javascript that updates the OG Image url based on #fragments).
+Search engine doesn't crawl the page based on fragments either, thus no indexing for SEO.
+
+if you make request from `http://example.com/test#test` to the backend, the request doesn't include the fragments.
+This behaviour is designed by http 1.1 spec even from the starting spec where request uri should not include fragments due to security considerations.
+
+It is meant for client side navigation only, not for server side (including crawling servers).
+
+[first http 1.1 spec](https://datatracker.ietf.org/doc/html/rfc2068#section-14.37:~:text=The%20URI%20MUST%20NOT%20include%20a%20fragment)
+[Disclosure of Fragment after Redirects](https://datatracker.ietf.org/doc/html/rfc7231#section-9.5)
