@@ -80,4 +80,10 @@ const { project } = Astro.props;
     display: grid;
     grid-template-rows: 2fr 0.5fr;
   }
+
+  @media screen and (max-width: 440px) {
+    td {
+      padding: 0;
+    }
+  }
 </style>

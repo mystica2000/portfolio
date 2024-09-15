@@ -29,13 +29,10 @@ const { title, description, content } = Astro.props;
 <style is:global>
   html {
     font-family: system-ui, sans-serif;
-    background: radial-gradient(
-        circle,
-        transparent 90%,
-        rgb(191 191 191 / 97%) 97%
-      )
-      0 0 / 20px 20px;
     line-height: 27px;
+    -webkit-text-size-adjust: 100%; /* Prevent automatic text resizing on mobile devices */
+    text-size-adjust: 100%;
+    font-size: 1em;
   }
   :root {
     --content-width: 750px;
@@ -54,8 +51,6 @@ const { title, description, content } = Astro.props;
 
   html.dark {
     color: #fff;
-    background: radial-gradient(circle, #000000 90%, rgb(40 40 40 / 87%) 97%) 0
-      0 / 20px 20px;
     --astro-bg-color: #ffffff;
   }
 
@@ -82,7 +77,7 @@ const { title, description, content } = Astro.props;
   .navlink:active,
   .active {
     text-shadow:
-      1px 1px 2px #af8d8d,
+      1px 1px 50px #af8d8d,
       0 0 1em #ffffff,
       0 0 0.2em #2222ff;
   }
@@ -108,16 +103,48 @@ const { title, description, content } = Astro.props;
   }
 
   .scroll-header {
-    scroll-margin-top: 80px;
+    scroll-margin-top: 100px;
   }
 
   body {
     display: flex;
-    height: 100%;
     flex-direction: column;
   }
 
   main {
     flex-grow: 1;
+  }
+
+  @media screen and (max-width: 440px) {
+    .scroll-header {
+      scroll-margin-top: 150px;
+    }
+  }
+
+  body::before {
+    background: radial-gradient(
+        circle,
+        transparent 90%,
+        rgb(191 191 191 / 97%) 97%
+      )
+      0 0 / 20px 20px;
+
+    background-size: 20px 20px;
+    background-position: 20px 20px;
+
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+  }
+
+  .dark body::before {
+    background: radial-gradient(circle, #000000 90%, rgb(40 40 40 / 87%) 97%) 0
+      0 / 20px 20px;
+
+    background-size: 20px 20px;
   }
 </style>

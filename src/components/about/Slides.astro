@@ -9,24 +9,29 @@ const slides: SlideSchema[] = slidesCollection[0].data;
 <section>
   <h3>Slides</h3>
 
-  <table>
+  <ul>
     {
       slides.map((aSlide) => (
-        <tr>
-          <td>
-            {aSlide.description} &nbsp;
-            <a href={aSlide.link} class="navlink" target="_blank">
-              link
-            </a>
-          </td>
-          <td />
-        </tr>
+        <li>
+          {aSlide.description} &nbsp;
+          <a href={aSlide.link} class="navlink block" target="_blank">
+            link
+          </a>
+        </li>
       ))
     }
-  </table>
+  </ul>
 </section>
 <style>
   a::after {
     content: "↗";
+  }
+
+  .block {
+    display: block;
+  }
+
+  li {
+    margin-bottom: 1em;
   }
 </style>
