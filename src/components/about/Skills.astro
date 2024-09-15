@@ -16,10 +16,11 @@ const skills: SkillSchema = skillsCollection[0].data;
         {skills[aSkillName].map((skill, index) => (
           <Fragment>
             &nbsp;
-            <a href={skill.url} class="socials">
+            <a href={skill.url} class="socials ">
               {skill.name}
-            </a>{" "}
-            {index == skills[aSkillName].length - 1 ? "" : "/"}
+            </a>
+            &nbsp;
+            {index == skills[aSkillName].length - 1 ? " " : "/"}
           </Fragment>
         ))}
       </div>
