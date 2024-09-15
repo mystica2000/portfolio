@@ -11,7 +11,8 @@ const { project } = Astro.props;
 <tr class="project__card">
   <td
     >{project.emoji}
-    <a href={project.url} class="navlink" target="_blank">{project.name}</a></td
+    <a href={project.url} class="navlink head" target="_blank">{project.name}</a
+    ></td
   >
   <td class="card__box border__line">
     <ul>
@@ -37,26 +38,20 @@ const { project } = Astro.props;
 
   .project__card {
     width: 100%;
-    border: 2px solid rgb(229 229 229 / 72%);
     min-height: 200px;
     max-height: 350px;
     overflow: auto;
     height: 100%;
-    background-color: #ffffff59;
+    background-color: #ffffff81;
     border-radius: 10px;
-    box-shadow:
-      0px 0px 0px 2px rgb(229 229 229 / 72%),
-      rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    filter: drop-shadow(0px 0px 2px rgb(229 229 229));
     margin-bottom: 1.3em;
   }
 
   :global(.dark) .project__card {
-    border: 2px solid rgb(59 54 54);
-    background-color: #0a09093d;
+    background-color: rgba(0, 0, 0, 0.5);
 
-    box-shadow:
-      0px 0px 0px 2px rgb(59 54 54),
-      rgb(255 255 255 / 20%) 0px 7px 29px 0px;
+    filter: drop-shadow(0px 0px 2px rgb(59, 54, 54));
   }
 
   :global(.dark) .border__line {
@@ -85,5 +80,14 @@ const { project } = Astro.props;
     td {
       padding: 0;
     }
+  }
+
+  .navlink {
+    text-transform: capitalize;
+    margin-left: 1em;
+  }
+
+  .head {
+    margin: 0 auto;
   }
 </style>

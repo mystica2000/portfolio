@@ -10,7 +10,8 @@ const currentPath = pathname.slice(1);
         href="/"
         class="navlink no-decor"
         class:list={["navlink", "no-decor", { active: currentPath == "" }]}
-        >Mystica</a>
+        >Mystica</a
+      >
     </h1>
     <ul>
       <li>
@@ -21,22 +22,26 @@ const currentPath = pathname.slice(1);
               active: currentPath == "posts/" || /^posts\/.*/.test(currentPath),
             },
           ]}
-          href="/posts">posts</a>
+          href="/posts">posts</a
+        >
       </li>
       <li>
         <a
           class:list={["navlink", { active: currentPath == "bytes/" }]}
-          href="/bytes">bytes</a>
+          href="/bytes">bytes</a
+        >
       </li>
       <li>
         <a
           class:list={["navlink", { active: currentPath == "projects/" }]}
-          href="/projects">projects</a>
+          href="/projects">projects</a
+        >
       </li>
       <li>
         <a
           class:list={["navlink", { active: currentPath == "about/" }]}
-          href="/about">about</a>
+          href="/about">about</a
+        >
       </li>
     </ul>
   </nav>
@@ -67,6 +72,9 @@ const currentPath = pathname.slice(1);
     padding-left: 0.5em;
     padding-right: 0.5em;
     border-radius: 20px;
+    -webkit-backdrop-filter: blur(
+      4px
+    ); /* Add this line first, it fixes blur for Safari*/
     backdrop-filter: blur(4px);
     margin-left: 10px;
     margin-right: 10px;

@@ -109,6 +109,7 @@ const { title, description, content } = Astro.props;
   body {
     display: flex;
     flex-direction: column;
+    position: relative;
   }
 
   main {
@@ -121,6 +122,7 @@ const { title, description, content } = Astro.props;
     }
   }
 
+  /* there is weird background layout shift on android browser, to overcome that use fixed instead */
   body::before {
     background: radial-gradient(
         circle,
@@ -131,11 +133,11 @@ const { title, description, content } = Astro.props;
 
     background-size: 20px 20px;
     background-position: 20px 20px;
-
+    display: block;
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0px;
+    left: 0px;
     width: 100%;
     height: 100vh;
     z-index: -1;
@@ -146,5 +148,33 @@ const { title, description, content } = Astro.props;
       0 / 20px 20px;
 
     background-size: 20px 20px;
+  }
+
+  /* since background fixed not supported in ios revert back to use scroll instead */
+  @supports (-webkit-overflow-scrolling: touch) {
+    body {
+      position: relative;
+      height: 100%;
+      background: radial-gradient(
+          circle,
+          transparent 90%,
+          rgb(191 191 191 / 97%) 97%
+        )
+        0 0 / 20px 20px scroll;
+
+      background-size: 20px 20px;
+      background-position: 20px 20px;
+    }
+
+    body::before {
+      content: "";
+      position: unset;
+    }
+
+    .dark body {
+      background: radial-gradient(circle, #000000 90%, rgb(40 40 40 / 87%) 97%)
+        0 0 / 20px 20px;
+      background-size: 20px 20px;
+    }
   }
 </style>
