@@ -39,6 +39,7 @@ const { title, description, content = "" } = Astro.props;
 <meta property="og:description" content={description} />
 <meta property="og:locale" content="en_US" />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta name="image" property="og:image" content={new URL(image, Astro.url)} />
 
 <link
   rel="alternate"
