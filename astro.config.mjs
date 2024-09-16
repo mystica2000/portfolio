@@ -43,6 +43,13 @@ const og = () => ({
               svg
             );
           }
+        } else if (pathname == "") {
+          const file = await fs.readFileSync(`src/assets/images/og.png`);
+          const pathFile = path.join(`${isPlatformWindows == true ? dir.pathname.slice(1) : dir.pathname}`, pathname, `og.png`);
+          fs.writeFileSync(
+            pathFile,
+            file
+          );
         }
       }
 
