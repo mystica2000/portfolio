@@ -30,7 +30,7 @@ const latestBytes: Latest[] = bytes
   .filter((aByte: any) => aByte.data.pubDate > monthPriorDate)
   .map((aByte: any) => ({
     title: aByte.data.title,
-    link: `/${aByte.collection}#${aByte.slug}`,
+    link: `/${aByte.collection}/${aByte.slug}`,
     date: aByte.data.pubDate,
   }));
 

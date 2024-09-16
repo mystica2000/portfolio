@@ -27,7 +27,12 @@ const currentPath = pathname.slice(1);
       </li>
       <li>
         <a
-          class:list={["navlink", { active: currentPath == "bytes/" }]}
+          class:list={[
+            "navlink",
+            {
+              active: currentPath == "bytes/" || /^bytes\/.*/.test(currentPath),
+            },
+          ]}
           href="/bytes">bytes</a
         >
       </li>

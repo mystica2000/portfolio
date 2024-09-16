@@ -67,19 +67,23 @@ const { title, description, content } = Astro.props;
     text-shadow:
       0px 0px #ff4f4f,
       -2px -1px 1em #ff6b6b,
-      1px -1px 0em #4aff47;
+      1px -1px 0em #9100ff,
+      0 0 1.5em #9100ff,
+      0 0 2em #833ab4;
   }
 
   .dark .navlink {
     color: #ffffff;
   }
   .dark .navlink:hover,
-  .navlink:active,
-  .active {
+  .dark .navlink:active,
+  .dark .active {
     text-shadow:
-      1px 1px 50px #af8d8d,
-      0 0 1em #ffffff,
-      0 0 0.2em #2222ff;
+      1px 1px 100px #af8d8d,
+      0 0 1.5em #ffffff,
+      0 0 0.5em #d6f4ff,
+      0 0 2em #d6f4ff,
+      0 0 3em #ffffff;
   }
 
   pre {
