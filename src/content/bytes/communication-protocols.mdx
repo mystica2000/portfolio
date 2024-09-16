@@ -12,10 +12,11 @@ Listed down the number of ways to transmit/exchange data between server and brow
 - Web Sockets (streams)
 - grpc web (needs proxy)
 - Web Transport (alternative to web sockets BUT major browser support is lacking - as of 2024)
+- WebRTC (to send audio/video/text-blob) - designed for p2p but can be extended to client-to-server by treating server as its peer connection
 
 send/recv data between browser to browser itself (new tab/window/browser/remote browser)
 
 - Broadcast Channel
-- Webrtc Data Channel (text/blob), Webrtc Media stream (audio/video/screen sharing) - p2p
+- Webrtc Data Channel (text/blob), Webrtc Media stream (audio/video/screen sharing) - p2p connection
 - MessageChannel (iframe to main, main thread to workers, tabs, window and vice versa)
 - PostMessage (iframe to main, main thread to workers, tabs, window and vice versa)
