@@ -1,0 +1,120 @@
+---
+title: "Mechanics of Media Streaming"
+description: "An exploration of how on-demand & real-time media streaming works, enabling seamless playback"
+tags: ["web", "streaming"]
+keywords: "web,streaming,media,networks"
+pubDate: 2024-10-12
+lastModified: 2024-10-12
+---
+
+import ImageView from "@components/ImageView.astro";
+import code from "@assets/images/posts/media-streaming/streaming.png";
+import spongbob from "@assets/images/posts/media-streaming/fewmomentslater.jpg";
+
+I always wanted to learn how streaming media/real-time works. How apps like spotify, youtube can be able to playback massive video/audio without deterioting user experience even when
+having poor network coverage which happens more often when travelling. So let's explore!
+
+## Media Streaming
+
+Streaming is the way to delivering media (audio/video) in real-time over the internet, allowing users to listen/watch the content without dowloading the entire file upfront. It enabled instant playback, adaptive to network conditions.
+
+## Types Of Streaming
+
+There are two types of streaming:
+
+1. On-demand
+2. Real Time Streaming
+
+On-demand in this context, how OTT Platform allows users to access content at any time from already existing contents. Ex: Netflix, Youtube.
+Read Time Streaming - Broadcasting in real-time as in twitch, youtube live etc.
+
+## On Demand
+
+Let's understand from two perspective:
+
+- how users views/access the content
+- how creators upload is being handled.
+
+## Creator Perspective
+
+- The Creator **uploads** a video in some format (mp4:for example).
+
+- The system **queues** the videos and handles it one by one (ofcourse, not one by one but for sake of simplicty here.. it's compute intensive tasks requires parallel processing)
+
+<ImageView src={spongbob} alt="infamous few moments later spongebob" />
+
+- Our uploaded video made it to **processing** stage.
+- On Processing Stage, the systems goes thru variety of operations includes:
+
+  - **Encoding** the video into multiple 4k, 1024p, 720p, 420p etc. For example: if user has poor network connection, serve 240p instead. if user has good network, serve 720p instead.
+  - Breaking down into **small chunks** instead of having a entire file.
+  - **Buffering** load few seconds ahead of the playback to avoid interrupting when going thru network fluctations.
+  - **Cacheing** like Location based Cacheing from cdn in which it might cache the shows or videos which is popular in the region to reduce time to deliver
+  - And various optimization takes place.
+
+- Tools like **FFmpeg** massively helps in dealing with video/audio.
+
+## User Perspective
+
+From User Perspective, Streaming Platforms uses Adaptive bitrate (ABR) streaming to handle the quality of the video/audio content based on available bandwidth and device network connections.
+
+If user switches to random playback, it looks at chunks the timestamp is and delivers the video from there instead of downloading from the start.
+
+For example: When travelling we might go from good to poor network, it adapts to the network condition and instead of buffering the content, it switches to low quality video and when connection becomes stable and good, it switches back to higher quality without the user needing to do anything.
+
+## Protocols
+
+- On-demand Live Streaming typically utilizes protocols like Http Live Streaming (HLS), Dynamic Adaptive Streaming over HTTP (DASH) etc. These protocols enables adaptive bitrate streaming for seamless experience.
+
+I've over-simplified the details but it gets the general idea of On-Demand Streaming.
+
+## Real Time Streaming
+
+Real Time Streaming presents unique challenges compared to on-demand streaming. it requires real-time encoding and deliver content as soon as it gets it.
+
+It includes variety of methods:
+
+- Broadcasting (Sporting Event)
+- Unicasting (One-to-One calls)
+- Selective Forward Units (SFU) - (Multi-user Calls: like conference, meetings)
+
+## Protocols
+
+- For selective forward, unicasting types: webrtc,rtmp,srt can be used.
+- For Broadcasting, hybrid approach to deliver content could be employed using webrtc/rtmp/srt (for content acquisition) and HLS/DASH to stream to massive audience while maintaining quality.
+
+webrtc, rtmp, srt are low latency protocols, performs best in unicasting and worse in multicasting.. Since peer connection is established in case of webrtc, that requires much more bandwidth to handle 1-2m concurrent peer connections.
+
+Let's understand from two perspective for Broadcasting (similar to the above):
+
+- how users views/access the content
+- how creators live-stream.
+
+## Creator Perspective
+
+- Creator uses software like OBS to capture the stream and configures the content acquisition protocol (can be one of webrtc/rtmp/srt etc) from their system to the server.
+- The Server transcodes (similar to processing stage on demand section) and segmentation on the fly which requires it to be compute intensive.
+
+## User Perspective
+
+- User uses adaptive bit streaming like HLS in their client to access the content and have smoother experience when network fluctuates.
+
+<ImageView
+  src={code}
+  alt="one Creator is connected to server, multiple viewers are connected to server, server does segmenting/encoding/compression etc"
+/>
+
+Check out [my post](/posts/2023-07-30-intro-to-webrtc) on webrtc to understand
+the concept behind it and how unicasting can be employed.
+
+In the end, it can be summaried as:
+
+| Feature                    | On-Demand Streaming                         | Real-Time Streaming                          |
+| -------------------------- | ------------------------------------------- | -------------------------------------------- |
+| **Defn**                   | Pre-recorded content accessible anytime     | Live content delivered as it happens         |
+| **UX**                     | Users can pause, rewind, and fast-forward   | Limited control; immediate playback          |
+| **Content Processing**     | Involves encoding, chunking, and caching    | Requires real-time encoding and segmentation |
+| **Protocols Used**         | HLS, DASH                                   | WebRTC, RTMP, SRT along with HLS, DASH       |
+| **Bandwidth Requirements** | Lower, as content is pre-processed          | Higher, due to live data transmission        |
+| **Use Cases**              | Streaming services (e.g., Netflix, YouTube) | Live broadcasts (e.g., Twitch)               |
+| **Scalability**            | Easier to scale for large audiences         | More complex due to real-time demands        |

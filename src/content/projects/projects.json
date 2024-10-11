@@ -1,5 +1,16 @@
 [
   {
+    "emoji": "🌊",
+    "name": "Alai",
+    "url": "https://github.com/mystica2000/Alai",
+    "description": [
+      "Audio Recorder in the web browser",
+      "uses WebRTC for the streaming and listening, websocket as signalling/messaging, integration with FFmpeg",
+      "stores audio in disk, static waveforms for animation",
+      "Tech Stack: React w Vite, Zustand, Shadcn, Golang, Gorilla websocket, Pion webrtc"
+    ]
+  },
+  {
     "emoji": "🚀",
     "name": "Jump Rope Tracker",
     "url": "https://github.com/mystica2000/exercise-tracker",
