@@ -24,7 +24,7 @@ _For example_:
 
 In MySQL, if you want to perform search by case sensitive,
 
-```MySQL
+```sql
 SELECT * FROM names WHERE username = "TesT"; // returns "test", "Test", "tESt"
 ```
 
@@ -45,7 +45,7 @@ where,
 
 To perform query aware case sensitive search:
 
-```MySQL
+```sql
 SELECT * FROM names WHERE username COLLATE utf8mb4_bin = "TesT";
 SELECT * FROM names WHERE username COLLATE utf8mb4_unicode_cs = "TesT";
 ```
