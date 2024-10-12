@@ -1,0 +1,56 @@
+---
+title: "Collation in Database"
+description: "Collation in the database for dealing with texts"
+pubDate: 2024-10-13
+---
+
+Collation in Database is the set of rules to govern how characters are searched, compared and sorted in the database.
+It includes case sensitivity, accent-sensitivity and storing multi-lingual, emojis, special characters.
+It is mostly applicable for string datatypes (TEXT, VARCHAR) than others.
+
+Why this is important? because every database treats the characters in a unique way.
+
+Like,
+
+- MySQL don't support case sensitive search out of box (can be configured to do so).
+- Postgres, SQLite includes it out of box.
+
+Databases allows us to specify collation on the time of
+
+- creation of the db or table
+- specify per query, per column basis.
+
+_For example_:
+
+In MySQL, if you want to perform search by case sensitive,
+
+```MySQL
+SELECT * FROM names WHERE username = "TesT"; // returns "test", "Test", "tESt"
+```
+
+The default character encoding for MySQL is `utf8mb4_general_ci` (MySQL 5.7) or `utf8mb4_0900_ai_ci` (MySQL 8.0)
+
+where,
+
+- `utf8mb` - full unicode support in which it occupied 4bytes. (Note: `utf8` is different from `utf8mb4`, `utf8` lacks support for all unicode characters. it is not longer recommeded)
+- `ci` - refers to case insensitive
+- `ai` - accent insensitive
+
+To make our query aware, we can set collation to `utf8mb4_unicode_cs` or `utf8mb4_bin` or another case-sensitive collation.
+
+where,
+
+- `cs` - case sensitive
+- `bin` - binary (compares byte by byte, no other rules)
+
+To perform query aware case sensitive search:
+
+```MySQL
+SELECT * FROM names WHERE username COLLATE utf8mb4_bin = "TesT";
+SELECT * FROM names WHERE username COLLATE utf8mb4_unicode_cs = "TesT";
+```
+
+Collation plays a important role in dealing with multilingual databases effectively for making search, sorting operations consistent with lingustic rules. It is mostly decided at the time of initializing the database.
+
+[charset](https://dev.mysql.com/doc/refman/8.4/en/charset-collation-names.html)
+[utf8](https://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci)

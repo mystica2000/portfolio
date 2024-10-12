@@ -6,7 +6,7 @@ const bytes = await getCollection("bytes");
 
 interface Latest {
   title: string;
-  date: Date;
+  date: Date | string;
   link: string;
 }
 
@@ -35,11 +35,25 @@ const latestBytes: Latest[] = bytes
   }));
 
 let latest: Latest[] = [...latestPosts, ...latestBytes];
-latest.sort(
-  (a, b) =>
-    Date.parse(b.date.toDateString()) - Date.parse(a.date.toDateString())
-);
-latest = latest.slice(0, 3);
+latest.sort((a, b) => {
+  if (b.date instanceof Date && a.date instanceof Date) {
+    return (
+      Date.parse(b.date.toDateString()) - Date.parse(a.date.toDateString())
+    );
+  } else {
+    return 1;
+  }
+});
+
+latest = latest.slice(0, 3).map((aLatest) => {
+  return {
+    ...aLatest,
+    date:
+      aLatest.date instanceof Date
+        ? aLatest.date.toLocaleDateString("en-IN")
+        : "",
+  };
+});
 ---
 
 <section class="section">
@@ -51,7 +65,7 @@ latest = latest.slice(0, 3);
         latest.map((aLatest) => (
           <li>
             <a href={aLatest.link} class="navlink">
-              {aLatest.title}
+              {aLatest.date} - {aLatest.title}
             </a>
           </li>
         ))
