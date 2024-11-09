@@ -1,0 +1,40 @@
+---
+title: "Ring Buffer out in the wild"
+description: "Ring Buffer used in the soft"
+pubDate: 2024-11-09
+---
+
+import ImageView from "@components/ImageView.astro";
+import ringbuffer from "@assets/images/bytes/lock-free.svg";
+
+**Ring Buffer/Circular Queue/Circular Buffer** is a data structure for effectively managing queueing for low latency/time critical tasks, overwriting the old value when the queue is full and wrapping around without needing for dynamic size allowing continuous flow of data.
+
+<ImageView
+  src={ringbuffer}
+  alt="process 1 which is a producer connected to the ring buffer, process 2 which is a consumer connected to the ring buffer for offloading"
+/>
+
+More Advanced Version of ring buffer is all over the place. Few examples could be:
+
+- **device drivers** uses it transport between software and hardware components
+- **io_uring** (used by linux kernel for async i/o) uses two ring buffer -- submission and completion queue to manage/signal I/O requests
+- **real time stream and media processing** -- managing media on the buffer to be processed
+
+On Lower-level locking and unlocking resources is expensive results in delay. In order to avoid it, ring buffer which **CAN BE** implemented as a lock-free data structure without needing to use mutex, semaphores.
+
+lock-free data structures are thread safe for concurrent user without having to use mutual exclusion mechanisms like semaphores, locks.
+
+#### Concurrency Handling
+
+- In case of Single Producer Single Consumer (SPSC), less chance of data corruption since it's single producer, consumer. Although [atomic operations](https://doc.rust-lang.org/std/sync/atomic/) can be designed to ensure correctness.
+- In case of Multiple Producer Multiple Consumer (MPMC), it needs to employ additional techniques to combat data races since it is accessed by multiple threads. Atomic Operations, [Memory Barrier](https://en.wikipedia.org/wiki/Memory_barrier) can be used.
+
+There are different lock-free techniques available to ensure correctness and avoid corruption without explicit locking. io_uring implemention uses memory ordering and barriers to get around without locking the shared memory.
+
+Ring Buffer in the shared memory enables inter process communication among different processes. It can act as a transporting mechanism between threads/user-kernel space.
+
+Building Data Pipeline on top of Ring Buffer could result in **low latency high performance message queue**
+
+[io_uring](https://kernel.dk/io_uring.pdf)
+[how websockets costs us 1m on our aws bill](https://www.recall.ai/post/how-websockets-cost-us-1m-on-our-aws-bill)
+[lock-free programming](https://preshing.com/20120612/an-introduction-to-lock-free-programming/)
