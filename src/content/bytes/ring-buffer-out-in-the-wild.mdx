@@ -14,26 +14,26 @@ import ringbuffer from "@assets/images/bytes/lock-free.svg";
   alt="process 1 which is a producer connected to the ring buffer, process 2 which is a consumer connected to the ring buffer for offloading"
 />
 
-More Advanced Version of ring buffer is all over the place. Few examples could be:
+A more advanced version of the ring buffer is all over the place. A few examples could be:
 
-- **device drivers** uses it transport between software and hardware components
-- **io_uring** (used by linux kernel for async i/o) uses two ring buffer -- submission and completion queue to manage/signal I/O requests
-- **real time stream and media processing** -- managing media on the buffer to be processed
+- **Device Drivers** use it as a transport between software and hardware components
+- **io_uring** (used by linux kernel for async I/O) uses two ring buffers -- submission and completion queue to manage/signal I/O requests
+- **Real-time stream and media processing** -- managing media on the buffer to be processed
 
-On Lower-level locking and unlocking resources is expensive results in delay. In order to avoid it, ring buffer which **CAN BE** implemented as a lock-free data structure without needing to use mutex, semaphores.
+At a lower level, locking and unlocking resources is expensive, which results in delays for performance-critical applications. To avoid this, a ring buffer **CAN BE** implemented as a lock-free data structure without needing to use mutex, semaphores.
 
-lock-free data structures are thread safe for concurrent user without having to use mutual exclusion mechanisms like semaphores, locks.
+Lock-free data structures are thread-safe for concurrent usage without having to use mutual exclusion mechanisms like semaphores or locks.
 
 #### Concurrency Handling
 
-- In case of Single Producer Single Consumer (SPSC), less chance of data corruption since it's single producer, consumer. Although [atomic operations](https://doc.rust-lang.org/std/sync/atomic/) can be designed to ensure correctness.
-- In case of Multiple Producer Multiple Consumer (MPMC), it needs to employ additional techniques to combat data races since it is accessed by multiple threads. Atomic Operations, [Memory Barrier](https://en.wikipedia.org/wiki/Memory_barrier) can be used.
+- For a Single Producer Single Consumer (SPSC) setup, there is a less chance of data corruption since it's single producer and consumer. Although [atomic operations](https://doc.rust-lang.org/std/sync/atomic/) can be designed to ensure correctness.
+- For Multiple Producers Multiple Consumers (MPMC), additional techniques needs to be employed to combat data races since it is accessed by multiple threads. Atomic Operations, [Memory Barrier](https://en.wikipedia.org/wiki/Memory_barrier) or other techniques can be used.
 
-There are different lock-free techniques available to ensure correctness and avoid corruption without explicit locking. io_uring implemention uses memory ordering and barriers to get around without locking the shared memory.
+There are different lock-free techniques available to ensure correctness and avoid corruption without explicit locking. The `io_uring` implementation uses memory ordering and barriers to get around without locking the shared memory.
 
-Ring Buffer in the shared memory enables inter process communication among different processes. It can act as a transporting mechanism between threads/user-kernel space.
+A ring buffer in the shared memory enables inter-process communication (IPC) among different processes. It can act as a transporting mechanism between threads or user-kernel space.
 
-Building Data Pipeline on top of Ring Buffer could result in **low latency high performance message queue**
+Building Data Pipeline on top of Ring Buffer could result in **low latency, high performance message queue**.
 
 [io_uring](https://kernel.dk/io_uring.pdf)
 [how websockets costs us 1m on our aws bill](https://www.recall.ai/post/how-websockets-cost-us-1m-on-our-aws-bill)
