@@ -4,7 +4,20 @@ import { formatDate } from "src/utils/formatDate";
 import AnchorLink from "@components/blog/Anchor.astro";
 
 const components = { a: AnchorLink };
-const bytes = await Astro.glob("@content/bytes/*.mdx");
+const bytes: ByteList[] = Object.values(
+  import.meta.glob("../../content/bytes/*.mdx", {
+    eager: true,
+  })
+);
+
+interface ByteList {
+  frontmatter: {
+    title: string;
+    minutesRead: string;
+    pubDate: string;
+  };
+  Content: any;
+}
 
 bytes.sort(
   (a, b) =>
@@ -51,8 +64,6 @@ const formatTitle = (str: string) => {
 </div>
 
 <script>
-  console.log("Welcome, browser console!");
-
   function initializeShareButtonEvent() {
     // for btns share
     const btns = document.getElementsByClassName("share-btn");
@@ -160,13 +171,11 @@ const formatTitle = (str: string) => {
   navigateByRoute();
 
   document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM");
     initializeShareButtonEvent();
     initializeh2Events();
     navigateByRoute();
   });
   document.addEventListener("astro:after-swap", () => {
-    console.log("AFTER SWAP");
     initializeShareButtonEvent();
     initializeh2Events();
     navigateByRoute();

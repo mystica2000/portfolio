@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "emoji": "🌊",
     "name": "Alai",
     "url": "https://github.com/mystica2000/Alai",
@@ -11,6 +12,7 @@
     ]
   },
   {
+    "id": 2,
     "emoji": "🚀",
     "name": "Jump Rope Tracker",
     "url": "https://github.com/mystica2000/exercise-tracker",
@@ -23,6 +25,7 @@
     "live": "https://exercise-tracker.pages.dev/"
   },
   {
+    "id": 3,
     "emoji": "📰",
     "name": "Feed Roll",
     "url": "https://github.com/mystica2000/feed-roll",
@@ -34,6 +37,7 @@
     "live": "https://feed-roll.vercel.app/"
   },
   {
+    "id": 4,
     "emoji": "👀",
     "name": "Anon Me!",
     "url": "https://github.com/mystica2000/anon-me",
@@ -46,6 +50,7 @@
     ]
   },
   {
+    "id": 5,
     "emoji": "🧩",
     "name": "md Parser",
     "url": "https://github.com/mystica2000/md-parser",
@@ -56,6 +61,7 @@
     ]
   },
   {
+    "id": 6,
     "emoji": "🖼️",
     "name": "Canvas Whiteboard",
     "url": "https://github.com/mystica2000/canvas-whiteboard",
@@ -66,6 +72,7 @@
     ]
   },
   {
+    "id": 7,
     "emoji": "🌐",
     "name": "DNS Client",
     "url": "https://github.com/mystica2000/dnsclient",

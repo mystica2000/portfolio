@@ -2,11 +2,8 @@
 import Card from "@components/project/Card.astro";
 import Layout from "@layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import type { ProjectSchema } from "@content/config";
 
-const projectsCollection = await getCollection("projects");
-
-const projectsData = projectsCollection[0].data;
+const projects = await getCollection("projects");
 ---
 
 <Layout
@@ -25,11 +22,7 @@ const projectsData = projectsCollection[0].data;
       <th>Description</th>
     </thead>
     <tbody>
-      {
-        projectsData.map((aProject: ProjectSchema) => (
-          <Card project={aProject} />
-        ))
-      }
+      {projects.map((aProject) => <Card project={aProject} />)}
     </tbody>
   </table>
 
