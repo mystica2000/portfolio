@@ -11,6 +11,10 @@
         {
             "name": "Ionic",
             "url": "https://ionicframework.com/"
+        },
+        {
+            "name": "Expo - React Native",
+            "url": "https://expo.dev/"
         }
     ],
     "Backend": [
@@ -21,6 +25,10 @@
         {
             "name": "Golang",
             "url": "https://go.dev/"
+        },
+        {
+            "name": "Firebase",
+            "url": "https://firebase.google.com/"
         }
     ],
     "Scripting": [

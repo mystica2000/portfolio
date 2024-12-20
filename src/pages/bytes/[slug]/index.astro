@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   const bytes = await getCollection("bytes");
 
   const byteResult = bytes.map((byte) => ({
-    params: { slug: byte.slug },
+    params: { slug: byte.id },
     props: { byte },
   }));
 

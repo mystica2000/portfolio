@@ -1,9 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import type { SlideSchema } from "@content/config";
-const slidesCollection = await getCollection("slides");
-
-const slides: SlideSchema[] = slidesCollection[0].data;
+const slides = await getCollection("slides");
 ---
 
 <section>
@@ -13,8 +10,8 @@ const slides: SlideSchema[] = slidesCollection[0].data;
     {
       slides.map((aSlide) => (
         <li>
-          {aSlide.description} &nbsp;
-          <a href={aSlide.link} class="navlink block" target="_blank">
+          {aSlide.data.description} &nbsp;
+          <a href={aSlide.data.link} class="navlink block" target="_blank">
             link
           </a>
         </li>

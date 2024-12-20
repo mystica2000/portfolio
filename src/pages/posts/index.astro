@@ -20,7 +20,7 @@ posts.sort(
   <h2>Write-Ups</h2>
 
   <div class="blog__container">
-    {posts.map((aPost: any) => <Card post={aPost.data} slug={aPost.slug} />)}
+    {posts.map((aPost: any) => <Card post={aPost} id={aPost.id} />)}
   </div>
 </Layout>
 
