@@ -10,29 +10,21 @@ interface Latest {
   link: string;
 }
 
-const monthPriorDate = new Date(new Date().setDate(new Date().getDate() - 30));
 const latestPosts: Latest[] = posts
-  .filter((aPost: any) =>
-    aPost.data.lastModified != null
-      ? aPost.data.lastModified > monthPriorDate
-      : aPost.data.pubDate > monthPriorDate
-  )
-  .filter((aPost) => !aPost.data.draft)
+  .filter((aPost: any) => !aPost.data.draft)
   .map((aPost: any) => ({
     title: aPost.data.title,
-    link: `/${aPost.collection}/${aPost.slug}`,
+    link: `/${aPost.collection}/${aPost.id}`,
     date:
       aPost.data.lastModified == null
         ? aPost.data.pubDate
         : aPost.data.lastModified,
   }));
-const latestBytes: Latest[] = bytes
-  .filter((aByte: any) => aByte.data.pubDate > monthPriorDate)
-  .map((aByte: any) => ({
-    title: aByte.data.title,
-    link: `/${aByte.collection}/${aByte.slug}`,
-    date: aByte.data.pubDate,
-  }));
+const latestBytes: Latest[] = bytes.map((aByte: any) => ({
+  title: aByte.data.title,
+  link: `/${aByte.collection}/${aByte.id}`,
+  date: aByte.data.pubDate,
+}));
 
 let latest: Latest[] = [...latestPosts, ...latestBytes];
 latest.sort((a, b) => {

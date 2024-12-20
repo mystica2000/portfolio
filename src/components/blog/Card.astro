@@ -1,23 +1,25 @@
 ---
-import type { PostSchema } from "@content/config";
+import type { CollectionEntry } from "astro:content";
 import Tags from "./Tags.astro";
 
 interface Props {
-  post: PostSchema;
-  slug: string;
+  post: CollectionEntry<"posts">;
+  id: string;
 }
 
-const { post, slug } = Astro.props;
+const { post, id } = Astro.props;
 ---
 
 <article>
-  <a href={`/posts/${slug}`} class="blog__card">
-    <h3 class="heading" transition:name={`title-${post.title}`}>
-      {post.title}
+  <a href={`/posts/${id}`} class="blog__card">
+    <h3 class="heading" transition:name={`title-${post.data.title}`}>
+      {post.data.title}
     </h3>
-    <p class="padding para">{post.description}</p>
-    <Tags tags={post.tags} />
-    <div class="padding card__footer">Time to read ~ {post.readingTime}</div>
+    <p class="padding para">{post.data.description}</p>
+    <Tags tags={post.data.tags} />
+    <div class="padding card__footer">
+      Time to read ~ {post.data.readingTime}
+    </div>
   </a>
 </article>
 

@@ -1,8 +1,7 @@
 ---
-import type { ProjectSchema } from "@content/config";
-
+import type { CollectionEntry } from "astro:content";
 interface Props {
-  project: ProjectSchema;
+  project: CollectionEntry<"projects">;
 }
 
 const { project } = Astro.props;
@@ -10,17 +9,18 @@ const { project } = Astro.props;
 
 <tr class="project__card">
   <td
-    >{project.emoji}
-    <a href={project.url} class="navlink head" target="_blank">{project.name}</a
+    >{project.data.emoji}
+    <a href={project.data.url} class="navlink head" target="_blank"
+      >{project.data.name}</a
     ></td
   >
   <td class="card__box border__line">
     <ul>
-      {project.description.map((desp) => <li>{desp}</li>)}
+      {project.data.description.map((desp) => <li>{desp}</li>)}
     </ul>
     {
-      project.live && (
-        <a href={project.live} class="navlink" target="_blank">
+      project.data.live && (
+        <a href={project.data.live} class="navlink" target="_blank">
           live
         </a>
       )

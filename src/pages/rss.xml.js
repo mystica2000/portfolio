@@ -11,7 +11,7 @@ export async function GET(context) {
 
     let items = combineRSSFeed.map(async (post) => {
         const data = {
-            link: `/${post.collection}/${post.slug}/`,
+            link: `/${post.collection}/${post.id}/`,
             title: post.data.title,
             pubDate: post.data.pubDate,
             description: post.data.description,

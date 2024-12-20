@@ -1,26 +1,23 @@
 ---
 import { getCollection } from "astro:content";
-import type { SkillSchema } from "@content/config";
-const skillsCollection = await getCollection("skills");
-
-const skills: SkillSchema = skillsCollection[0].data;
+const skills = await getCollection("skills");
 ---
 
 <section>
   <h3>Skills</h3>
 
   {
-    Object.keys(skills).map((aSkillName) => (
+    skills.map((aSkill) => (
       <div>
-        <span class="highlight">{aSkillName + ": "}</span>
-        {skills[aSkillName].map((skill, index) => (
+        <span class="highlight">{aSkill.id + ": "}</span>
+        {aSkill.data.map((skill, index) => (
           <Fragment>
             &nbsp;
             <a href={skill.url} class="socials ">
               {skill.name}
             </a>
             &nbsp;
-            {index == skills[aSkillName].length - 1 ? " " : "/"}
+            {index == aSkill.data.length - 1 ? " " : "/"}
           </Fragment>
         ))}
       </div>

@@ -1,4 +1,4 @@
-import type { Post } from "@content/config";
+import type { CollectionEntry } from "astro:content";
 
 interface Frontmatter {
     frontmatter: {
@@ -14,8 +14,8 @@ const extractSlug = (str: string): string => {
 }
 
 
-export const getReadingTimeForPosts = async (postCollection: Post[]) => {
-    const posts = import.meta.glob<Frontmatter>('@content/posts/*.mdx');
+export const getReadingTimeForPosts = async (postCollection: CollectionEntry<'posts'>[]) => {
+    const posts = import.meta.glob<Frontmatter>('../posts/*.mdx');
 
     const slugMap = new Map<string, string>();
     Object.keys(posts).forEach((path) => {
@@ -25,7 +25,7 @@ export const getReadingTimeForPosts = async (postCollection: Post[]) => {
 
     await Promise.all(
         postCollection.map(async post => {
-            const path = slugMap.get(post.slug);
+            const path = slugMap.get(post.id);
             if (path) {
                 const { frontmatter } = await posts[path]();
                 post.data.readingTime = frontmatter.minutesRead;
