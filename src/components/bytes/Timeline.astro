@@ -64,8 +64,14 @@ const formatTitle = (str: string) => {
 </div>
 
 <script>
+  let initializedShareButton = false,
+    initializedh2Events = false,
+    initializedNavigatiobyRoute = false;
+
   function initializeShareButtonEvent() {
     // for btns share
+    if (initializedShareButton) return;
+
     const btns = document.getElementsByClassName("share-btn");
     for (let btn of btns) {
       btn.addEventListener("click", (event: any) => {
@@ -115,38 +121,44 @@ const formatTitle = (str: string) => {
         }
       });
     }
+
+    initializedShareButton = true;
   }
 
   function initializeh2Events() {
+    if (initializedh2Events) return;
+
     const h2Array = document.getElementsByClassName("scroll-header");
     for (const h2 of h2Array) {
       h2.addEventListener("click", (event: any) => {
         const element = document.getElementById(event.target.id);
 
         if (element) {
-          setTimeout(function () {
-            if (window.innerWidth < 440) {
-              element.style.scrollMarginTop = "150px";
-            } else {
-              element.style.scrollMarginTop = "110px";
-            }
+          if (window.innerWidth < 440) {
+            element.style.scrollMarginTop = "150px";
+          } else {
+            element.style.scrollMarginTop = "110px";
+          }
 
-            element.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
 
-            const location = window.location.href.indexOf("/bytes");
-            const sectionURL =
-              window.location.href.slice(0, location) + event.target.id;
-            history.pushState(null, "", sectionURL);
-          }, 100);
+          const location = window.location.href.indexOf("/bytes");
+          const sectionURL =
+            window.location.href.slice(0, location) + event.target.id;
+          history.pushState(null, "", sectionURL);
         }
       });
     }
+
+    initializedh2Events = true;
   }
 
   function navigateByRoute() {
+    if (initializedNavigatiobyRoute) return;
+
     const location = window.location.href.indexOf("bytes/");
     const url = window.location.href.slice(location + 6).replace("/", "");
 
@@ -164,6 +176,8 @@ const formatTitle = (str: string) => {
         block: "start",
       });
     }
+
+    initializedNavigatiobyRoute = true;
   }
 
   initializeShareButtonEvent();

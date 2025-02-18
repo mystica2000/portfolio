@@ -172,7 +172,11 @@ const currentPath = pathname.slice(1);
 </style>
 
 <script is:inline>
+  let isInitialized = false;
+
   const init = () => {
+    if (isInitialized) return;
+
     const theme = (() => {
       if (typeof localStorage != "undefined" && localStorage.getItem("theme")) {
         return localStorage.getItem("theme");
@@ -222,6 +226,8 @@ const currentPath = pathname.slice(1);
     document
       .getElementById("lightMode")
       .addEventListener("click", handleToggleClick);
+
+    isInitialized = true;
   };
 
   document.addEventListener("DOMContentLoaded", () => init());

@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 let bytesCollection = await getCollection("bytes");
 
 const bytes = bytesCollection
-  .map((aByte) => ({
+  .map((aByte: any) => ({
     title: aByte.data.title,
     id: aByte.id,
     pubDate: aByte.data.pubDate,
@@ -20,7 +20,7 @@ const bytes = bytesCollection
     <h3>Table of Contents</h3>
     <ul class="list">
       {
-        bytes.map((aByte) => {
+        bytes.map((aByte: any) => {
           return (
             <li>
               <a href={"/bytes/" + aByte.id} class="title">
@@ -38,8 +38,20 @@ const bytes = bytesCollection
 </div>
 
 <script>
+  let isInitialized = false;
+
   function initialize() {
-    setTimeout(function () {
+    if (isInitialized) return;
+
+    const h3element = document.querySelector(
+      ".table-of-contents"
+    ) as HTMLElement;
+    if (h3element) {
+      h3element.style.scrollMarginTop =
+        window.innerWidth < 440 ? "200px" : "100px";
+    }
+
+    window.addEventListener("resize", () => {
       const h3element = document.querySelector(
         ".table-of-contents"
       ) as HTMLElement;
@@ -47,48 +59,42 @@ const bytes = bytesCollection
         h3element.style.scrollMarginTop =
           window.innerWidth < 440 ? "200px" : "100px";
       }
+    });
 
-      window.addEventListener("resize", () => {
+    const btn = document.getElementById("btn");
+    const list = document.querySelector(".list") as HTMLElement;
+
+    btn?.addEventListener("click", () => {
+      console.log("testing?!", list.style.maxHeight);
+      if (list) {
+        const isExpanded = list.style.maxHeight === "none"; // Check if list is expanded
+
         const h3element = document.querySelector(
           ".table-of-contents"
         ) as HTMLElement;
-        if (h3element) {
-          h3element.style.scrollMarginTop =
-            window.innerWidth < 440 ? "200px" : "100px";
-        }
-      });
-
-      const btn = document.getElementById("btn");
-      const list = document.querySelector(".list") as HTMLElement;
-
-      btn?.addEventListener("click", () => {
-        if (list) {
-          const isExpanded = list.style.maxHeight === "none"; // Check if list is expanded
-
-          const h3element = document.querySelector(
-            ".table-of-contents"
-          ) as HTMLElement;
-          if (isExpanded) {
-            list.style.maxHeight = "130px"; // Collapse the list
-            btn.textContent = "Show More"; // Change button text
-          } else {
-            if (h3element) {
-              setTimeout(function () {
-                h3element.style.scrollMarginTop =
-                  window.innerWidth < 440 ? "200px" : "100px";
-              }, 100);
-              h3element.scrollIntoView({
-                behavior: "instant",
-                block: "start",
-              });
-            }
-            list.style.maxHeight = "none";
-            btn.textContent = "Show Less";
+        if (isExpanded) {
+          list.style.maxHeight = "130px"; // Collapse the list
+          btn.textContent = "Show More"; // Change button text
+        } else {
+          if (h3element) {
+            setTimeout(function () {
+              h3element.style.scrollMarginTop =
+                window.innerWidth < 440 ? "200px" : "100px";
+            }, 100);
+            h3element.scrollIntoView({
+              behavior: "instant",
+              block: "start",
+            });
           }
+          list.style.maxHeight = "none";
+          btn.textContent = "Show Less";
         }
-      });
-    }, 100);
+      }
+    });
+
+    isInitialized = true;
   }
+  initialize();
 
   document.addEventListener("DOMContentLoaded", () => {
     initialize();
@@ -101,6 +107,10 @@ const bytes = bytesCollection
 <style>
   .container {
     display: flex;
+  }
+
+  .list {
+    maxheight: 130px;
   }
 
   .toc {
