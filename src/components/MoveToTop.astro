@@ -24,7 +24,6 @@
     const moveToTopButton = document.getElementById("moveToTop");
 
     window.addEventListener("scroll", () => {
-      console.log("Current scroll position: ", window.scrollY);
       if (window.scrollY > 300) {
         moveToTopButton?.classList.add("show");
       } else {
