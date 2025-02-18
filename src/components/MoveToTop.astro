@@ -20,11 +20,7 @@
 </button>
 
 <script>
-  let isInitialized = false;
-
   function init() {
-    if (isInitialized) return;
-
     const moveToTopButton = document.getElementById("moveToTop");
 
     window.addEventListener("scroll", () => {
@@ -38,12 +34,10 @@
     moveToTopButton?.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
-
-    isInitialized = true;
   }
 
-  document.addEventListener("DOMContentLoaded", () => init());
-  document.addEventListener("astro:after-swap", () => init());
+  // document.addEventListener("DOMContentLoaded", () => init());
+  document.addEventListener("astro:page-load", () => init());
 </script>
 
 <style>

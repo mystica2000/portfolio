@@ -64,13 +64,8 @@ const formatTitle = (str: string) => {
 </div>
 
 <script>
-  let initializedShareButton = false,
-    initializedh2Events = false,
-    initializedNavigatiobyRoute = false;
-
   function initializeShareButtonEvent() {
     // for btns share
-    if (initializedShareButton) return;
 
     const btns = document.getElementsByClassName("share-btn");
     for (let btn of btns) {
@@ -121,13 +116,9 @@ const formatTitle = (str: string) => {
         }
       });
     }
-
-    initializedShareButton = true;
   }
 
   function initializeh2Events() {
-    if (initializedh2Events) return;
-
     const h2Array = document.getElementsByClassName("scroll-header");
     for (const h2 of h2Array) {
       h2.addEventListener("click", (event: any) => {
@@ -152,13 +143,9 @@ const formatTitle = (str: string) => {
         }
       });
     }
-
-    initializedh2Events = true;
   }
 
   function navigateByRoute() {
-    if (initializedNavigatiobyRoute) return;
-
     const location = window.location.href.indexOf("bytes/");
     const url = window.location.href.slice(location + 6).replace("/", "");
 
@@ -176,20 +163,18 @@ const formatTitle = (str: string) => {
         block: "start",
       });
     }
-
-    initializedNavigatiobyRoute = true;
   }
 
   initializeShareButtonEvent();
   initializeh2Events();
   navigateByRoute();
 
-  document.addEventListener("DOMContentLoaded", () => {
-    initializeShareButtonEvent();
-    initializeh2Events();
-    navigateByRoute();
-  });
-  document.addEventListener("astro:after-swap", () => {
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   initializeShareButtonEvent();
+  //   initializeh2Events();
+  //   navigateByRoute();
+  // });
+  document.addEventListener("astro:page-load", () => {
     initializeShareButtonEvent();
     initializeh2Events();
     navigateByRoute();

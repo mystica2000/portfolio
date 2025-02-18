@@ -96,10 +96,8 @@ const bytes = bytesCollection
   }
   initialize();
 
-  document.addEventListener("DOMContentLoaded", () => {
-    initialize();
-  });
   document.addEventListener("astro:after-swap", () => {
+    console.log("astro:after-swap");
     initialize();
   });
 </script>

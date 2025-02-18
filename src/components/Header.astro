@@ -172,10 +172,11 @@ const currentPath = pathname.slice(1);
 </style>
 
 <script is:inline>
-  let isInitialized = false;
+  let hasInitialized = false;
 
   const init = () => {
-    if (isInitialized) return;
+    if (hasInitialized) return; // Prevent double initialization
+    hasInitialized = true;
 
     const theme = (() => {
       if (typeof localStorage != "undefined" && localStorage.getItem("theme")) {
@@ -226,10 +227,14 @@ const currentPath = pathname.slice(1);
     document
       .getElementById("lightMode")
       .addEventListener("click", handleToggleClick);
-
-    isInitialized = true;
   };
 
+  document.addEventListener("astro:before-preparation", () => {
+    hasInitialized = false;
+  });
+
   document.addEventListener("DOMContentLoaded", () => init());
-  document.addEventListener("astro:after-swap", () => init());
+  document.addEventListener("astro:page-load", () => {
+    init();
+  });
 </script>
