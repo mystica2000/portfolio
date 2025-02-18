@@ -3,6 +3,7 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Main from "@components/Main.astro";
 import Meta from "@components/Meta.astro";
+import MoveToTop from "@components/MoveToTop.astro";
 
 interface Props {
   title: string;
@@ -24,6 +25,7 @@ const { title, description, content } = Astro.props;
       <slot />
     </Main>
     <Footer />
+    <MoveToTop />
   </body>
 </html>
 <style is:global>

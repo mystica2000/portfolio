@@ -1,0 +1,192 @@
+---
+import { getCollection } from "astro:content";
+
+let bytesCollection = await getCollection("bytes");
+
+const bytes = bytesCollection
+  .map((aByte) => ({
+    title: aByte.data.title,
+    id: aByte.id,
+    pubDate: aByte.data.pubDate,
+  }))
+  .sort(
+    (aByte: any, bByte: any) =>
+      Date.parse(bByte.pubDate) - Date.parse(aByte.pubDate)
+  );
+---
+
+<div class="container">
+  <div class="toc table-of-contents">
+    <h3>Table of Contents</h3>
+    <ul class="list">
+      {
+        bytes.map((aByte) => {
+          return (
+            <li>
+              <a href={"/bytes/" + aByte.id} class="title">
+                <div>{aByte.title}</div>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+    <div class="show-more">
+      <button class="btn" id="btn">Show More</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initialize() {
+    setTimeout(function () {
+      const h3element = document.querySelector(
+        ".table-of-contents"
+      ) as HTMLElement;
+      if (h3element) {
+        h3element.style.scrollMarginTop =
+          window.innerWidth < 440 ? "200px" : "100px";
+      }
+
+      window.addEventListener("resize", () => {
+        const h3element = document.querySelector(
+          ".table-of-contents"
+        ) as HTMLElement;
+        if (h3element) {
+          h3element.style.scrollMarginTop =
+            window.innerWidth < 440 ? "200px" : "100px";
+        }
+      });
+
+      const btn = document.getElementById("btn");
+      const list = document.querySelector(".list") as HTMLElement;
+
+      btn?.addEventListener("click", () => {
+        if (list) {
+          const isExpanded = list.style.maxHeight === "none"; // Check if list is expanded
+
+          const h3element = document.querySelector(
+            ".table-of-contents"
+          ) as HTMLElement;
+          if (isExpanded) {
+            list.style.maxHeight = "130px"; // Collapse the list
+            btn.textContent = "Show More"; // Change button text
+          } else {
+            if (h3element) {
+              setTimeout(function () {
+                h3element.style.scrollMarginTop =
+                  window.innerWidth < 440 ? "200px" : "100px";
+              }, 100);
+              h3element.scrollIntoView({
+                behavior: "instant",
+                block: "start",
+              });
+            }
+            list.style.maxHeight = "none";
+            btn.textContent = "Show Less";
+          }
+        }
+      });
+    }, 100);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initialize();
+  });
+  document.addEventListener("astro:after-swap", () => {
+    initialize();
+  });
+</script>
+
+<style>
+  .container {
+    display: flex;
+  }
+
+  .toc {
+    max-width: 100%;
+    border: 2px solid rgb(59 54 54);
+    padding: 0.5em;
+    border-radius: 10px;
+    margin-bottom: 0.5em;
+    opacity: 0.8;
+
+    flex: 1;
+    margin-inline: 1em;
+  }
+
+  .show-more {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.7em;
+  }
+
+  .list {
+    max-height: 130px;
+    list-style-type: none;
+    padding-inline-start: 0;
+    margin: 0;
+
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    overflow: hidden;
+  }
+
+  li {
+    word-wrap: break-word;
+    padding: 0.5em;
+    text-decoration: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .title {
+    color: black;
+    width: fit-content;
+    cursor: pointer;
+  }
+
+  :global(.dark) .title {
+    color: white;
+  }
+
+  li:hover {
+    background-color: rgb(244 244 245);
+    border-radius: 10px;
+  }
+
+  .btn {
+    padding: 0.5em;
+    border-radius: 10px;
+    background: none;
+    border: none;
+    color: black;
+  }
+
+  :global(.dark) .btn:hover {
+    background-color: rgb(63 63 70);
+  }
+
+  :global(.dark) .btn {
+    color: white;
+  }
+
+  :global(.dark) li:hover {
+    background-color: rgb(63 63 70);
+  }
+
+  .btn:hover {
+    background-color: rgb(244 244 245);
+    cursor: pointer;
+  }
+
+  h3 {
+    margin-inline: 0.6em;
+    font-family: sans-serif;
+  }
+</style>

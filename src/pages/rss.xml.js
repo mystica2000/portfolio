@@ -24,6 +24,6 @@ export async function GET(context) {
         description: 'Checkout my content around all things tech',
         site: context.site,
         items: await Promise.all(items),
-        customData: "<language>en</language> <copyright>All rights reserved 2024, Mystica</copyright>",
+        customData: "<language>en</language> <copyright>All rights reserved 2025, Mystica</copyright>",
     });
 }
