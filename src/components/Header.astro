@@ -172,12 +172,7 @@ const currentPath = pathname.slice(1);
 </style>
 
 <script is:inline>
-  let hasInitialized = false;
-
   const init = () => {
-    if (hasInitialized) return; // Prevent double initialization
-    hasInitialized = true;
-
     const theme = (() => {
       if (typeof localStorage != "undefined" && localStorage.getItem("theme")) {
         return localStorage.getItem("theme");
@@ -229,12 +224,6 @@ const currentPath = pathname.slice(1);
       .addEventListener("click", handleToggleClick);
   };
 
-  document.addEventListener("astro:before-preparation", () => {
-    hasInitialized = false;
-  });
-
   document.addEventListener("DOMContentLoaded", () => init());
-  document.addEventListener("astro:page-load", () => {
-    init();
-  });
+  document.addEventListener("astro:after-swap", () => init());
 </script>
