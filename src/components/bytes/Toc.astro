@@ -1,0 +1,217 @@
+---
+import { getCollection } from "astro:content";
+
+let bytesCollection = await getCollection("bytes");
+
+const bytes = bytesCollection
+  .map((aByte: any) => ({
+    title: aByte.data.title,
+    id: aByte.id,
+    pubDate: aByte.data.pubDate,
+  }))
+  .sort(
+    (aByte: any, bByte: any) =>
+      Date.parse(bByte.pubDate) - Date.parse(aByte.pubDate)
+  );
+---
+
+<div class="container">
+  <div class="toc table-of-contents">
+    <h3>Table of Contents</h3>
+    <ul class="bytes-list">
+      {
+        bytes.map((aByte: any) => {
+          return (
+            <li>
+              <a href={"/bytes/" + aByte.id} class="bytes-a-title">
+                <div>{aByte.title}</div>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+    <div class="show-more">
+      <button class="btn" id="btn">Show More</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = "bytes-list-expanded";
+
+  function getExpandedState(): boolean {
+    return localStorage.getItem(STORAGE_KEY) === "true";
+  }
+
+  function setExpandedState(expanded: boolean) {
+    localStorage.setItem(STORAGE_KEY, expanded.toString());
+  }
+
+  function updateScrollMargin() {
+    const h3element = document.querySelector(
+      ".table-of-contents"
+    ) as HTMLElement;
+    if (h3element) {
+      h3element.style.scrollMarginTop =
+        window.innerWidth < 440 ? "200px" : "100px";
+    }
+  }
+
+  function handleAnchor(event: MouseEvent) {
+    const target = event.currentTarget as HTMLAnchorElement;
+    const targetId = target.getAttribute("href")?.split("/").pop();
+    const element = document.getElementById(targetId || "");
+
+    if (element) {
+      element.style.scrollMarginTop =
+        window.innerWidth < 440 ? "150px" : "110px";
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      const location = window.location.href.indexOf("/bytes");
+      if (location !== -1) {
+        const sectionURL =
+          window.location.href.slice(0, location) + target.getAttribute("href");
+        history.pushState(null, "", sectionURL);
+      }
+    }
+  }
+
+  function initializeEventListeners() {
+    const btn = document.getElementById("btn");
+    const list = document.querySelector(".bytes-list");
+    const anchors = document.querySelectorAll(".bytes-a-title");
+
+    if (!btn) return;
+
+    if (getExpandedState() && list) {
+      list.classList.add("expanded");
+      btn.textContent = "Show Less";
+    }
+
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode?.replaceChild(newBtn, btn);
+    newBtn?.addEventListener("click", () => {
+      list?.classList.toggle("expanded");
+      const isExpanded = list?.classList.contains("expanded") || false;
+      setExpandedState(isExpanded);
+
+      (newBtn as HTMLElement).textContent = isExpanded
+        ? "Show Less"
+        : "Show More";
+    });
+
+    anchors.forEach((anchor: any) => {
+      anchor.addEventListener("click", handleAnchor);
+    });
+  }
+
+  updateScrollMargin();
+  initializeEventListeners();
+
+  window.addEventListener("resize", updateScrollMargin);
+
+  document.addEventListener("astro:page-load", () => {
+    initializeEventListeners();
+  });
+</script>
+
+<style>
+  .container {
+    display: flex;
+  }
+
+  .toc {
+    max-width: 100%;
+    border: 2px solid rgb(59 54 54);
+    padding: 0.5em;
+    border-radius: 10px;
+    margin-bottom: 0.5em;
+    opacity: 0.8;
+
+    flex: 1;
+    margin-inline: 1em;
+  }
+
+  .show-more {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.7em;
+  }
+
+  .bytes-list {
+    max-height: 130px;
+    list-style-type: none;
+    padding-inline-start: 0;
+    margin: 0;
+
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    overflow: hidden;
+  }
+
+  .bytes-list.expanded {
+    max-height: none;
+  }
+
+  li {
+    word-wrap: break-word;
+    padding: 0.5em;
+    text-decoration: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .bytes-a-title {
+    color: black;
+    width: fit-content;
+    cursor: pointer;
+  }
+
+  :global(.dark) .bytes-a-title {
+    color: white;
+  }
+
+  li:hover {
+    background-color: rgb(244 244 245);
+    border-radius: 10px;
+  }
+
+  .btn {
+    padding: 0.5em;
+    border-radius: 10px;
+    background: none;
+    border: none;
+    color: black;
+  }
+
+  :global(.dark) .btn:hover {
+    background-color: rgb(63 63 70);
+  }
+
+  :global(.dark) .btn {
+    color: white;
+  }
+
+  :global(.dark) li:hover {
+    background-color: rgb(63 63 70);
+  }
+
+  .btn:hover {
+    background-color: rgb(244 244 245);
+    cursor: pointer;
+  }
+
+  h3 {
+    margin-inline: 0.6em;
+    font-family: sans-serif;
+  }
+</style>

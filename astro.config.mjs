@@ -63,7 +63,7 @@ const og = () => ({
 export default defineConfig({
   integrations: [mdx(), og()],
   site: 'https://mystica.me',
-  prefetch: false,
+  transitions: true,
   markdown: {
     remarkPlugins: [
       remarkReadingTime,

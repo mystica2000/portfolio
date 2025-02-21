@@ -66,6 +66,7 @@ const formatTitle = (str: string) => {
 <script>
   function initializeShareButtonEvent() {
     // for btns share
+
     const btns = document.getElementsByClassName("share-btn");
     for (let btn of btns) {
       btn.addEventListener("click", (event: any) => {
@@ -124,23 +125,21 @@ const formatTitle = (str: string) => {
         const element = document.getElementById(event.target.id);
 
         if (element) {
-          setTimeout(function () {
-            if (window.innerWidth < 440) {
-              element.style.scrollMarginTop = "150px";
-            } else {
-              element.style.scrollMarginTop = "110px";
-            }
+          if (window.innerWidth < 440) {
+            element.style.scrollMarginTop = "150px";
+          } else {
+            element.style.scrollMarginTop = "110px";
+          }
 
-            element.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
 
-            const location = window.location.href.indexOf("/bytes");
-            const sectionURL =
-              window.location.href.slice(0, location) + event.target.id;
-            history.pushState(null, "", sectionURL);
-          }, 100);
+          const location = window.location.href.indexOf("/bytes");
+          const sectionURL =
+            window.location.href.slice(0, location) + event.target.id;
+          history.pushState(null, "", sectionURL);
         }
       });
     }
@@ -170,12 +169,12 @@ const formatTitle = (str: string) => {
   initializeh2Events();
   navigateByRoute();
 
-  document.addEventListener("DOMContentLoaded", () => {
-    initializeShareButtonEvent();
-    initializeh2Events();
-    navigateByRoute();
-  });
-  document.addEventListener("astro:after-swap", () => {
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   initializeShareButtonEvent();
+  //   initializeh2Events();
+  //   navigateByRoute();
+  // });
+  document.addEventListener("astro:page-load", () => {
     initializeShareButtonEvent();
     initializeh2Events();
     navigateByRoute();

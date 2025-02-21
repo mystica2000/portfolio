@@ -1,0 +1,68 @@
+<button id="moveToTop" class="move-to-top">
+  <svg
+    class="move-to-top__svg"
+    width="30"
+    height="40"
+    viewBox="0 0 57 78"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M22.911 74.7956C25.211 59.5356 24.681 43.7456 25.491 28.3556C25.711 24.1756 19.211 24.1856 18.991 28.3556C18.211 43.1456 18.851 58.4056 16.651 73.0656C16.031 77.1656 22.291 78.9256 22.911 74.7956Z"
+      fill="#231F20"></path>
+    <path
+      d="M36.9214 73.9357C37.0614 59.7857 36.9214 45.7457 39.1314 31.7257C39.7614 27.6257 33.5014 25.8657 32.8614 29.9957C30.5914 44.6157 30.5614 59.1757 30.4214 73.9357C30.4214 78.1157 36.8814 78.1157 36.9214 73.9357Z"
+      fill="#231F20"></path>
+    <path
+      d="M6.42124 36.7956C9.54224 30.6204 13.2706 24.7716 17.5512 19.3356C20.8412 15.2056 27.9312 6.0656 34.1512 6.9856C34.5512 7.0456 34.6412 7.1056 35.4612 7.8256C36.4483 8.75264 37.3303 9.78553 38.0912 10.9056C39.9618 13.5582 41.633 16.3458 43.0912 19.2456C46.1407 24.7277 48.4923 30.5697 50.0912 36.6356C51.0912 41.0256 57.8612 39.1656 56.8412 34.7756C55.0712 27.2156 51.4912 19.7756 47.7012 13.0556C45.0412 8.3456 41.0012 0.605597 34.8712 0.0555969C27.1612 -0.684403 19.8712 6.1156 15.2112 11.3456C9.37381 17.9972 4.4041 25.3627 0.42124 33.2656C-1.63876 37.2656 4.42124 40.8056 6.42124 36.7956Z"
+      fill="#231F20"></path>
+  </svg>
+</button>
+
+<script>
+  function init() {
+    const moveToTopButton = document.getElementById("moveToTop");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        moveToTopButton?.classList.add("show");
+      } else {
+        moveToTopButton?.classList.remove("show");
+      }
+    });
+
+    moveToTopButton?.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  // document.addEventListener("DOMContentLoaded", () => init());
+  document.addEventListener("astro:page-load", () => init());
+</script>
+
+<style>
+  .move-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+
+    background-color: transparent;
+    color: white;
+    /* border: none; */
+    border: 1px solid #5a5a5a;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  .move-to-top.show {
+    display: block;
+  }
+
+  .move-to-top__svg,
+  .move-to-top__svg path {
+    fill: var(--astro-bg-color);
+  }
+</style>
