@@ -72,5 +72,6 @@ export default defineConfig({
       theme: "slack-dark",
       wrap: true
     }
-  }
+  },
+  trailingSlash: "always"
 });

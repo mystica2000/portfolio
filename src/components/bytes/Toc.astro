@@ -59,23 +59,28 @@ const bytes = bytesCollection
   }
 
   function handleAnchor(event: MouseEvent) {
+    event.preventDefault();
     const target = event.currentTarget as HTMLAnchorElement;
-    const targetId = target.getAttribute("href")?.split("/").pop();
-    const element = document.getElementById(targetId || "");
+    const targetId = target.getAttribute("href")?.split("/")?.pop();
 
-    if (element) {
-      element.style.scrollMarginTop =
-        window.innerWidth < 440 ? "150px" : "110px";
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+    if (targetId) {
+      const element = document.getElementById(targetId.slice(1) || "");
 
-      const location = window.location.href.indexOf("/bytes");
-      if (location !== -1) {
-        const sectionURL =
-          window.location.href.slice(0, location) + target.getAttribute("href");
-        history.pushState(null, "", sectionURL);
+      if (element) {
+        element.style.scrollMarginTop =
+          window.innerWidth < 440 ? "150px" : "110px";
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+
+        const location = window.location.href.indexOf("/bytes/");
+        if (location !== -1) {
+          const href = target.getAttribute("href")?.replace("#", "");
+          const sectionURL =
+            window.location.href.slice(0, location) + href + "/";
+          history.pushState(null, "", sectionURL);
+        }
       }
     }
   }

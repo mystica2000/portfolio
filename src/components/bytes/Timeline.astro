@@ -40,7 +40,7 @@ const formatTitle = (str: string) => {
               class="scroll-header"
             >
               <span
-                id={`/bytes/${formatTitle(aByte.frontmatter.title)}`}
+                id={`/bytes/${formatTitle(aByte.frontmatter.title)}/`}
                 class="title"
               >
                 {aByte.frontmatter.title}
@@ -78,7 +78,9 @@ const formatTitle = (str: string) => {
           const sectionURL =
             window.location.href.slice(0, location) +
             "/bytes/" +
-            titleElement.getAttribute("id")?.substring(1).split("/")[1];
+            titleElement.getAttribute("id")?.substring(1).split("/")[1] +
+            "/";
+
           const url = new URL(sectionURL);
           const h2element = document.getElementById(
             titleElement.getAttribute("id")?.substring(1).split("/")[1]
@@ -174,7 +176,7 @@ const formatTitle = (str: string) => {
   //   initializeh2Events();
   //   navigateByRoute();
   // });
-  document.addEventListener("astro:page-load", () => {
+  document.addEventListener("astro:after-swap", () => {
     initializeShareButtonEvent();
     initializeh2Events();
     navigateByRoute();
