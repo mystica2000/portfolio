@@ -6,6 +6,8 @@ import { exportAsPng } from './ogImage';
 import path from 'node:path';
 import { platform } from "node:os";
 
+import sitemap from "@astrojs/sitemap";
+
 const og = () => ({
   name: "satori-og",
   hooks: {
@@ -61,7 +63,7 @@ const og = () => ({
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), og()],
+  integrations: [mdx(), og(), sitemap()],
   site: 'https://mystica.me',
   transitions: true,
   markdown: {
