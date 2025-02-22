@@ -1,3 +1,2 @@
 User-agent: *
-Disallow: /bytes/
-Allow: /bytes$
+Allow: /
