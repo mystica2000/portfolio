@@ -11,7 +11,12 @@ const slides = await getCollection("slides");
       slides.map((aSlide) => (
         <li>
           {aSlide.data.description} &nbsp;
-          <a href={aSlide.data.link} class="navlink block" target="_blank">
+          <a
+            href={aSlide.data.link}
+            class="navlink block"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             link
           </a>
         </li>

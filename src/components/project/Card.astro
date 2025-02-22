@@ -10,8 +10,11 @@ const { project } = Astro.props;
 <tr class="project__card">
   <td
     >{project.data.emoji}
-    <a href={project.data.url} class="navlink head" target="_blank"
-      >{project.data.name}</a
+    <a
+      href={project.data.url}
+      class="navlink head"
+      target="_blank"
+      rel="noopener noreferrer">{project.data.name}</a
     ></td
   >
   <td class="card__box border__line">
@@ -20,7 +23,12 @@ const { project } = Astro.props;
     </ul>
     {
       project.data.live && (
-        <a href={project.data.live} class="navlink" target="_blank">
+        <a
+          href={project.data.live}
+          class="navlink"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           live
         </a>
       )
