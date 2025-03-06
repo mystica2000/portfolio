@@ -1,0 +1,127 @@
+---
+title: "AI Agents Overview"
+description: "Intro to Developing AI Agents Overview, MCP Servers etc"
+tags: ["agents", "mcp", "ai-agents"]
+keyword: "agents,mcpserver,aiagents,ai"
+pubDate: 2025-03-07
+lastModified: 2025-03-07
+---
+
+import BlockQuote from "@components/BlockQuote.astro";
+
+<BlockQuote>
+  **Disclaimer:** These are my personal notes rather than a formal blog post.
+  Content may be condensed, contain shorthand, and reflect my own understanding.
+  ok continue!
+</BlockQuote>
+
+## AI Agents
+
+A goal-oriented, autonomous decision making and context aware system to do a particular tasks (Task here can be domain specific chatbot-like systems or Single purpose Task Oriented Systems). An Agent can be perform an API call, Database Query for a report, Scheduling on calendar etc.
+
+Some Examples:
+
+- [Devin](https://devin.ai/)- interactive problem solving, understands - searches - validates - applies changes to code
+- Cursor Agent Mode makes changes to the code (Code modification)
+- Deep Research on ChatGPT - "An agent that uses reasoning to synthesize large amounts of online information and complete multi-step research tasks for you" - [Open AI Deep Research](https://openai.com/index/introducing-deep-research/)
+- Task Specific (For example: nocode tools like [n8n](https://n8n.io/)to create autonomous agents that can schedule things for you by connecting various tools together, send msg/audio via telegram/WhatsApp to trigger the workflow for trip planner, scheduling meeting etc)
+
+```markdown
+- System (Prompt which enforces the task to do: "You are a expert in python and do the code review. Make sure it follow the linting rules as follows: ")
+- User (who queries the Agent - "setup a meeting at 10am tomorrow")
+- Assistant (Agent Response - "Done, added a meeting to your calender for 10am tomorrow")
+- Tools (function calling, make request to a certain API for retrieving result like run the sql statement to get reports for this year)
+```
+
+## Security Considerations
+
+Guard against malicious request on the System prompt?
+
+- Open AI provides like "moderation API" which can be modified/trained according to our needs. Guarding in system prompt can be jail breaked. For example: what if the user asks like "Ignore all the previous indented statements and do xxx instead" - -[Moderation API](https://platform.openai.com/docs/guides/moderation/overview)
+- Various level of validation steps for user inputs before processing!
+
+## Context Matters (Chat)
+
+When it comes to chat application using LLM
+
+- The Chat have to chained with previous queries (context matters!) it has to have a memory to understand and respond back the user.
+- charged per token, imagine sending all the chat window's prompt back and forth.
+
+Techniques
+
+- Instead of it, the technique "Summarization".. Once it reaches the limit (let's say window limit 15), It asks the LLM to summarize the older chats and for the further requests, it uses the Summary as Context Remembering Mechanism for further chats minimizing the number of tokens used for the next request. Window limit can be implemented as fixed or dynamic according to the needs of the application.
+  Pro: less token
+  Con: important details might lost?!
+
+Note: Claude models perform well with xml formats! [source](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags)
+
+```
+<thoughts> …. </thoughts>
+<response> … </response>
+<context> ... </context>
+```
+
+## UX For Chats
+
+What if the LLM takes too long to process the result?
+Client Side:
+
+- Show Loader on the client
+- Stream as you get (UX Improvement)
+
+Server Side:
+
+- try Increasing the limit for the serverless functions for the long running tasks (AWS supports upto 15min)
+- Break down the tasks (input to LLM Call) into multiple sub-tasks
+- Store the result as you get from the sub-tasks on the message queue or something similar
+  Even if LLM Call resulted in error, you dont have to process from the start. instead you can check the message queue for the which tasks are completed and start where it is left off to reduce/optimize token usage, like a checkpoints!
+  Risks to mitigate would be: Ensuring it doesn't resulted in duplicate calls/action (what if it resulted in double booking of the hotels/flights)
+
+## WorkFlows:
+
+There are various ways to architect the agent: From Antropic's blog, Building Effective Agents:
+
+### Basic Workflows:
+
+- **Prompt Chaining** - One LLM Call depends on the other LLM Call.. It is like feeding one's output to the next input LLM call
+- **Routing** - This is like making a LLM Call to a specialized/fine-tuned models to retrieve data. For example, triggering math heavy model for math questions, code related to code agent etc. (DeepSeek specializes in this)
+- **Multi-LLM Parallelization** - Tasks are split into sub tasks independently. Every sub tasks does it own part of the task and it will be combined by a aggregator function or LLM for the user to view
+
+### Advanced Workflows:
+
+- **Evaluator - Optimizer** (One LLM generates a result while the other Evaluate the result in the feedback loop, think of it like a confidence score, every result is assigned a confidence score by the evalutator, if it below the threshold - it runs again until it gets it right in the feedback loop)
+- **Multi-agents (Orchestrator-Subagents)**
+  - agents → orchestrates series of agents
+  - Those series of agents follows a principle of **single responsibility principle (SRP)** where they are given a specific tasks (Like one agent can take on booking hotels, another on booking flight tickets, another on preparing iternary) and combines the results of multiple agents and sends it as single response to the User.
+
+## MCP - Model Context Protocol
+
+- Connecting AI Systems with data sources
+- Data sources can be Database, Codebase, Files/Products/Projects that belongs to the user on Google Drive/Cloud Providers etc
+- It is a standardized protocol that abstracts the way to connect the data sources with the AI systems or models.
+
+Consists of three parts:
+
+- **MCP Hosts** (This is an application that is MCP enabled Agents that can already make LLM Calls - Cursor IDE, Claude Desktop, Custom CLI Tools)
+- **MCP Clients** (Lives inside Hosts as a extensions, for example: get_weather extension, get_monthly_sales_report_from_db)
+- **MCP Servers** (Evaluates the request from the MCP Clients whether they have access for what they are requesting, runs the query and returns results back to the MCP Hosts, MCP Hosts can generate a human-like response back to the User). It can either be local DB or remote endpoints
+
+Resource: [MCP Finder](https://www.mcpfinder.com/) - List of mcp servers for the different products/file system/database etc.
+
+## Agent Looping!
+
+There are different types of looping in the AI Agents:
+
+- **Agent in the Loop**
+  - When using function calling (or tooling - both are same), getting a response from an API needs to be present in the human readable format instead of structured JSON API Response. For example: fetch weather data and present it in the human readable format
+- **Human in the Loop**
+  - When sending a email, human to review and approve before actually sending the actual email
+- **Human in the Loop - Training**
+  - This one happens on the training phase where humans review and evaluate the model outputs by reward points (A form of Reinforcement Learning - **Reinforcement Learning with Human Feedback (RLHF)**)
+
+## Evals! (Evalutation)
+
+- To measure a LLM Responses/Logging and Evaluate the LLM Model for the production by using mathematical/statistical techniques and improve LLM Responses.
+- You can write a custom evals on top of the existing evals provided by the tools according to the needs.
+- Evals metrics: Measuring latency, LLM Model response time, Accuracy, F1 Score, False Positives etc
+- Tools like Langsmith, OpenAI Evals or any other products!
