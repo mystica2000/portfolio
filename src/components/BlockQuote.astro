@@ -1,0 +1,17 @@
+---
+interface Props {
+  quote: string;
+}
+---
+
+<blockquote class="blockquote">
+  <slot />
+</blockquote>
+
+<style>
+  .blockquote {
+    font-style: italic;
+    margin: 1em;
+    margin-top: 3em;
+  }
+</style>
