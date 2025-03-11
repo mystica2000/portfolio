@@ -4,10 +4,12 @@ description: "Intro to Developing AI Agents Overview, MCP Servers etc"
 tags: ["agents", "mcp", "ai-agents"]
 keyword: "agents,mcpserver,aiagents,ai"
 pubDate: 2025-03-07
-lastModified: 2025-03-07
+lastModified: 2025-03-11
 ---
 
+import newsaggregator from "@assets/images/posts/aiagents/newsaggregator.png";
 import BlockQuote from "@components/BlockQuote.astro";
+import ImageView from "@components/ImageView.astro";
 
 <BlockQuote>
   **Disclaimer:** These are my personal notes rather than a formal blog post.
@@ -103,8 +105,22 @@ There are various ways to architect the agent: From Antropic's blog, Building Ef
 Consists of three parts:
 
 - **MCP Hosts** (This is an application that is MCP enabled Agents that can already make LLM Calls - Cursor IDE, Claude Desktop, Custom CLI Tools)
-- **MCP Clients** (Lives inside Hosts as a extensions, for example: get_weather extension, get_monthly_sales_report_from_db)
-- **MCP Servers** (Evaluates the request from the MCP Clients whether they have access for what they are requesting, runs the query and returns results back to the MCP Hosts, MCP Hosts can generate a human-like response back to the User). It can either be local DB or remote endpoints
+- **MCP Clients** (Connectors/protocol handlers within the host application, for example: readonly posgresDB client to query data from)
+- **MCP Servers** (Evaluates the request from the MCP Clients whether they have access for what they are requesting, runs the query and returns results back to the MCP Host, which in turn calls the LLM to generate human-like responses). It can either be local DB or remote endpoints
+
+MCP Host is Orchestrator of different MCP Clients. Host creates and manages MCP Clients, each client having 1-1 connection with MCP Server
+
+MCP Clients (Connectors in the MCP Hosts) establishes the connection with MCP Server (server can be local or remote)
+
+- local: stdio (MCP Server)
+- remote: SSE (MCP Server)
+
+And MCP Server results what are the supported capabilities that MCP Client can use.
+
+MCP Clients - maintains connection, gets the capabilities from the user, data querying, it uses JSON-RPC for structured messaging.
+
+When user initiates a query that results in tool calling, MCP Host checks whether it can able to call a tool or not. It does the tool discovery and calls the tool via MCP Client.
+and then the MCP Client returns a message back to the MCP host which then be fed into LLM to be human readable text.
 
 Resource: [MCP Finder](https://www.mcpfinder.com/) - List of mcp servers for the different products/file system/database etc.
 
@@ -125,3 +141,21 @@ There are different types of looping in the AI Agents:
 - You can write a custom evals on top of the existing evals provided by the tools according to the needs.
 - Evals metrics: Measuring latency, LLM Model response time, Accuracy, F1 Score, False Positives etc
 - Tools like Langsmith, OpenAI Evals or any other products!
+
+## Tool Calling Example for AI:
+
+I've created a news aggregator application that does the tool calling and Summarization using ollama local models.
+
+<ImageView
+  src={newsaggregator}
+  alt="news aggregator using Ollama models user prompt - latest engineering blogs, runs thru llama3-groq-tool-use model and then performs the tool calling to a function that calls the external api to get the latest engineering blogs, and then fetches content via puppeteer, and then passes down to reasoning model for the summary - deepseek. it will result out the summary of the blog post"
+/>
+
+Check out the source code for it: [here](https://github.com/mystica2000/tech-digest)
+
+Note: It is more of function/tool calling example than to be categorized as "agents"
+
+### What is the difference between function/tool calling vs AI Agents?
+
+- Not all tool calling is classified as ai agents, but almost all ai agents has tool callings as a part of their workflow.
+- AI agents are like cron jobs which decides when to fetch, where to and display based on user preference, adapting to various situations. performs series of tasks by accessing various external tools/data source. ai agents have more autonomy to perform like an assistant.
