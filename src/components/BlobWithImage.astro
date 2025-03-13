@@ -1,6 +1,6 @@
 ---
 import ImageView from "./ImageView.astro";
-import Mystica from "@assets/images/others/mystica.jpg";
+import Mystica from "@assets/images/others/cropped.png";
 ---
 
 <div class="pfp-container">
@@ -21,5 +21,20 @@ import Mystica from "@assets/images/others/mystica.jpg";
     padding: 1em;
     background-origin: padding-box;
     background-position: center;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-5px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
   }
 </style>

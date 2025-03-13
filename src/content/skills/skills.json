@@ -59,6 +59,10 @@
         {
             "name": "Capacitor",
             "url": "https://capacitorjs.com/"
+        },
+        {
+            "name": "Redux Toolkit",
+            "url": "https://redux-toolkit.js.org/"
         }
     ]
 }
