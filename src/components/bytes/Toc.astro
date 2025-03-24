@@ -74,11 +74,10 @@ const bytes = bytesCollection
           block: "start",
         });
 
-        const location = window.location.href.indexOf("/bytes/");
+        const location = window.location.href.indexOf("/bytes");
         if (location !== -1) {
           const href = target.getAttribute("href")?.replace("#", "");
-          const sectionURL =
-            window.location.href.slice(0, location) + href + "/";
+          const sectionURL = window.location.href.slice(0, location) + href;
           history.pushState(null, "", sectionURL);
         }
       }

@@ -14,7 +14,7 @@ const { path } = Astro.props;
     path &&
       path.length > 0 &&
       path.map((aPath: string) => (
-        <a href={url + "bytes/" + aPath + "/"} class="navlink">
+        <a href={url + "bytes/" + aPath} class="navlink">
           {aPath}
         </a>
       ))

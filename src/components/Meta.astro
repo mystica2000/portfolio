@@ -11,7 +11,14 @@ const canonicalURL = new URL(
   Astro.url.pathname.includes("/bytes") ? "/bytes" : Astro.url.pathname,
   Astro.site
 );
-const image = new URL(canonicalURL.pathname + "og.png", Astro.site);
+const ogSuffix =
+  Astro.url.pathname.includes("/bytes") || Astro.url.pathname.includes("/posts")
+    ? "-og.png"
+    : "og.png";
+
+const ogUrl = Astro.url.pathname.replace(/\.html\/?$/, "");
+
+const image = new URL(ogUrl + ogSuffix, Astro.site);
 
 const { title, description, content = "" } = Astro.props;
 ---

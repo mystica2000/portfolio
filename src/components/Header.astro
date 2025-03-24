@@ -2,7 +2,7 @@
 import ThemeIcon from "./ThemeIcon.astro";
 
 const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.slice(1);
+const currentPath = pathname.slice(1).replaceAll(".html", "");
 ---
 
 <header>
@@ -10,10 +10,11 @@ const currentPath = pathname.slice(1);
     <h1 class="home">
       <a
         href="/"
-        class="navlink no-decor"
+        class="navlink no-decor code"
         class:list={["navlink", "no-decor", { active: currentPath == "" }]}
-        >Mystica</a
       >
+        Mystica
+      </a>
     </h1>
     <ul>
       <li>
@@ -21,135 +22,146 @@ const currentPath = pathname.slice(1);
           class:list={[
             "navlink",
             {
-              active: currentPath == "posts/" || /^posts\/.*/.test(currentPath),
+              active: currentPath == "posts" || /^posts\/.*/.test(currentPath),
             },
           ]}
-          href="/posts/">posts</a
+          href="/posts"
         >
+          posts
+        </a>
       </li>
       <li>
         <a
           class:list={[
             "navlink",
             {
-              active: currentPath == "bytes/" || /^bytes\/.*/.test(currentPath),
+              active: currentPath == "bytes" || /^bytes\/.*/.test(currentPath),
             },
           ]}
-          href="/bytes/">bytes</a
+          href="/bytes"
         >
+          bytes
+        </a>
       </li>
       <li>
         <a
-          class:list={["navlink", { active: currentPath == "projects/" }]}
-          href="/projects/">projects</a
+          class:list={["navlink", { active: currentPath == "projects" }]}
+          href="/projects"
         >
-      </li>
-      <li>
-        <a
-          class:list={["navlink", { active: currentPath == "about/" }]}
-          href="/about/">about</a
-        >
-      </li>
-      <li>
-        <ThemeIcon />
+          projects
+        </a>
+        <li>
+          <a
+            class:list={["navlink", { active: currentPath == "about" }]}
+            href="/about"
+          >
+            about
+          </a>
+        </li>
+        <li>
+          <ThemeIcon />
+        </li>
       </li>
     </ul>
   </nav>
-</header>
+  <style>
+    header {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-around;
+      position: sticky;
 
-<style>
-  header {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-around;
-    position: sticky;
+      padding-top: 20px;
+      padding-bottom: 20px;
 
-    padding-top: 20px;
-    padding-bottom: 20px;
+      top: 0;
+      z-index: 999;
+    }
 
-    top: 0;
-    z-index: 999;
-  }
-
-  .nav__box {
-    max-width: var(--content-width);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    border-radius: 20px;
-    -webkit-backdrop-filter: blur(
-      4px
-    ); /* Add this line first, it fixes blur for Safari*/
-    backdrop-filter: blur(4px);
-    margin-left: 10px;
-    margin-right: 10px;
-    position: relative;
-  }
-
-  .nav__box::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 10px;
-    padding: 2px; /* This creates the border width */
-    background: radial-gradient(circle at top left, #f00, #3020ff);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
-  .no-decor {
-    text-decoration: none;
-  }
-
-  @media screen and (max-width: 440px) {
     .nav__box {
-      flex-direction: column;
-      align-items: flex-start;
-      padding-bottom: 1em;
+      max-width: var(--content-width);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      border-radius: 20px;
+      -webkit-backdrop-filter: blur(
+        4px
+      ); /* Add this line first, it fixes blur for Safari*/
+      backdrop-filter: blur(4px);
+      margin-left: 10px;
+      margin-right: 10px;
+      position: relative;
+    }
+
+    .nav__box::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 10px;
+      padding: 2px; /* This creates the border width */
+      background: radial-gradient(circle at top left, #f00, #3020ff);
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .no-decor {
+      text-decoration: none;
+    }
+
+    .code {
+      font-family: monospace;
+    }
+
+    @media screen and (max-width: 440px) {
+      .nav__box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 1em;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 0.5em;
+      }
     }
 
     ul {
-      margin: 0;
-      padding-left: 0.5em;
+      list-style: "/";
+      display: flex;
+      gap: 0.7em;
+
+      align-items: center;
+      flex-wrap: wrap;
     }
-  }
 
-  ul {
-    list-style: "/";
-    display: flex;
-    gap: 0.7em;
+    li:last-child {
+      list-style: "";
+    }
 
-    align-items: center;
-    flex-wrap: wrap;
-  }
+    .home {
+      text-transform: uppercase;
+      text-align: rotateY(45deg);
+      text-decoration: none;
+      -webkit-text-stroke: 0.2px #000000;
+      letter-spacing: 2px;
+    }
 
-  li:last-child {
-    list-style: "";
-  }
-
-  .home {
-    text-transform: uppercase;
-    text-align: rotateY(45deg);
-    text-decoration: none;
-    -webkit-text-stroke: 0.2px #000000;
-    letter-spacing: 2px;
-  }
-
-  #toggleMode {
-    scale: 1.4;
-    border: 1px solid white;
-    background-color: transparent;
-  }
-</style>
+    #toggleMode {
+      scale: 1.4;
+      border: 1px solid white;
+      background-color: transparent;
+    }
+  </style>
+</header>

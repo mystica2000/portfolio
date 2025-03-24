@@ -11,7 +11,7 @@ const { post, id } = Astro.props;
 ---
 
 <article>
-  <a href={`/posts/${id}/`} class="blog__card">
+  <a href={`/posts/${id}`} class="blog__card">
     <h3 class="heading" transition:name={`title-${post.data.title}`}>
       {post.data.title}
     </h3>

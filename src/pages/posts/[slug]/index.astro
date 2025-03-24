@@ -25,7 +25,7 @@ const { Content, remarkPluginFrontmatter } = await render(post);
 
 <Layout title={post.data.title} description={post.data.description}>
   <article>
-    <a href="/posts/" class="navlink">back to all posts</a>
+    <a href="/posts" class="navlink">back to all posts</a>
     <Blog
       heading={post.data.title}
       readingTime={remarkPluginFrontmatter.minutesRead || ""}

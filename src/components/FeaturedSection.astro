@@ -14,7 +14,7 @@ const latestPosts: Latest[] = posts
   .filter((aPost: any) => !aPost.data.draft)
   .map((aPost: any) => ({
     title: aPost.data.title,
-    link: `/${aPost.collection}/${aPost.id}/`,
+    link: `/${aPost.collection}/${aPost.id}`,
     date:
       aPost.data.lastModified == null
         ? aPost.data.pubDate
@@ -22,7 +22,7 @@ const latestPosts: Latest[] = posts
   }));
 const latestBytes: Latest[] = bytes.map((aByte: any) => ({
   title: aByte.data.title,
-  link: `/${aByte.collection}/${aByte.id}/`,
+  link: `/${aByte.collection}/${aByte.id}`,
   date: aByte.data.pubDate,
 }));
 

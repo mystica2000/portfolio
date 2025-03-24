@@ -22,22 +22,24 @@ const og = () => ({
           /(^(bytes)\/[a-zA-Z0-9-])/.test(pathname)
         ) {
           if (pathname.startsWith("posts/")) {
-            const filename = pathname.slice(6, -1);
+            const filename = pathname.slice(6);
             const file = fs.readFileSync(`src/content/posts/${filename}.mdx`);
             const svg = await exportAsPng(file, interFont);
-
-            fs.writeFileSync(
-              `${isPlatformWindows == true ? dir.pathname.slice(1) : dir.pathname}${pathname}og.png`,
-              svg
+            const pathFile = path.join(
+              `${isPlatformWindows == true ? dir.pathname.slice(1) : dir.pathname}`,
+              "posts",
+              `${filename}-og.png`
             );
+
+            fs.writeFileSync(pathFile, svg);
           } else {
-            const filename = pathname.slice(6, -1);
+            const filename = pathname.slice(6);
             const file = fs.readFileSync(`src/content/bytes/${filename}.mdx`);
             const svg = await exportAsPng(file, interFont);
             const pathFile = path.join(
               `${isPlatformWindows == true ? dir.pathname.slice(1) : dir.pathname}`,
-              pathname,
-              `og.png`
+              "bytes",
+              `${filename}-og.png`
             );
             fs.writeFileSync(pathFile, svg);
           }
@@ -46,7 +48,7 @@ const og = () => ({
           const pathFile = path.join(
             `${isPlatformWindows == true ? dir.pathname.slice(1) : dir.pathname}`,
             pathname,
-            `og.png`
+            `${pathname}og.png`
           );
           fs.writeFileSync(pathFile, file);
         }
@@ -69,5 +71,7 @@ export default defineConfig({
       wrap: true,
     },
   },
-  trailingSlash: "always",
+  build: {
+    format: "file",
+  },
 });
