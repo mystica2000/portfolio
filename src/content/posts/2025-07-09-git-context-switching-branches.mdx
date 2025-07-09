@@ -1,0 +1,77 @@
+---
+title: "Git Stash, Git worktrees"
+description: "Context Switching between branches: git stash and git worktrees"
+pubDate: 2025-07-09
+tags: ["git", "stash", "worktrees"]
+keyword: "git,stash,worktree"
+lastModified: 2025-07-09
+---
+
+Context switching between branches while working on a feature can get cumbersome. You might need to switch branches for reviewing peer code and running it locally, referring to some branch for some implementation, make a hotfix.
+
+To do this without losing your current feature work. There are couple of ways to do it.
+
+## Git Stash
+
+- on the current branch, `git stash`
+- switch to the other branch you want to refer (or) code review (or) make hotfix for
+- do your required task on the other branch
+- git checkout to current branch you are working on
+- to retrieve your current changes, git stash pop
+- tada, Your changes are now restored!
+
+```shell
+D:\test-app on main$ git stash
+D:\test-app on main$ git checkout featurev1
+D:\test-app on featurev1$
+# do changes ...
+D:\test-app on featurev1$ git checkout main
+D:\test-app on main$ git stash pop
+# your changes will be popped out ...
+```
+
+But there’s a better workflow for more organized and parallel working:
+
+## Git Worktrees
+
+- Worktrees are like folders (think of it like git clone but it requires no installation setup, uses existing setup and uses the same .git folder)
+- You can create a worktree on a specific branch, a directory will be created. Switch to that directory, see all the changes. Your branch that you were working on will be unaffected, you can cd ../ to get back to your working main without having to do git stash
+- Essentially it creates a directory, you can view/edit in parallel without having to commit your current work or stash it for later.
+
+```shell
+D:\test-app on main$ git worktree add ../worktree/featurev1 featurev1
+D:\test-app on main$ cd ../worktree/featurev1
+D:\worktree\featurev1 on featurev1$
+# do changes ...
+D:\worktree\featurev1 on featurev1$ cd ../../test-app
+D:\test-app on main$
+# your changes will be here ...
+D:\test-app on main$  git worktree list # displays the list of worktrees available
+D:/test-app            01ebaa59 [main]
+D:/worktree/featurev1  38bf55c0 [featurev1]
+D:\test-app on main$ git worktree remove ../worktree/featurev1 # When done with worktree
+```
+
+Note: After switching to a worktree (here it is featurev1), try checkout to the main. it results in error since it is already checked out on a worktree.
+
+```shell
+D:\worktree\featurev1 on featurev1$ git checkout main
+fatal: 'main' is already checked out at 'D:/test-app'
+```
+
+we already have a worktree which has main branch checked out, so cannot able to checkout main branch on featurev1 worktree
+
+```shell
+# when running git worktree list
+D:\test-app on main$  git worktree list
+D:/test-app 01ebaa59 [main]
+```
+
+But other branches can be checked out, meaning that the other branches are not checked out in a different worktree. A project can have many worktrees as possible.
+
+## TLDR;
+
+|                  | Git Command                                                                                    | Pro                        | Con                           |
+| ---------------- | ---------------------------------------------------------------------------------------------- | -------------------------- | ----------------------------- |
+| **git stash**    | `git stash` <br /> `git stash pop`                                                             | Quick context switch       | Risk losing unstashed changes |
+| **git worktree** | `git worktree add ../newdir` <br /> `git worktree remove ../newdir` <br /> `git worktree list` | Parallel work, no stashing | Uses extra disk space         |
