@@ -1,0 +1,41 @@
+---
+title: "Debugging trace"
+description: "console trace - debugging"
+pubDate: 2025-07-09
+---
+
+In javascript, `console.trace` is underrated debugging tool that helps to trace the caller function. `console.trace` prints out the stacktrace/call stack of the function call that will help to trace out the calling function.
+
+For example: If there is a helper function that is used in several places in the complex codebase, using console.trace on the function helps to trace out the caller function when debugging.
+
+```js
+function sanitizeHtml() {
+  console.trace("sanitize html");
+}
+
+sanitizeHtml(); // line 5
+// ...
+sanitizeHtml(); // line 7
+// ...
+sanitizeHtml(); // line 9
+// ...
+sanitizeHtml(); // line 11
+```
+
+```
+VM1567:2 sanitize html
+sanitizeHtml	@	VM1567:2
+(anonymous)	@	VM1567:5 # line 5
+
+VM1567:2 sanitize html
+sanitizeHtml	@	VM1567:2
+(anonymous)	@	VM1567:7 # line 7
+
+VM1567:2 sanitize html
+sanitizeHtml	@	VM1567:2
+(anonymous)	@	VM1567:9 # line 9
+
+VM1567:2 sanitize html
+sanitizeHtml	@	VM1567:2
+(anonymous)	@	VM1567:11 # line 11
+```

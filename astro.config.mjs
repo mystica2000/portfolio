@@ -67,7 +67,10 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkReadingTime],
     shikiConfig: {
-      theme: "slack-dark",
+      themes: {
+        light: "gruvbox-light-medium",
+        dark: "houston",
+      },
       wrap: true,
     },
   },

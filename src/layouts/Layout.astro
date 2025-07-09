@@ -168,6 +168,15 @@ const { title, description, content } = Astro.props;
     background-size: 20px 20px;
   }
 
+  .dark .astro-code,
+  .dark .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+
   /* since background fixed not supported in ios revert back to use scroll instead */
   @supports (-webkit-overflow-scrolling: touch) {
     body {
