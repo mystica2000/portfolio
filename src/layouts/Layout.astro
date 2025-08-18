@@ -4,6 +4,7 @@ import Footer from "@components/Footer.astro";
 import Main from "@components/Main.astro";
 import Meta from "@components/Meta.astro";
 import MoveToTop from "@components/MoveToTop.astro";
+import "@fontsource-variable/inter";
 
 interface Props {
   title: string;
@@ -61,6 +62,7 @@ const { title, description, content } = Astro.props;
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: "Inter Variable", sans-serif;
   }
 
   html.dark {
