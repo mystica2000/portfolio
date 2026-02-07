@@ -1,6 +1,19 @@
 [
   {
     "id": 1,
+    "emoji": "📝",
+    "name": "NoteSync",
+    "url": "https://github.com/mystica2000/notessync",
+    "description": [
+      "Notesync is offline, privacy-first android note taking app AI Powered Search all entirely offline",
+      "uses Google's EmbeddingGemma for the vector search (semantic search)",
+      "custom sqlite plugin uses SQLite-vec for storing vectors in the DB locally on Device, uses Transformer.js to download the model initially",
+      "Search though all the notes using semantic search",
+      "Tech Stack: Angular w Capacitor, Transformer.js, SQLite, Java Android plugin development, Vector Extension - Sqlite-Vec"
+    ]
+  },
+  {
+    "id": 2,
     "emoji": "🌊",
     "name": "Alai",
     "url": "https://github.com/mystica2000/Alai",
@@ -12,7 +25,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": 3,
     "emoji": "🚀",
     "name": "Jump Rope Tracker",
     "url": "https://github.com/mystica2000/exercise-tracker",
@@ -25,7 +38,7 @@
     "live": "https://exercise-tracker.pages.dev/"
   },
   {
-    "id": 3,
+    "id": 4,
     "emoji": "📰",
     "name": "Feed Roll",
     "url": "https://github.com/mystica2000/feed-roll",
@@ -37,7 +50,7 @@
     "live": "https://feed-roll.vercel.app/"
   },
   {
-    "id": 4,
+    "id": 5,
     "emoji": "👀",
     "name": "Anon Me!",
     "url": "https://github.com/mystica2000/anon-me",
@@ -50,7 +63,7 @@
     ]
   },
   {
-    "id": 5,
+    "id": 6,
     "emoji": "🧩",
     "name": "md Parser",
     "url": "https://github.com/mystica2000/md-parser",
@@ -61,7 +74,7 @@
     ]
   },
   {
-    "id": 6,
+    "id": 7,
     "emoji": "🖼️",
     "name": "Canvas Whiteboard",
     "url": "https://github.com/mystica2000/canvas-whiteboard",
@@ -72,7 +85,7 @@
     ]
   },
   {
-    "id": 7,
+    "id": 8,
     "emoji": "🌐",
     "name": "DNS Client",
     "url": "https://github.com/mystica2000/dnsclient",
