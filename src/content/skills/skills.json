@@ -1,68 +1,78 @@
 {
-    "Frontend": [
-        {
-            "name": "Angular",
-            "url": "https://angular.dev/"
-        },
-        {
-            "name": "React",
-            "url": "https://react.dev/"
-        },
-        {
-            "name": "Ionic",
-            "url": "https://ionicframework.com/"
-        },
-        {
-            "name": "Expo - React Native",
-            "url": "https://expo.dev/"
-        }
-    ],
-    "Backend": [
-        {
-            "name": "Node",
-            "url": "https://nodejs.org/en"
-        },
-        {
-            "name": "Golang",
-            "url": "https://go.dev/"
-        },
-        {
-            "name": "Firebase",
-            "url": "https://firebase.google.com/"
-        }
-    ],
-    "Scripting": [
-        {
-            "name": "Python",
-            "url": "https://www.python.org/"
-        }
-    ],
-    "DB": [
-        {
-            "name": "MySql",
-            "url": "https://www.mysql.com/"
-        },
-        {
-            "name": "SQLite",
-            "url": "https://www.sqlite.org/index.html"
-        }
-    ],
-    "others": [
-        {
-            "name": "Redis",
-            "url": "https://redis.io/"
-        },
-        {
-            "name": "RxJS",
-            "url": "https://rxjs.dev/"
-        },
-        {
-            "name": "Capacitor",
-            "url": "https://capacitorjs.com/"
-        },
-        {
-            "name": "Redux Toolkit",
-            "url": "https://redux-toolkit.js.org/"
-        }
-    ]
+  "Frontend": [
+    {
+      "name": "Angular",
+      "url": "https://angular.dev/"
+    },
+    {
+      "name": "React",
+      "url": "https://react.dev/"
+    },
+    {
+      "name": "Ionic",
+      "url": "https://ionicframework.com/"
+    }
+  ],
+  "Mobile": [
+    {
+      "name": "Flutter",
+      "url": "https://flutter.dev/"
+    },
+    {
+      "name": "Expo - React Native",
+      "url": "https://expo.dev/"
+    },
+    {
+      "name": "Capacitor",
+      "url": "https://capacitorjs.com/"
+    }
+  ],
+  "Backend": [
+    {
+      "name": "Node",
+      "url": "https://nodejs.org/en"
+    },
+    {
+      "name": "Golang",
+      "url": "https://go.dev/"
+    },
+    {
+      "name": "Firebase",
+      "url": "https://firebase.google.com/"
+    }
+  ],
+  "Scripting": [
+    {
+      "name": "Python",
+      "url": "https://www.python.org/"
+    }
+  ],
+  "DB": [
+    {
+      "name": "MySql",
+      "url": "https://www.mysql.com/"
+    },
+    {
+      "name": "SQLite",
+      "url": "https://www.sqlite.org/index.html"
+    }
+  ],
+  "others": [
+    {
+      "name": "Redis",
+      "url": "https://redis.io/"
+    },
+    {
+      "name": "RxJS",
+      "url": "https://rxjs.dev/"
+    },
+    {
+      "name": "Redux Toolkit",
+      "url": "https://redux-toolkit.js.org/"
+    },
+    {
+      "name": "Hugging Face",
+      "url": "https://huggingface.co/"
+    }
+  ]
 }

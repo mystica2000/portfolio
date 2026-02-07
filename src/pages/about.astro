@@ -6,28 +6,38 @@ import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="About" description="about mystica">
-  <h2>About me</h2>
-  <div class="about">
-    <span>
-      <b>Experience:</b> 3+ years professionally in developing full-stack applications.
-    </span>
-    <span>
-      <b>Education:</b> Graduated in 2021 with a Bachelor's in Information Technology.
-    </span>
-  </div>
+    <h2>About me</h2>
 
-  <Skills />
-  <Slides />
-  <Others />
+    <div>
+        Want to take a look at my resume/cv? <a
+            class="navlink"
+            href="mailto:mysticainf@gmail.com?subject=Resume%20Request"
+        >
+            Request at mysticainf@gmail.com</a
+        >
+    </div>
+    <br />
+    <div class="about">
+        <span>
+            <b>Experience:</b> 4+ years professionally in developing full-stack applications.
+        </span>
+        <span>
+            <b>Education:</b> Graduated in 2021 with a Bachelor's in Information Technology.
+        </span>
+    </div>
+
+    <Skills />
+    <Slides />
+    <Others />
 </Layout>
 
 <style>
-  .square {
-    list-style: square;
-  }
+    .square {
+        list-style: square;
+    }
 
-  .about {
-    display: flex;
-    flex-direction: column;
-  }
+    .about {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
