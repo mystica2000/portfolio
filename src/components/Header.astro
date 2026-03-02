@@ -65,7 +65,7 @@ const currentPath = pathname.slice(1).replaceAll(".html", "");
             about
           </a>
         </li>
-        <li>
+        <li class="themeicon">
           <ThemeIcon />
         </li>
       </li>
@@ -84,6 +84,10 @@ const currentPath = pathname.slice(1).replaceAll(".html", "");
 
       top: 0;
       z-index: 999;
+    }
+
+    .themeicon {
+      display: flex;
     }
 
     .nav__box {
