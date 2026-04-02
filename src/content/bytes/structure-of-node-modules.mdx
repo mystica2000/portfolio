@@ -1,0 +1,96 @@
+---
+title: "Structure of node modules"
+description: "managing npm dependencies under node_modules using installation strategies"
+pubDate: 2026-04-02
+---
+
+when we do ```npm install```, npm defaults to <b>hoisted</b> as installation strategy.
+
+```
+[--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+```
+
+There are other strategies as well. As follows:
+
+### hoisted 
+
+that means, when you do, let's say ```npm install express```. The dependencies of the express as installed in the node_modules as follows:
+
+```
+node_modules/
+  express/          ← you installed this ✓
+  body-parser/      ← express's dep, hoisted, you never asked for this
+  accepts/          ← express's dep, hoisted, you never asked for this
+```
+
+Now on the code, you can access body-parser like:
+
+```js
+import bodyParser from 'body-parser'  // Works ✓
+```
+
+This above is called <b>phantom dependency</b>, since it is added by express and can be accessed in the code even though it is not installed by the user, rather it is by express. We can access `body-parser` because of the <b>hoisted</b> structure of the node_modules where packages are aligned as siblings to each other.
+
+If by chance, if express removes the dependency of the body-parser, then it results in error if it is used in the code.
+
+### nested 
+
+```
+node_modules/
+  express/
+    node_modules/
+      body-parser/    ← buried inside express
+       node_modules/
+         bytes/
+         raw-body/
+```
+
+Now on the code, you cannot access body-parser like:
+
+```js
+import bodyParser from 'body-parser'  // FAILS x
+```
+
+since, it is nested and nodejs cannot able to access the import file.
+
+### shallow
+
+```
+node_modules/
+  express/
+    node_modules/
+      body-parser/    ← buried inside express
+      bytes/
+      raw-body/
+```
+
+```js
+import bodyParser from 'body-parser'  // FAILS x
+```
+
+since, it is nested inside express nd nodejs cannot able to access the import file.
+
+### linked
+
+This is more of experimental installation as of April 2026.
+
+```
+node_modules/
+  .store/
+    body-parser@2.2.2/
+    bytes@3.1.2/
+    raw-body@3.0.2/
+  express/       ← body parser, bytes, raw-body are all symlinked
+```
+
+```js
+import bodyParser from 'body-parser'  // FAILS OFC x
+```
+
+
+| Strategy | Top level | Inside | Phantom Deps | Disk |
+|----------|---|---|---|---|
+| `hoisted` | everything deduped | nothing | possible | efficient (deduped) |
+| `shallow` | only your direct deps | everything else as siblings (2 levels deep) | blocked | moderate |
+| `nested` | only your direct deps | each package owns its deps recursively | blocked | duplicates |
+| `linked` | symlinks to .store | actual code in .store | blocked | efficient (symlinks) |

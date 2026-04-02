@@ -1,0 +1,69 @@
+---
+title: "npm Dependencies"
+description: "managing dependencies using package.json and package-lock.json"
+pubDate: 2026-04-02
+---
+
+I always wondered why sometimes package-lock.json changes? How package.json and package-lock.json are connected. I messed around the behavior to have a understanding as follows:
+
+For example: 
+
+On package.json
+```json
+"dependencies": {
+    "chalk": "~5.6.0"
+}
+```
+
+On running ```npm install```, it creates an entry in package-lock.json as follows:
+
+```json
+"node_modules/chalk": {
+      "version": "5.6.2", // locked version by npm based on package.json's intent
+      "resolved": "https://registry.npmjs.org/chalk/-/chalk-5.6.2.tgz",
+      "integrity": "sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==",
+      "license": "MIT",
+      "engines": {
+        "node": "^12.17.0 || ^14.13 || >=16.0.0"
+      },
+      "funding": {
+        "url": "https://github.com/chalk/chalk?sponsor=1"
+      }
+}
+```
+
+How the version on package-lock.json was pinned as "5.6.2" while package.json has "~5.6.0"? 
+
+It has to do with patch (~) version on the package.json. At first, ```npm install``` checks if there is already a package-lock.json entry for this package. 
+  - If there is not, it checks the registry for the latest version in the npm registry that satifies the condition x >= 5.6.0 and x < 5.7.0.
+  - If there is, (ie: getting a updated branch with latest package-lock.json), then it checks the locked version (package-lock.json) still satisfies range in package.json. 
+  
+If someone manually edited package.json to 5.7.0 without updating lock file, then locked 5.6.2 no longer satisfies the new range, so npm resolves from the registry and updates the lock file. If you want npm to throw error instead of automatic update of package-lock.json then use ```npm ci```. It shows out of sync error.
+
+```js
+npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+npm error
+npm error Invalid: lock file's chalk@5.6.2 does not satisfy chalk@5.7.0
+```
+
+#### What are the similar ways of versioning?
+
+On package.json
+```json
+"dependencies": {
+    "chalk": "^5.6.0"
+}
+```
+
+- semver (^) version on the package.json. At first, ```npm install``` checks if there is a package-lock.json entry for this package. If there is not, it checks for the latest version of the chalk in the npm registry that satifies x >= 5.6.0 AND x < 6.0.0.
+
+#### What is meant by pinned version?
+ - mentioning the version without semver (^) or patch (~), as in exact version. This results in package-lock.json having the same version as of package.json
+```json
+"dependencies": {
+    "chalk": "5.6.0"
+}
+```
+
+
+TLDR; package.json is more of intent, package-lock.json does the locking of the version based on the package.json's intent and registry, package-lock makes sure the team gets the same versions.
