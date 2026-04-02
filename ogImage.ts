@@ -2,10 +2,23 @@
 import { Resvg } from '@resvg/resvg-js';
 import satori from "satori";
 import parseFrontMatter from "gray-matter";
+import { readFile } from "node:fs/promises";
+import sharp from "sharp";
+
+let profileImageDataUri: string | undefined;
+
+const getProfileImageDataUri = async () => {
+    if (profileImageDataUri) return profileImageDataUri;
+    const imageBuffer = await readFile(new URL("./src/assets/images/others/mysti.jpg", import.meta.url));
+    const pngBuffer = await sharp(imageBuffer).png().toBuffer();
+    profileImageDataUri = `data:image/png;base64,${pngBuffer.toString("base64")}`;
+    return profileImageDataUri;
+};
 
 export const exportAsPng = async (file: any, interFont: any) => {
     const { title, description } = parseFrontMatter(file).data;
-    const svg = await satori(ogImage(title, description), {
+    const profileImageSrc = await getProfileImageDataUri();
+    const svg = await satori(ogImage(title, description, profileImageSrc), {
         width: 800,
         height: 400,
         fonts: [
@@ -29,7 +42,7 @@ export const exportAsPng = async (file: any, interFont: any) => {
 }
 
 
-const ogImage = (title: string, description: string = "") => ({
+const ogImage = (title: string, description: string = "", profileImageSrc: string) => ({
     type: "div",
     props: {
         style: {
@@ -69,7 +82,7 @@ const ogImage = (title: string, description: string = "") => ({
                         {
                             type: "div",
                             props: {
-                                style: { marginTop: 30, fontSize: 20, textTransform: "capitalize" },
+                                style: { marginTop: 30, fontSize: 18, textTransform: "capitalize" },
                                 children: description || ""
                             }
                         },
@@ -94,9 +107,9 @@ const ogImage = (title: string, description: string = "") => ({
                                 children: [{
                                     type: "img",
                                     props: {
-                                        width: "50",
-                                        height: "50",
-                                        src: "https://raw.githubusercontent.com/mystica2000/image-dump/main/mystica.jpg",
+                                        width: "100",
+                                        height: "100",
+                                        src: profileImageSrc,
                                         style: { borderRadius: "50%", objectFit: "cover", objectPosition: "20% 50%" }
                                     }
                                 }]
