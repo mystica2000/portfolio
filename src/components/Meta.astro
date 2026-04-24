@@ -9,7 +9,7 @@ interface Props {
 
 const canonicalURL = new URL(
   Astro.url.pathname.includes("/bytes") ? "/bytes" : Astro.url.pathname,
-  Astro.site
+  Astro.site,
 );
 const ogSuffix =
   Astro.url.pathname.includes("/bytes") || Astro.url.pathname.includes("/posts")
