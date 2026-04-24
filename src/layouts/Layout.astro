@@ -22,7 +22,7 @@ const { title, description, content } = Astro.props;
     <script is:inline>
       const savedTheme = localStorage.getItem("theme");
       const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
+        "(prefers-color-scheme: dark)",
       ).matches;
 
       if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
@@ -67,6 +67,7 @@ const { title, description, content } = Astro.props;
 
   html.dark {
     color: #fff;
+    /* background: #000000; */
     --astro-bg-color: #ffffff;
   }
 
